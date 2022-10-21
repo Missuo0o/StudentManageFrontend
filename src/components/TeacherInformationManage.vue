@@ -23,7 +23,7 @@
     :visible.sync="dialogVisible"
     width="30%">
 
-  <el-form ref="addstudent" :model="addteacher" label-width="100px">
+  <el-form ref="addstudent" :model="addteacher" label-width="100px" :rules="rules">
       <el-form-item label="头像">
       <el-upload
         class="avatar-uploader"
@@ -37,13 +37,13 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
         </el-form-item>
-      <el-form-item label="账号">
+      <el-form-item label="账号" prop="username">
           <el-input style="width: auto" v-model="addteacher.username" maxlength="7"></el-input>
         </el-form-item>
-      <el-form-item label="姓名">
+      <el-form-item label="姓名" prop="name">
           <el-input style="width: auto"  v-model="addteacher.name" maxlength="4" ></el-input>
         </el-form-item>
-      <el-form-item label="性别">
+      <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="addteacher.sex">
               <el-radio label="男" value="男">男</el-radio>
               <el-radio label="女" value="女">女</el-radio>
@@ -56,7 +56,7 @@
            <el-input style="width: auto" v-model="addteacher.address"></el-input>
         </el-form-item>
      <el-form-item>
-          <el-button type="primary" @click="addStudent">提交</el-button>
+          <el-button type="primary" @click="addTeacher('addteacer')">提交</el-button>
           <el-button @click="dialogVisible = false">取消</el-button>
       </el-form-item>
     </el-form>
@@ -68,7 +68,7 @@
     :visible.sync="dialogUpdateVisible"
     width="30%">
 
-  <el-form ref="addteacher" :model="addteacher" label-width="100px">
+  <el-form ref="addteacher" :model="addteacher" label-width="100px" :rules="rules">
       <el-form-item label="头像">
       <el-upload
         class="avatar-uploader"
@@ -82,13 +82,13 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
         </el-form-item>
-      <el-form-item label="账号">
+      <el-form-item label="账号" prop="username">
           <el-input style="width: auto" v-model="addteacher.username" maxlength="7"></el-input>
         </el-form-item>
-      <el-form-item label="姓名">
+      <el-form-item label="姓名" prop="name">
           <el-input style="width: auto"  v-model="addteacher.name" maxlength="4" ></el-input>
         </el-form-item>
-      <el-form-item label="性别">
+      <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="addteacher.sex">
               <el-radio label="男" value="男">男</el-radio>
               <el-radio label="女" value="女">女</el-radio>
@@ -101,7 +101,7 @@
            <el-input style="width: auto" v-model="addteacher.address"></el-input>
         </el-form-item>
      <el-form-item>
-          <el-button type="primary" @click="updateTeacher">提交</el-button>
+          <el-button type="primary" @click="updateTeacher('addteacher')">提交</el-button>
           <el-button @click="dialogUpdateVisible = false">取消</el-button>
       </el-form-item>
     </el-form>
@@ -184,7 +184,34 @@
 export default {
   name: "TeacherInformationManage",
   data() {
+    var validateUsername = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error("学号不能为空"));
+      } else {
+        callback();
+      }
+    };
+    var validateName = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('姓名不能为空'))
+      } else {
+        callback()
+      }
+    };
+
+    var validateSex = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('姓别不能为空'))
+      } else {
+        callback()
+      }
+    };
     return {
+      rules: {
+        username: [{validator: validateUsername, trigger: 'blur'}],
+        name: [{validator: validateName, trigger: 'blur'}],
+        sex: [{validator: validateSex, trigger: 'blur'}],
+      },
       //被选中复选框的数组
       selectedIds: [],
       // 上传头像地址
@@ -232,8 +259,10 @@ export default {
     this.selectAll();
   },
   methods: {
-    //更新学生数据
-    updateTeacher() {
+    //更新老师数据
+    updateTeacher(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
       this.$confirm('是否确认更新?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -267,6 +296,13 @@ export default {
           type: 'info',
           message: '已取消更新'
         });
+      });
+    }else {
+          this.$message({
+            message: '请检查格式',
+            type: 'warning'
+          });
+        }
       });
     },
     //弹出编辑窗口
@@ -328,7 +364,15 @@ export default {
 
     //重置表单
     resetForm() {
-      this.addstudent = {};
+      this.addstudent = {
+        username: '',
+        name: '',
+        sex: '',
+        phone: '',
+        address: '',
+        profile: '',
+        oldusername: '',
+      };
     },
     //点击新增按钮
     handleCreate() {
@@ -435,8 +479,9 @@ export default {
     onSubmit() {
       this.selectAll();
     },
-    addStudent() {
-
+    addTeacher(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
       this.$confirm('是否确认添加?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -471,7 +516,14 @@ export default {
           message: '已取消添加'
         });
       });
-    },
+    }else {
+          this.$message({
+            message: '请检查格式',
+            type: 'warning'
+          });
+        }
+      });
+    }
   }
 }
 </script>

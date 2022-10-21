@@ -86,7 +86,7 @@
     :visible.sync="dialogUpdateVisible"
     width="30%">
 
-  <el-form ref="addstudent" :model="addstudent" label-width="100px" rules="rules">
+  <el-form ref="addstudent" :model="addstudent" label-width="100px" :rules="rules">
       <el-form-item label="头像">
       <el-upload
         class="avatar-uploader"
@@ -337,51 +337,50 @@ export default {
     //更新学生数据
     updateStudent(formName) {
       this.$refs[formName].validate((valid) => {
-            if (valid) {
+        if (valid) {
 
-      this.$confirm('是否确认更新?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.axios({
-          method: "put",
-          url: "/admin/student",
-          data: this.addstudent,
-        }).then(resp => {
-          if (resp.data.code == 201) {
+          this.$confirm('是否确认更新?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.axios({
+              method: "put",
+              url: "/admin/student",
+              data: this.addstudent,
+            }).then(resp => {
+              if (resp.data.code == 201) {
+                this.$message({
+                  message: '更新成功',
+                  type: 'success'
+                });
+
+                //关闭弹窗
+                this.dialogUpdateVisible = false;
+
+                //重新查询
+                this.selectAll();
+
+              } else if (resp.data.code == 400) {
+                this.$message.error('更新失败');
+              } else {
+                this.$message.error(resp.data.msg);
+              }
+            })
+          }).catch(() => {
             this.$message({
-              message: '更新成功',
-              type: 'success'
+              type: 'info',
+              message: '已取消更新'
             });
-
-            //关闭弹窗
-            this.dialogUpdateVisible = false;
-
-            //重新查询
-            this.selectAll();
-
-          } else if (resp.data.code == 400) {
-            this.$message.error('更新失败');
-          } else {
-            this.$message.error(resp.data.msg);
-          }
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消更新'
-        });
+          });
+        } else {
+          this.$message({
+            message: '请检查格式',
+            type: 'warning'
+          });
+        }
       });
-    }else {
-              this.$message({
-                message: '请检查格式',
-                type: 'warning'
-              });
-            }
-            });
-    }
-  },
+    },
     //弹出编辑窗口
     handleClick(row) {
       this.axios({
@@ -440,7 +439,19 @@ export default {
 
     //重置表单
     resetForm() {
-      this.addstudent = {};
+      this.addstudent = {
+        username: '',
+        name: '',
+        sex: '',
+        college: '',
+        major: '',
+        classname: '',
+        phone: '',
+        address: '',
+        profile: '',
+        status: '',
+        oldusername: '',
+      };
     },
     //点击新增按钮
     handleCreate() {
@@ -549,41 +560,41 @@ export default {
     addStudent(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-      this.$confirm('是否确认添加?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.axios({
-          method: "post",
-          url: "/admin/student",
-          data: this.addstudent,
-        }).then(resp => {
-          if (resp.data.code == 201) {
+          this.$confirm('是否确认添加?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.axios({
+              method: "post",
+              url: "/admin/student",
+              data: this.addstudent,
+            }).then(resp => {
+              if (resp.data.code == 201) {
+                this.$message({
+                  message: '添加成功',
+                  type: 'success'
+                });
+
+                //关闭弹窗
+                this.dialogVisible = false;
+
+                //重新查询
+                this.selectAll();
+
+              } else if (resp.data.code == 400) {
+                this.$message.error('添加失败');
+              } else {
+                this.$message.error(resp.data.msg);
+              }
+            })
+          }).catch(() => {
             this.$message({
-              message: '添加成功',
-              type: 'success'
+              type: 'info',
+              message: '已取消添加'
             });
-
-            //关闭弹窗
-            this.dialogVisible = false;
-
-            //重新查询
-            this.selectAll();
-
-          } else if (resp.data.code == 400) {
-            this.$message.error('添加失败');
-          } else {
-            this.$message.error(resp.data.msg);
-          }
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消添加'
-        });
-      });
-    }else {
+          });
+        } else {
           this.$message({
             message: '请检查格式',
             type: 'warning'
@@ -591,7 +602,9 @@ export default {
         }
       });
     }
-}
+  }
+  }
+
 </script>
 
 <style scoped>
