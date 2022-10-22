@@ -8,7 +8,7 @@
             :src="form.profile"
             :fit="fit"></el-image>
         </div>
-    </div> +
+    </div>
     <el-form-item label="账号">
         <el-input style="width: auto" v-model="form.username" maxlength="7"></el-input>
       </el-form-item>
@@ -46,7 +46,7 @@ export default {
         phone: '',
         address: '',
         profile: '',
-
+        oldusername:'',
       },
       fits: ['fill'],
     }
@@ -64,6 +64,7 @@ export default {
       }).then(resp => {
         if (resp.data.code == 200) {
           this.form = resp.data.data;
+          this.form.oldusername = resp.data.data.username;
         } else if (resp.data.code == 404) {
           this.$message.error("连接超时");
         } else {
@@ -105,12 +106,12 @@ export default {
   }
 }
 </script>
-.innerbox {
-display: flex;
-justify-content: center;
-align-items: center;
-height: 95%;
-}
-<style scoped>
 
+<style scoped>
+.innerbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95%;
+}
 </style>

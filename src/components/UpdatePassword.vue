@@ -8,7 +8,7 @@
         <el-input type="password" v-model="ruleForm.password" maxlength="10"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
-        <el-input v-model="ruleForm.checkPass" maxlength="10"></el-input>
+        <el-input type="password" v-model="ruleForm.checkPass" maxlength="10"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
@@ -41,7 +41,7 @@ export default {
                 type: 'success'
               });
             } else if (resp.data.code == 400) {
-              this.$message.error('修改失败');
+              this.$message.error(resp.data.msg);
             } else {
               this.$message.error(resp.data.msg);
             }

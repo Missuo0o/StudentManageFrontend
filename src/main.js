@@ -7,7 +7,7 @@ import axios from "axios";
 
 
 // 允许携带cookie
-axios.defaults.withCredentials = true
+// axios.defaults.withCredentials = true
 
 Vue.prototype.axios = axios;
 

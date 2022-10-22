@@ -76,7 +76,7 @@ export default {
               });
             } else if (resp.data.code == 404) {
               this.$message({
-                message: '未找到您的密码',
+                message: resp.data.msg,
                 type: 'warning'
               });
             } else {
