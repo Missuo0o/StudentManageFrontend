@@ -11,6 +11,7 @@ import AdminIndex from "@/components/AdminIndex";
 import AdminInformation from "@/components/AdminInformation";
 import StudentInformationManage from "@/components/StudentInformationManage";
 import TeacherInformationManage from "@/components/TeacherInformationManage";
+import AdminInformationManage from "@/components/AdminInformationManage";
 Vue.use(VueRouter)
 
 
@@ -28,7 +29,8 @@ export default new VueRouter({
                 { path: 'UpdatePassword',component: UpdatePassword},
                 {path: 'MyInformation',component: AdminInformation},
                 {path: 'StudentInformationManage',component: StudentInformationManage},
-                {path: 'TeacherInformationManage',component: TeacherInformationManage}
+                {path: 'TeacherInformationManage',component: TeacherInformationManage},
+                {path: 'AdminInformationManage',component: AdminInformationManage}
 
             ]
         },

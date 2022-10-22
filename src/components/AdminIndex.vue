@@ -19,6 +19,7 @@
             <el-menu-item-group>
               <el-menu-item index="/AdminIndex/StudentInformationManage">学生管理</el-menu-item>
               <el-menu-item index="/AdminIndex/TeacherInformationManage">辅导员管理</el-menu-item>
+              <el-menu-item index="/AdminIndex/AdminInformationManage">管理员管理</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
 

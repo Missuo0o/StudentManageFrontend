@@ -186,7 +186,7 @@ export default {
   data() {
     var validateUsername = (rule, value, callback) => {
       if (value === '') {
-        return callback(new Error("学号不能为空"));
+        return callback(new Error("教工号不能为空"));
       } else {
         callback();
       }
@@ -217,7 +217,7 @@ export default {
       // 上传头像地址
       imageUrl: '',
       //总记录数
-      totalCount: '',
+      totalCount: 0,
       //当前页码
       currentPage: 1,
       //每页显示条数
