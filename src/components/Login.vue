@@ -34,7 +34,6 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Login',
-
   methods: {
     forget() {
       this.$router.push('/forget')
@@ -48,13 +47,15 @@ export default {
             data: this.formLabelAlign
           }).then(resp => {
             if (resp.data.code == 200 && resp.data.data.identity == 1) {
+              localStorage.setItem("userdata", JSON.stringify(resp.data.data))
               this.$router.push('/studentIndex')
 
             } else if (resp.data.code == 200 && resp.data.data.identity == 2) {
+              localStorage.setItem("userdata", JSON.stringify(resp.data.data))
               this.$router.push('/teacherIndex')
 
             } else if (resp.data.code == 200 && resp.data.data.identity == 3) {
-
+              localStorage.setItem("userdata", JSON.stringify(resp.data.data))
               this.$router.push('/adminIndex')
 
             } else {

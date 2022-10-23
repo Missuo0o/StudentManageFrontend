@@ -1,37 +1,39 @@
 <template>
-  <div class="innerbox"><el-form ref="form" :model="form" label-width="80px">
-  <div class="demo-image">
-      <div class="block" v-for="fit in fits" :key="fit">
+  <div class="innerbox">
+    <el-form ref="form" :model="form" label-width="80px">
+      <div class="demo-image">
+        <div class="block" v-for="fit in fits" :key="fit">
           <span class="demonstration"></span>
           <el-image
-            style="width: 100px; height: 100px"
-            :src="form.profile"
-            :fit="fit"></el-image>
+              style="width: 100px; height: 100px"
+              :src="form.profile"
+              :fit="fit"></el-image>
         </div>
-    </div>
-    <el-form-item label="账号">
+      </div>
+      <el-form-item label="账号">
         <el-input style="width: auto" v-model="form.username" maxlength="7"></el-input>
       </el-form-item>
-    <el-form-item label="姓名">
-        <el-input style="width: auto"  v-model="form.name" maxlength="4"></el-input>
+      <el-form-item label="姓名">
+        <el-input style="width: auto" v-model="form.name" maxlength="4"></el-input>
       </el-form-item>
-    <el-form-item label="性别">
+      <el-form-item label="性别">
         <el-radio-group v-model="form.sex">
-            <el-radio  label="男" value="男">男</el-radio>
-            <el-radio  label="女" value="女">女</el-radio>
-          </el-radio-group>
+          <el-radio label="男" value="男">男</el-radio>
+          <el-radio label="女" value="女">女</el-radio>
+        </el-radio-group>
       </el-form-item>
-    <el-form-item label="手机">
-         <el-input style="width: auto" v-model="form.phone" maxlength="11"></el-input>
+      <el-form-item label="手机">
+        <el-input style="width: auto" v-model="form.phone" maxlength="11"></el-input>
       </el-form-item>
-    <el-form-item label="家庭地址">
-         <el-input style="width: auto" v-model="form.address"></el-input>
+      <el-form-item label="家庭地址">
+        <el-input style="width: auto" v-model="form.address"></el-input>
       </el-form-item>
 
-    <el-form-item>
+      <el-form-item>
         <el-button type="primary" @click="onSubmit">修改</el-button>
       </el-form-item>
-  </el-form></div>
+    </el-form>
+  </div>
 </template>
 
 <script>
@@ -46,12 +48,13 @@ export default {
         phone: '',
         address: '',
         profile: '',
-        oldusername:'',
+        oldusername: '',
       },
       fits: ['fill'],
     }
   },
   mounted() {
+
     this.selectAll();
   },
   methods: {

@@ -36,6 +36,7 @@
 <script>
 export default {
   name: "FogetPassword",
+
   methods: {
     back() {
       this.$router.push('/')

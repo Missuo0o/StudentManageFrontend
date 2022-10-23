@@ -47,7 +47,7 @@
             <el-dropdown-item @click.native="updateprofile">修改头像</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>{{ name }}</span>
+        <span>{{ name.name }}</span>
       </el-header>
 
       <el-dialog
@@ -81,23 +81,11 @@ export default {
   name: "TeacherIndex",
   mounted() {
 
-    this.axios({
-      methods: "get",
-      url: "/login",
-
-    }).then(resp => {
-      if (resp.data.code == 200) {
-        this.$message({
-          message: '辅导员登录成功',
-          type: 'success'
-        });
-        this.name = resp.data.data.name
-      } else if (resp.data.code == 404) {
-        this.$message.error("连接超时");
-      } else {
-        this.$message.error(resp.data.msg);
-      }
-    })
+    this.$message({
+      message: '辅导员登录成功',
+      type: 'success'
+    });
+    this.name = JSON.parse(localStorage.getItem('userdata'))
   },
   data() {
     return {

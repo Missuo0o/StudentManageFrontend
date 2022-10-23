@@ -15,15 +15,15 @@
       </el-form-item>
     </el-form>
     <!--  //按钮-->
-    <el-button type="danger" plain @click="deleteByIds" >批量删除</el-button>
+    <el-button type="danger" plain @click="deleteByIds">批量删除</el-button>
     <el-button type="primary" plain @click="handleCreate">新增</el-button>
     <!--  //添加数据对话框-->
     <el-dialog
-        title="新增辅导员"
+        title="新增管理员"
         :visible.sync="dialogVisible"
         width="30%">
 
-      <el-form ref="addstudent" :model="addteacher" label-width="100px" :rules="rules">
+      <el-form ref="addteacher" :model="addteacher" label-width="100px" :rules="rules">
         <el-form-item label="头像">
           <el-upload
               class="avatar-uploader"
@@ -41,7 +41,7 @@
           <el-input style="width: auto" v-model="addteacher.username" maxlength="7"></el-input>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
-          <el-input style="width: auto"  v-model="addteacher.name" maxlength="4" ></el-input>
+          <el-input style="width: auto" v-model="addteacher.name" maxlength="4"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="addteacher.sex">
@@ -56,7 +56,7 @@
           <el-input style="width: auto" v-model="addteacher.address"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="addTeacher('addteacer')">提交</el-button>
+          <el-button type="primary" @click="addTeacher('addteacher')">提交</el-button>
           <el-button @click="dialogVisible = false">取消</el-button>
         </el-form-item>
       </el-form>
@@ -64,7 +64,7 @@
 
     <!--  //更新数据对话框-->
     <el-dialog
-        title="更新辅导员"
+        title="更新管理员"
         :visible.sync="dialogUpdateVisible"
         width="30%">
 
@@ -86,7 +86,7 @@
           <el-input style="width: auto" v-model="addteacher.username" maxlength="7"></el-input>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
-          <el-input style="width: auto"  v-model="addteacher.name" maxlength="4" ></el-input>
+          <el-input style="width: auto" v-model="addteacher.name" maxlength="4"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="addteacher.sex">
@@ -154,7 +154,7 @@
           prop="address"
           label="地址"
           align="center"
-      >
+          width="250">
       </el-table-column>
       <el-table-column
           fixed="right"
@@ -163,7 +163,7 @@
           width="100">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text">修改</el-button>
-          <el-button  @click="handleDelete(scope.row)" type="text" >删除</el-button>
+          <el-button @click="handleDelete(scope.row)" type="text">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -256,6 +256,7 @@ export default {
     }
   },
   mounted() {
+
     this.selectAll();
   },
   methods: {
@@ -297,7 +298,7 @@ export default {
               message: '已取消更新'
             });
           });
-        }else {
+        } else {
           this.$message({
             message: '请检查格式',
             type: 'warning'
@@ -316,7 +317,7 @@ export default {
           this.addteacher = resp.data.data;
           //若改用户名 将原用户名保存到oldusername中,sql where使用这个username
           this.addteacher.oldusername = resp.data.data.username;
-          this.imageUrl = this.addstudent.profile;
+          this.imageUrl = this.addteacher.profile;
         } else if (resp.data.code == 404) {
           this.$message.error("数据同步失败,自动刷新");
         } else {
@@ -364,7 +365,7 @@ export default {
 
     //重置表单
     resetForm() {
-      this.addstudent = {
+      this.addteacher = {
         username: '',
         name: '',
         sex: '',
@@ -516,7 +517,7 @@ export default {
               message: '已取消添加'
             });
           });
-        }else {
+        } else {
           this.$message({
             message: '请检查格式',
             type: 'warning'
