@@ -74,6 +74,7 @@
         <el-transfer
             filterable
             filter-placeholder="请输入学生姓名"
+            :titles="['空余学生', '负责学生']"
             v-model="value" :data="data">
         </el-transfer>
       </template>
@@ -279,7 +280,10 @@ export default {
       }
       ],
       data_update: {
-        username: [],
+        //左侧数组
+        usernameNull: [],
+        //右侧数组
+        usernameNotNull: [],
         teachername: '',
         teacherid: '',
       }
@@ -290,12 +294,26 @@ export default {
     this.selectAll();
   },
   methods: {
+
     //确认更新辅导员名下学生
     updateStudent() {
-      // 准备要提交的学生数据
+      this.data_update.usernameNull = []
+      this.data_update.usernameNotNull = []
+      // 从 value 获取 notNull 的学生信息
       for (let i = 0; i < this.value.length; i++) {
-        this.data_update.username[i] = this.data[this.value[i]].username
+        // value 索引 --> this.data 去要数据
+        this.data_update.usernameNotNull[i] = this.data[this.value[i]].username;
       }
+      let i = 0;
+      Reflect.ownKeys(this.data).forEach((index) => {
+        // console.log("index " + index)
+        if (this.data_update.usernameNotNull.indexOf(this.data[index].username) == -1 && index != "length" && index != "__ob__") {
+          console.log(i + " notnull " + this.data[index].username + " index " + index)
+          this.data_update.usernameNull[i] = this.data[index].username
+          i++
+        }
+      })
+
       this.$confirm('是否确认更新?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -334,6 +352,8 @@ export default {
       this.data_update.teacherid = row.username;
       this.data = [];
       this.value = [];
+
+
       this.dialogStudentVisible = true;
       this.axios({
         method: "get",
@@ -345,11 +365,12 @@ export default {
           Reflect.ownKeys(resp.data.data.null).forEach((index) => {
             if (index != "length") {
               this.data.push({
-                    key: index,
+                    key: parseInt(index),
                     label: `${resp.data.data.null[index].username} ${resp.data.data.null[index].name}`,
                     username: `${resp.data.data.null[index].username}`,
-                  }
+                  },
               )
+
             }
           })
           Reflect.ownKeys(resp.data.data.notNull).forEach((index) => {
@@ -357,12 +378,14 @@ export default {
               this.data.push({
                     key: nullLength + parseInt(index),
                     label: `${resp.data.data.notNull[index].username} ${resp.data.data.notNull[index].name}`,
+                    username: `${resp.data.data.notNull[index].username}`,
                   },
               )
               // console.log(nullLength + parseInt(index))
               this.value.push(nullLength + parseInt(index))
             }
           })
+          console.log(this.data_update)
         }
       })
     },
