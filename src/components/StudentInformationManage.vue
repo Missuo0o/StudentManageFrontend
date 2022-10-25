@@ -18,8 +18,17 @@
       </el-form-item>
     </el-form>
     <!--  按钮-->
+
     <el-button type="danger" plain @click="deleteByIds">批量删除</el-button>
     <el-button type="primary" plain @click="handleCreate">新增</el-button>
+    <el-button type="primary" plain @click="handleDownload">下载模板</el-button>
+    <el-upload
+        :limit="1"
+        :on-exceed="handleExceed"
+        :on-success="handleSuccess"
+        action="/admin/upload/student">
+      <el-button plain type="primary">点击上传</el-button>
+    </el-upload>
     <!--  //添加数据对话框-->
     <el-dialog
         title="新增学生"
@@ -341,6 +350,17 @@ export default {
     this.selectAll();
   },
   methods: {
+    handleSuccess() {
+      this.selectAll();
+    },
+
+    handleExceed() {
+      this.$message.warning(`当前限制选择 1 个文件`);
+    },
+
+    handleDownload() {
+      location.href = "http://localhost/admin/download/student"
+    },
     //更新学生数据
     updateStudent(formName) {
       this.$refs[formName].validate((valid) => {

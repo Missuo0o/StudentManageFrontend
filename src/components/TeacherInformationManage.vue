@@ -17,6 +17,14 @@
     <!--  //按钮-->
     <el-button type="danger" plain @click="deleteByIds">批量删除</el-button>
     <el-button type="primary" plain @click="handleCreate">新增</el-button>
+    <el-button type="primary" plain @click="handleDownload">下载模板</el-button>
+    <el-upload
+        :limit="1"
+        :on-exceed="handleExceed"
+        :on-success="handleSuccess"
+        action="/admin/upload/teacher">
+      <el-button plain type="primary">点击上传</el-button>
+    </el-upload>
     <!--  //添加数据对话框-->
     <el-dialog
         title="新增辅导员"
@@ -294,7 +302,16 @@ export default {
     this.selectAll();
   },
   methods: {
+    handleSuccess() {
+      this.selectAll();
+    },
 
+    handleExceed() {
+      this.$message.warning(`当前限制选择 1 个文件`);
+    },
+    handleDownload() {
+      location.href = "http://localhost/admin/download/teacher"
+    },
     //确认更新辅导员名下学生
     updateStudent() {
       this.data_update.usernameNull = []
