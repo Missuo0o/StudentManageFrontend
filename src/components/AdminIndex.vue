@@ -25,9 +25,9 @@
         </el-submenu>
 
         <el-submenu index="3">
-          <template slot="title"><i class="el-icon-user"></i>公告管理</template>
+          <template slot="title"><i class="el-icon-info"></i>公告管理</template>
           <el-menu-item-group>
-            <el-menu-item index="2-1">学生公告</el-menu-item>
+            <el-menu-item index="/AdminIndex/StudentRecordManage">学生公告</el-menu-item>
             <el-menu-item index="2-2">辅导员公告</el-menu-item>
           </el-menu-item-group>
         </el-submenu>

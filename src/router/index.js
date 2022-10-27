@@ -12,6 +12,8 @@ import AdminInformation from "@/components/AdminInformation";
 import StudentInformationManage from "@/components/StudentInformationManage";
 import TeacherInformationManage from "@/components/TeacherInformationManage";
 import AdminInformationManage from "@/components/AdminInformationManage";
+import StudentRecordManage from "@/components/StudentRecordManage";
+
 
 Vue.use(VueRouter)
 
@@ -33,8 +35,8 @@ const router = new VueRouter({
                     {path: 'MyInformation', component: AdminInformation, meta: {title: '我的信息'}},
                     {path: 'StudentInformationManage', component: StudentInformationManage, meta: {title: '学生管理'}},
                     {path: 'TeacherInformationManage', component: TeacherInformationManage, meta: {title: '辅导员界面'}},
-                    {path: 'AdminInformationManage', component: AdminInformationManage, meta: {title: '管理员管理'}}
-
+                    {path: 'AdminInformationManage', component: AdminInformationManage, meta: {title: '管理员管理'}},
+                    {path: 'StudentRecordManage', component: StudentRecordManage, meta: {title: "学生公告"}}
                 ]
             },
             {

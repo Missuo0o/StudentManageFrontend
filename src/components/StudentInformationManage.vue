@@ -350,8 +350,16 @@ export default {
     this.selectAll();
   },
   methods: {
-    handleSuccess() {
-      this.selectAll();
+    handleSuccess(res) {
+      if (res.code == 201) {
+        this.$message.success("新增成功");
+        this.selectAll();
+      } else if (res.code == 400) {
+        this.$message.error("新增失败");
+      } else {
+        this.$message.error(res.msg);
+      }
+
     },
 
     handleExceed() {

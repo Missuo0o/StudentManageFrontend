@@ -302,8 +302,16 @@ export default {
     this.selectAll();
   },
   methods: {
-    handleSuccess() {
-      this.selectAll();
+    handleSuccess(res) {
+      if (res.code == 201) {
+        this.$message.success("新增成功");
+        this.selectAll();
+      } else if (res.code == 400) {
+        this.$message.error("新增失败");
+      } else {
+        this.$message.error(res.msg);
+      }
+
     },
 
     handleExceed() {
@@ -325,7 +333,7 @@ export default {
       Reflect.ownKeys(this.data).forEach((index) => {
         // console.log("index " + index)
         if (this.data_update.usernameNotNull.indexOf(this.data[index].username) == -1 && index != "length" && index != "__ob__") {
-          console.log(i + " notnull " + this.data[index].username + " index " + index)
+          // console.log(i + " notnull " + this.data[index].username + " index " + index)
           this.data_update.usernameNull[i] = this.data[index].username
           i++
         }
@@ -402,7 +410,7 @@ export default {
               this.value.push(nullLength + parseInt(index))
             }
           })
-          console.log(this.data_update)
+          // console.log(this.data_update)
         }
       })
     },
