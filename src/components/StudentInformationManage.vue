@@ -29,6 +29,7 @@
         action="/admin/upload/student">
       <el-button plain type="primary">点击上传</el-button>
     </el-upload>
+
     <!--  //添加数据对话框-->
     <el-dialog
         title="新增学生"
@@ -128,6 +129,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="学院">
+          <el-input style="width: auto" v-model="addstudent.college" maxlength="10"></el-input>
           <el-input style="width: auto" v-model="addstudent.college" maxlength="10"></el-input>
         </el-form-item>
         <el-form-item label="专业">
@@ -294,8 +296,6 @@ export default {
       },
       //被选中复选框的数组
       selectedIds: [],
-      // 上传头像地址
-      imageUrl: '',
       //总记录数
       totalCount: 0,
       //当前页码

@@ -6,7 +6,7 @@
         <el-submenu index="1">
           <template slot="title"><i class="el-icon-menu"></i>个人中心</template>
           <el-menu-item-group>
-            <el-menu-item index="1-1">校园公告</el-menu-item>
+            <el-menu-item index="/TeacherIndex/TeacherRecord">校园公告</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

@@ -28,7 +28,7 @@
           <template slot="title"><i class="el-icon-info"></i>公告管理</template>
           <el-menu-item-group>
             <el-menu-item index="/AdminIndex/StudentRecordManage">学生公告</el-menu-item>
-            <el-menu-item index="2-2">辅导员公告</el-menu-item>
+            <el-menu-item index="/AdminIndex/TeacherRecordManage">辅导员公告</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -42,7 +42,8 @@
         <el-submenu index="5">
           <template slot="title"><i class="el-icon-s-opportunity"></i>健康系统</template>
           <el-menu-item-group>
-            <el-menu-item index="5-1">申报记录</el-menu-item>
+            <el-menu-item index="5-1">学生申报记录</el-menu-item>
+            <el-menu-item index="5-1">老师申报记录</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

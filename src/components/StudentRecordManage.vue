@@ -28,6 +28,7 @@
         <el-form-item label="标题" style="width: auto" prop="title">
           <el-input style="width: auto" v-model="addrecord.title" maxlength="20"></el-input>
         </el-form-item>
+
         <el-form-item label="内容" style="width: auto" prop="content">
           <el-input
               type="textarea"
@@ -60,6 +61,10 @@
               :autosize="{ minRows: 8, maxRows: 20}"
               v-model="addrecord.content">
           </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="updateRecord('addrecord')">提交</el-button>
+          <el-button @click="dialogUpdateVisible = false">取消</el-button>
         </el-form-item>
 
       </el-form>
@@ -176,6 +181,7 @@ export default {
         adminname: '',
       },
       addrecord: {
+        id: '',
         title: '',
         content: ''
       },
@@ -198,7 +204,7 @@ export default {
   },
   methods: {
     //更新老师数据
-    updateTeacher(formName) {
+    updateRecord(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$confirm('是否确认更新?', '提示', {
@@ -208,8 +214,8 @@ export default {
           }).then(() => {
             this.axios({
               method: "put",
-              url: "/admin/admin",
-              data: this.addteacher,
+              url: "/admin/record",
+              data: this.addrecord,
             }).then(resp => {
               if (resp.data.code == 201) {
                 this.$message({
@@ -247,14 +253,11 @@ export default {
     handleClick(row) {
       this.axios({
         method: "get",
-        url: "/admin/admin/selectByUsername/" + row.username,
+        url: "/admin/record/selectById/" + row.id,
       }).then(resp => {
         if (resp.data.code == 200 && resp.data.data != null) {
           this.dialogUpdateVisible = true;
-          this.addteacher = resp.data.data;
-          //若改用户名 将原用户名保存到oldusername中,sql where使用这个username
-          this.addteacher.oldusername = resp.data.data.username;
-          this.imageUrl = this.addteacher.profile;
+          this.addrecord = resp.data.data;
         } else if (resp.data.code == 404) {
           this.$message.error("数据同步失败,自动刷新");
         } else {
@@ -274,7 +277,7 @@ export default {
       }).then(() => {
         this.axios({
           method: "delete",
-          url: "/admin/admin/" + row.username,
+          url: "/admin/record/" + row.id,
         }).then(resp => {
           if (resp.data.code == 201) {
             this.$message({
@@ -330,32 +333,7 @@ export default {
         }
       })
     },
-    //头像上传
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-      if (res.code == 201) {
 
-        this.addteacher.profile = res.data;
-      } else {
-        this.$message.error(res.data.msg);
-      }
-
-    },
-    handleAvatarError() {
-      this.$message.error('连接超时');
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
-    },
     //分页
     handleSizeChange(val) {
       this.pageSize = val;
@@ -376,11 +354,11 @@ export default {
       }).then(() => {
         for (let i = 0; i < this.multipleSelection.length; i++) {
           let multipleSelectionElement = this.multipleSelection[i];
-          this.selectedIds[i] = multipleSelectionElement.username;
+          this.selectedIds[i] = multipleSelectionElement.id;
         }
         this.axios({
           method: "delete",
-          url: "/admin/admin/deleteAdmins",
+          url: "/admin/record/deleteRecords",
           data: this.selectedIds
         }).then(resp => {
           if (resp.data.code == 201) {
@@ -434,7 +412,7 @@ export default {
                 this.dialogVisible = false;
 
                 //重新查询
-                // this.selectAll();
+                this.selectAll();
 
               } else if (resp.data.code == 400) {
                 this.$message.error('添加失败');

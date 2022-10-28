@@ -246,8 +246,6 @@ export default {
       },
       //被选中复选框的数组
       selectedIds: [],
-      // 上传头像地址
-      imageUrl: '',
       //总记录数
       totalCount: 0,
       //当前页码

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <el-form :inline="true" :model="teacher" class="demo-form-inline">
-      <el-form-item label="账号">
-        <el-input v-model="teacher.username" placeholder="账号" maxlength="7"></el-input>
+    <el-form :inline="true" :model="record" class="demo-form-inline">
+      <el-form-item label="编号">
+        <el-input v-model="record.id" placeholder="编号" maxlength="7"></el-input>
       </el-form-item>
-      <el-form-item label="姓名">
-        <el-input v-model="teacher.name" placeholder="姓名" maxlength="4"></el-input>
+      <el-form-item label="标题">
+        <el-input v-model="record.title" placeholder="标题" maxlength="4"></el-input>
       </el-form-item>
-      <el-form-item label="性别">
-        <el-input v-model="teacher.sex" placeholder="男或女" maxlength="4"></el-input>
+      <el-form-item label="发布人">
+        <el-input v-model="record.adminname" placeholder="发布人" maxlength="4"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -17,54 +17,29 @@
     <!--  //按钮-->
     <el-button type="danger" plain @click="deleteByIds">批量删除</el-button>
     <el-button type="primary" plain @click="handleCreate">新增</el-button>
-    <el-button type="primary" plain @click="handleDownload">下载模板</el-button>
-    <el-upload
-        :limit="1"
-        :on-exceed="handleExceed"
-        :on-success="handleSuccess"
-        action="/admin/upload/admin">
-      <el-button plain type="primary">点击上传</el-button>
-    </el-upload>
+
     <!--  //添加数据对话框-->
     <el-dialog
-        title="新增管理员"
+        title="新增公告"
         :visible.sync="dialogVisible"
         width="30%">
 
-      <el-form ref="addteacher" :model="addteacher" label-width="100px" :rules="rules">
-        <el-form-item label="头像">
-          <el-upload
-              class="avatar-uploader"
-              action="/admin/admin/uploadProfile"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-              v-model="addteacher.profile">
+      <el-form ref="addrecord" :model="addrecord" label-width="100px" :rules="rules">
+        <el-form-item label="标题" style="width: auto" prop="title">
+          <el-input style="width: auto" v-model="addrecord.title" maxlength="20"></el-input>
+        </el-form-item>
 
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+        <el-form-item label="内容" style="width: auto" prop="content">
+          <el-input
+              type="textarea"
+              :autosize="{ minRows: 8, maxRows: 20}"
+              placeholder="请输入内容"
+              v-model="addrecord.content">
+          </el-input>
         </el-form-item>
-        <el-form-item label="账号" prop="username">
-          <el-input style="width: auto" v-model="addteacher.username" maxlength="7"></el-input>
-        </el-form-item>
-        <el-form-item label="姓名" prop="name">
-          <el-input style="width: auto" v-model="addteacher.name" maxlength="4"></el-input>
-        </el-form-item>
-        <el-form-item label="性别" prop="sex">
-          <el-radio-group v-model="addteacher.sex">
-            <el-radio label="男" value="男">男</el-radio>
-            <el-radio label="女" value="女">女</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="手机">
-          <el-input style="width: auto" v-model="addteacher.phone" maxlength="11"></el-input>
-        </el-form-item>
-        <el-form-item label="家庭地址">
-          <el-input style="width: auto" v-model="addteacher.address"></el-input>
-        </el-form-item>
+
         <el-form-item>
-          <el-button type="primary" @click="addTeacher('addteacher')">提交</el-button>
+          <el-button type="primary" @click="addRecord('addrecord')">提交</el-button>
           <el-button @click="dialogVisible = false">取消</el-button>
         </el-form-item>
       </el-form>
@@ -72,46 +47,26 @@
 
     <!--  //更新数据对话框-->
     <el-dialog
-        title="更新管理员"
+        title="更新公告"
         :visible.sync="dialogUpdateVisible"
         width="30%">
 
-      <el-form ref="addteacher" :model="addteacher" label-width="100px" :rules="rules">
-        <el-form-item label="头像">
-          <el-upload
-              class="avatar-uploader"
-              action="/admin/admin/uploadProfile"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-              v-model="addteacher.profile">
-
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+      <el-form ref="addrecord" :model="addrecord" label-width="100px" :rules="rules">
+        <el-form-item label="标题" style="width: auto" prop="title">
+          <el-input style="width: auto" v-model="addrecord.title" maxlength="7"></el-input>
         </el-form-item>
-        <el-form-item label="账号" prop="username">
-          <el-input style="width: auto" v-model="addteacher.username" maxlength="7"></el-input>
-        </el-form-item>
-        <el-form-item label="姓名" prop="name">
-          <el-input style="width: auto" v-model="addteacher.name" maxlength="4"></el-input>
-        </el-form-item>
-        <el-form-item label="性别" prop="sex">
-          <el-radio-group v-model="addteacher.sex">
-            <el-radio label="男" value="男">男</el-radio>
-            <el-radio label="女" value="女">女</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="手机">
-          <el-input style="width: auto" v-model="addteacher.phone" maxlength="11"></el-input>
-        </el-form-item>
-        <el-form-item label="家庭地址">
-          <el-input style="width: auto" v-model="addteacher.address"></el-input>
+        <el-form-item label="内容" prop="content">
+          <el-input
+              type="textarea"
+              :autosize="{ minRows: 8, maxRows: 20}"
+              v-model="addrecord.content">
+          </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="updateTeacher('addteacher')">提交</el-button>
+          <el-button type="primary" @click="updateRecord('addrecord')">提交</el-button>
           <el-button @click="dialogUpdateVisible = false">取消</el-button>
         </el-form-item>
+
       </el-form>
     </el-dialog>
     <!--  //表格-->
@@ -127,42 +82,35 @@
       </el-table-column>
       <el-table-column
           fixed
-          prop="username"
-          label="账号"
+          prop="id"
+          label="编号"
           align="center"
-      >
+          width="55">
       </el-table-column>
       <el-table-column
-          prop="profile"
-          label="头像"
-          align="center"
-      >
-        <template slot-scope="scope">
-          <img :src="scope.row.profile" width="55" height="55"/></template>
-      </el-table-column>
-      <el-table-column
-          prop="name"
-          label="姓名"
-          align="center"
-      >
-      </el-table-column>
-      <el-table-column
-          prop="sex"
-          label="性别"
-          align="center"
-      >
-      </el-table-column>
-      <el-table-column
-          prop="phone"
-          label="手机"
-          align="center"
-      >
-      </el-table-column>
-      <el-table-column
-          prop="address"
-          label="地址"
+          prop="title"
+          label="标题"
           align="center"
           width="250">
+      </el-table-column>
+      <el-table-column
+          prop="adminname"
+          label="发布人"
+          align="center"
+          width="120">
+      </el-table-column>
+
+      <el-table-column
+          prop="createtime"
+          label="创建时间"
+          align="center"
+          width="250">
+      </el-table-column>
+      <el-table-column
+          prop="content"
+          label="内容"
+          align="center"
+      >
       </el-table-column>
       <el-table-column
           fixed="right"
@@ -190,38 +138,32 @@
 
 <script>
 export default {
-  name: "AdminInformationManage",
+  name: "TeacherRecordManage",
   data() {
-    var validateUsername = (rule, value, callback) => {
+    var validateTitle = (rule, value, callback) => {
       if (value === '') {
-        return callback(new Error("账号不能为空"));
+        return callback(new Error("标题不能为空"));
       } else {
         callback();
       }
     };
-    var validateName = (rule, value, callback) => {
+    var validateContent = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('姓名不能为空'))
+        callback(new Error('内容不能为空'))
       } else {
         callback()
       }
     };
 
-    var validateSex = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('姓别不能为空'))
-      } else {
-        callback()
-      }
-    };
     return {
       rules: {
-        username: [{validator: validateUsername, trigger: 'blur'}],
-        name: [{validator: validateName, trigger: 'blur'}],
-        sex: [{validator: validateSex, trigger: 'blur'}],
+        title: [{validator: validateTitle, trigger: 'blur'}],
+        content: [{validator: validateContent, trigger: 'blur'}],
       },
       //被选中复选框的数组
       selectedIds: [],
+      // 上传头像地址
+      imageUrl: '',
       //总记录数
       totalCount: 0,
       //当前页码
@@ -232,31 +174,26 @@ export default {
       dialogVisible: false,
       //更新数据对话框是否展示标记
       dialogUpdateVisible: false,
-      //学生模型数据
-      teacher: {
-        username: '',
-        name: '',
-        sex: '',
+      //学生公告模型数据
+      record: {
+        id: '',
+        title: '',
+        adminname: '',
       },
-      addteacher: {
-        username: '',
-        name: '',
-        sex: '',
-        phone: '',
-        address: '',
-        profile: '',
-        oldusername: '',
+      addrecord: {
+        id: '',
+        title: '',
+        content: ''
       },
       //复选框选中数据集合
       multipleSelection: [],
       //表格数据
       tableData: [{
-        username: '',
-        name: '',
-        sex: '',
-        phone: '',
-        address: '',
-        profile: '',
+        id: '',
+        title: '',
+        adminname: '',
+        createtime: '',
+        content: '',
       }
       ]
     }
@@ -266,26 +203,8 @@ export default {
     this.selectAll();
   },
   methods: {
-    handleSuccess(res) {
-      if (res.code == 201) {
-        this.$message.success("新增成功");
-        this.selectAll();
-      } else if (res.code == 400) {
-        this.$message.error("新增失败");
-      } else {
-        this.$message.error(res.msg);
-      }
-
-    },
-
-    handleExceed() {
-      this.$message.warning(`当前限制选择 1 个文件`);
-    },
-    handleDownload() {
-      location.href = "http://localhost/admin/download/admin"
-    },
     //更新老师数据
-    updateTeacher(formName) {
+    updateRecord(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$confirm('是否确认更新?', '提示', {
@@ -295,8 +214,8 @@ export default {
           }).then(() => {
             this.axios({
               method: "put",
-              url: "/admin/admin",
-              data: this.addteacher,
+              url: "/admin/record",
+              data: this.addrecord,
             }).then(resp => {
               if (resp.data.code == 201) {
                 this.$message({
@@ -334,14 +253,11 @@ export default {
     handleClick(row) {
       this.axios({
         method: "get",
-        url: "/admin/admin/selectByUsername/" + row.username,
+        url: "/admin/record/selectById/" + row.id,
       }).then(resp => {
         if (resp.data.code == 200 && resp.data.data != null) {
           this.dialogUpdateVisible = true;
-          this.addteacher = resp.data.data;
-          //若改用户名 将原用户名保存到oldusername中,sql where使用这个username
-          this.addteacher.oldusername = resp.data.data.username;
-          this.imageUrl = this.addteacher.profile;
+          this.addrecord = resp.data.data;
         } else if (resp.data.code == 404) {
           this.$message.error("数据同步失败,自动刷新");
         } else {
@@ -361,7 +277,7 @@ export default {
       }).then(() => {
         this.axios({
           method: "delete",
-          url: "/admin/admin/" + row.username,
+          url: "/admin/record/" + row.id,
         }).then(resp => {
           if (resp.data.code == 201) {
             this.$message({
@@ -389,29 +305,23 @@ export default {
 
     //重置表单
     resetForm() {
-      this.addteacher = {
-        username: '',
-        name: '',
-        sex: '',
-        phone: '',
-        address: '',
-        profile: '',
-        oldusername: '',
+      this.addrecord = {
+        title: '',
+        content: ''
       };
     },
     //点击新增按钮
     handleCreate() {
       this.dialogVisible = true;
       this.resetForm();
-      this.imageUrl = '';
     },
     //查询分页
     selectAll() {
 
       this.axios({
         method: "post",
-        url: "/admin/admin/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
-        data: this.teacher
+        url: "/admin/teacherRecord/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+        data: this.record
       }).then(resp => {
         if (resp.data.code == 200) {
           this.tableData = resp.data.data.rows;
@@ -423,32 +333,7 @@ export default {
         }
       })
     },
-    //头像上传
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-      if (res.code == 201) {
 
-        this.addteacher.profile = res.data;
-      } else {
-        this.$message.error(res.data.msg);
-      }
-
-    },
-    handleAvatarError() {
-      this.$message.error('连接超时');
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
-    },
     //分页
     handleSizeChange(val) {
       this.pageSize = val;
@@ -469,11 +354,11 @@ export default {
       }).then(() => {
         for (let i = 0; i < this.multipleSelection.length; i++) {
           let multipleSelectionElement = this.multipleSelection[i];
-          this.selectedIds[i] = multipleSelectionElement.username;
+          this.selectedIds[i] = multipleSelectionElement.id;
         }
         this.axios({
           method: "delete",
-          url: "/admin/admin/deleteAdmins",
+          url: "/admin/record/deleteRecords",
           data: this.selectedIds
         }).then(resp => {
           if (resp.data.code == 201) {
@@ -504,7 +389,7 @@ export default {
     onSubmit() {
       this.selectAll();
     },
-    addTeacher(formName) {
+    addRecord(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$confirm('是否确认添加?', '提示', {
@@ -514,8 +399,8 @@ export default {
           }).then(() => {
             this.axios({
               method: "post",
-              url: "/admin/admin",
-              data: this.addteacher,
+              url: "/admin/teacherRecord",
+              data: this.addrecord,
             }).then(resp => {
               if (resp.data.code == 201) {
                 this.$message({

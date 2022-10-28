@@ -18,7 +18,7 @@
             <el-menu-item index="2-2">选取课程</el-menu-item>
             <el-menu-item index="2-3">我的课表</el-menu-item>
             <el-menu-item index="2-4">我的宿舍</el-menu-item>
-            <el-menu-item index="2-5">校园公告</el-menu-item>
+            <el-menu-item index="/StudentIndex/StudentRecord">校园公告</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
