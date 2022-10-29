@@ -7,7 +7,7 @@
           <el-menu-item-group>
 
             <el-menu-item index="1-3">入学缴费</el-menu-item>
-            <el-menu-item index="1-4">入校登记</el-menu-item>
+            <el-menu-item index="/StudentIndex/StudentRegister">入校登记</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

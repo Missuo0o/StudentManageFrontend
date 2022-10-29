@@ -83,6 +83,9 @@
         <el-form-item label="家庭地址">
           <el-input style="width: auto" v-model="addstudent.address"></el-input>
         </el-form-item>
+        <el-form-item label="入校地址">
+          <el-input style="width: auto" v-model="addstudent.schooladdress"></el-input>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="addStudent('addstudent')">提交</el-button>
           <el-button @click="dialogVisible = false">取消</el-button>
@@ -130,7 +133,6 @@
         </el-form-item>
         <el-form-item label="学院">
           <el-input style="width: auto" v-model="addstudent.college" maxlength="10"></el-input>
-          <el-input style="width: auto" v-model="addstudent.college" maxlength="10"></el-input>
         </el-form-item>
         <el-form-item label="专业">
           <el-input style="width: auto" v-model="addstudent.major" maxlength="10"></el-input>
@@ -143,6 +145,9 @@
         </el-form-item>
         <el-form-item label="家庭地址">
           <el-input style="width: auto" v-model="addstudent.address"></el-input>
+        </el-form-item>
+        <el-form-item label="入校地址">
+          <el-input style="width: auto" v-model="addstudent.schooladdress"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="updateStudent('addstudent')">提交</el-button>
@@ -219,16 +224,20 @@
           width="150">
       </el-table-column>
       <el-table-column
-          prop="address"
-          label="地址"
-          align="center"
-          width="250"></el-table-column>
-      <el-table-column
           prop="teachername"
           label="辅导员姓名"
           align="center"
-      >
-      </el-table-column>
+      ></el-table-column>
+      <el-table-column
+          prop="address"
+          label="家庭地址"
+          align="center"
+          width="250"></el-table-column>
+      <el-table-column
+          prop="schooladdress"
+          label="入校地址"
+          align="center"
+          width="250"></el-table-column>
       <el-table-column
           fixed="right"
           label="操作"
@@ -325,6 +334,7 @@ export default {
         profile: '',
         status: '',
         oldusername: '',
+        schooladdress: ''
       },
       //复选框选中数据集合
       multipleSelection: [],
@@ -341,6 +351,7 @@ export default {
         profile: '',
         status: '',
         teachername: '',
+        schooladdress: '',
       }
       ]
     }

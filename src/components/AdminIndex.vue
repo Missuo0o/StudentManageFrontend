@@ -10,7 +10,6 @@
             <el-menu-item index="1-1">分配宿舍</el-menu-item>
             <el-menu-item index="1-2">分配课程</el-menu-item>
             <el-menu-item index="1-3">学生缴费</el-menu-item>
-            <el-menu-item index="1-3">学生返校</el-menu-item>
 
           </el-menu-item-group>
         </el-submenu>

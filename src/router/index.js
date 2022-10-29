@@ -16,7 +16,7 @@ import StudentRecordManage from "@/components/StudentRecordManage";
 import TeacherRecordManage from "@/components/TeacherRecordManage";
 import StudentRecord from "@/components/StudentRecord";
 import TeacherRecord from "@/components/TeacherRecord";
-
+import StudentRegister from "@/components/StudentRegister";
 
 Vue.use(VueRouter)
 
@@ -52,6 +52,7 @@ const router = new VueRouter({
                     {path: 'UpdatePassword', component: UpdatePassword, meta: {title: '更新密码'}},
                     {path: 'MyInformation', component: StudentInformation, meta: {title: '我的信息'}},
                     {path: 'StudentRecord', component: StudentRecord, meta: {title: '我的公告'}},
+                    {path: 'StudentRegister', component: StudentRegister, meta: {title: '入校登记'}},
                 ]
             },
             {
