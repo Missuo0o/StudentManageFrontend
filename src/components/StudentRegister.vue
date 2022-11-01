@@ -20,18 +20,7 @@
 export default {
   name: "StudentRegister",
   mounted() {
-    this.axios({
-      method: "get",
-      url: "/student/register",
-    }).then(resp => {
-      if (resp.data.code == 200) {
-        this.status = resp.data.data;
-      } else if (resp.data.code == 404) {
-        this.$message.error("连接超时");
-      } else {
-        this.$message.error(resp.data.msg);
-      }
-    })
+    this.selectAll();
   },
   data() {
     return {
@@ -42,6 +31,20 @@ export default {
     }
   },
   methods: {
+    selectAll() {
+      this.axios({
+        method: "get",
+        url: "/student/register",
+      }).then(resp => {
+        if (resp.data.code == 200) {
+          this.status = resp.data.data;
+        } else if (resp.data.code == 404) {
+          this.$message.error("查询失败");
+        } else {
+          this.$message.error(resp.data.msg);
+        }
+      })
+    },
     success(point) {
       if (point.addressComponent.district == "") {
         this.$message({
@@ -51,7 +54,7 @@ export default {
       } else {
         this.data.schooladdress = point.addressComponent.city + point.addressComponent.district + point.addressComponent.province + point.addressComponent.street + point.addressComponent.streetNumber
         this.axios({
-          method: "put",
+          method: "post",
           url: "/student/register",
           data: this.data
         }).then(resp => {

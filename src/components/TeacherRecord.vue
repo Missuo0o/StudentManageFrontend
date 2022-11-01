@@ -180,7 +180,7 @@ export default {
           this.tableData = resp.data.data.rows;
           this.totalCount = resp.data.data.totalCount;
         } else if (resp.data.code == 404) {
-          this.$message.error("连接超时");
+          this.$message.error("查询失败");
         } else {
           this.$message.error(resp.data.msg);
         }

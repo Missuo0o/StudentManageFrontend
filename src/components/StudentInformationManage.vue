@@ -56,16 +56,16 @@
         <el-form-item label="姓名" prop="name">
           <el-input style="width: auto" v-model="addstudent.name" maxlength="4"></el-input>
         </el-form-item>
-        <el-form-item label="在校状态" prop="status">
+        <el-form-item label="是否返校" prop="status">
           <el-radio-group v-model="addstudent.status">
-            <el-radio label="是" value="是">是</el-radio>
-            <el-radio label="否" value="否">否</el-radio>
+            <el-radio label="是"></el-radio>
+            <el-radio label="否"></el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="addstudent.sex">
-            <el-radio label="男" value="男">男</el-radio>
-            <el-radio label="女" value="女">女</el-radio>
+            <el-radio label="男"></el-radio>
+            <el-radio label="女"></el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="学院">
@@ -119,16 +119,16 @@
         <el-form-item label="姓名" prop="name">
           <el-input style="width: auto" v-model="addstudent.name" maxlength="4"></el-input>
         </el-form-item>
-        <el-form-item label="在校状态" prop="status">
+        <el-form-item label="是否返校" prop="status">
           <el-radio-group v-model="addstudent.status">
-            <el-radio label="是" value="是">是</el-radio>
-            <el-radio label="否" value="否">否</el-radio>
+            <el-radio label="是"></el-radio>
+            <el-radio label="否"></el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="addstudent.sex">
-            <el-radio label="男" value="男">男</el-radio>
-            <el-radio label="女" value="女">女</el-radio>
+            <el-radio label="男"></el-radio>
+            <el-radio label="女"></el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="学院">
@@ -195,7 +195,7 @@
       </el-table-column>
       <el-table-column
           prop="status"
-          label="是否在校"
+          label="是否返校"
           align="center"
       >
       </el-table-column>
@@ -517,7 +517,7 @@ export default {
           this.tableData = resp.data.data.rows;
           this.totalCount = resp.data.data.totalCount;
         } else if (resp.data.code == 404) {
-          this.$message.error("连接超时");
+          this.$message.error("查询失败");
         } else {
           this.$message.error(resp.data.msg);
         }

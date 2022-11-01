@@ -17,6 +17,8 @@ import TeacherRecordManage from "@/components/TeacherRecordManage";
 import StudentRecord from "@/components/StudentRecord";
 import TeacherRecord from "@/components/TeacherRecord";
 import StudentRegister from "@/components/StudentRegister";
+import StudentHealth from "@/components/StudentHealth";
+import TeacherHealth from "@/components/TeacherHealth";
 
 Vue.use(VueRouter)
 
@@ -53,6 +55,7 @@ const router = new VueRouter({
                     {path: 'MyInformation', component: StudentInformation, meta: {title: '我的信息'}},
                     {path: 'StudentRecord', component: StudentRecord, meta: {title: '我的公告'}},
                     {path: 'StudentRegister', component: StudentRegister, meta: {title: '入校登记'}},
+                    {path: 'StudentHealth', component: StudentHealth, meta: {title: '每日申报'}},
                 ]
             },
             {
@@ -63,6 +66,7 @@ const router = new VueRouter({
                     {path: 'UpdatePassword', component: UpdatePassword, meta: {title: '更新密码'}},
                     {path: 'MyInformation', component: TeacherInformation, meta: {title: '我的信息'}},
                     {path: 'TeacherRecord', component: TeacherRecord, meta: {title: '我的公告'}},
+                    {path: 'TeacherHealth', component: TeacherHealth, meta: {title: '每日申报'}},
                 ]
             },
             {

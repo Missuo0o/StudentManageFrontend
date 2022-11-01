@@ -18,8 +18,8 @@
       </el-form-item>
       <el-form-item label="性别">
         <el-radio-group v-model="form.sex">
-          <el-radio label="男" value="男">男</el-radio>
-          <el-radio label="女" value="女">女</el-radio>
+          <el-radio label="男"></el-radio>
+          <el-radio label="女"></el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="手机">
@@ -69,7 +69,7 @@ export default {
         if (resp.data.code == 200) {
           this.form = resp.data.data;
         } else if (resp.data.code == 404) {
-          this.$message.error("连接超时");
+          this.$message.error("查询失败");
         } else {
           this.$message.error(resp.data.msg);
         }
