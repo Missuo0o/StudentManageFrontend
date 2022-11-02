@@ -113,8 +113,6 @@ export default {
       }).then(resp => {
         if (resp.data.code == 200) {
           this.flag = resp.data.data;
-        } else if (resp.data.code == 404) {
-          this.$message.error("查询失败");
         } else {
           this.$message.error(resp.data.msg);
         }

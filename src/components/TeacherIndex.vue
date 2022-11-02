@@ -21,8 +21,8 @@
           <template slot="title"><i class="el-icon-s-opportunity"></i>健康系统</template>
           <el-menu-item-group>
             <el-menu-item index="/TeacherIndex/TeacherHealth">健康申报</el-menu-item>
-            <el-menu-item index="3-2">个人申报记录</el-menu-item>
-            <el-menu-item index="3-3">学生申报记录</el-menu-item>
+            <el-menu-item index="/TeacherIndex/TeacherHealthRecord">个人申报记录</el-menu-item>
+            <el-menu-item index="/TeacherIndex/StudentHealthRecordTeacher">学生申报记录</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -102,6 +102,7 @@ export default {
     logout() {
       this.axios({
         method: "get",
+        url: "/logout",
         // eslint-disable-next-line no-unused-vars
       }).then(resp => {
         this.$router.push('/')

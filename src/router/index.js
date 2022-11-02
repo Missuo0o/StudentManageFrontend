@@ -19,9 +19,11 @@ import TeacherRecord from "@/components/TeacherRecord";
 import StudentRegister from "@/components/StudentRegister";
 import StudentHealth from "@/components/StudentHealth";
 import TeacherHealth from "@/components/TeacherHealth";
+import StudentHealthRecord from "@/components/StudentHealthRecord";
+import TeacherHealthRecord from "@/components/TeacherHealthRecord";
+import StudentHealthRecordTeacher from "@/components/StudentHealthRecordTeacher";
 
 Vue.use(VueRouter)
-
 
 // eslint-disable-next-line no-unused-vars
 const router = new VueRouter({
@@ -36,6 +38,7 @@ const router = new VueRouter({
                 component: AdminIndex,
                 meta: {title: '管理员界面'},
                 children: [
+                    {path: '/', component: StudentInformationManage, meta: {title: '学生管理'}},
                     {path: 'UpdatePassword', component: UpdatePassword, meta: {title: '更新密码'}},
                     {path: 'MyInformation', component: AdminInformation, meta: {title: '我的信息'}},
                     {path: 'StudentInformationManage', component: StudentInformationManage, meta: {title: '学生管理'}},
@@ -51,11 +54,13 @@ const router = new VueRouter({
                 component: StudentIndex,
                 meta: {title: '学生主页'},
                 children: [
+                    {path: '/', component: StudentHealth, meta: {title: '每日申报'}},
                     {path: 'UpdatePassword', component: UpdatePassword, meta: {title: '更新密码'}},
                     {path: 'MyInformation', component: StudentInformation, meta: {title: '我的信息'}},
                     {path: 'StudentRecord', component: StudentRecord, meta: {title: '我的公告'}},
                     {path: 'StudentRegister', component: StudentRegister, meta: {title: '入校登记'}},
                     {path: 'StudentHealth', component: StudentHealth, meta: {title: '每日申报'}},
+                    {path: 'StudentHealthRecord', component: StudentHealthRecord, meta: {title: '我的申报'}},
                 ]
             },
             {
@@ -63,10 +68,13 @@ const router = new VueRouter({
                 component: TeacherIndex,
                 meta: {title: '辅导员主页'},
                 children: [
+                    {path: '/', component: TeacherHealth, meta: {title: '每日申报'}},
                     {path: 'UpdatePassword', component: UpdatePassword, meta: {title: '更新密码'}},
                     {path: 'MyInformation', component: TeacherInformation, meta: {title: '我的信息'}},
                     {path: 'TeacherRecord', component: TeacherRecord, meta: {title: '我的公告'}},
                     {path: 'TeacherHealth', component: TeacherHealth, meta: {title: '每日申报'}},
+                    {path: 'TeacherHealthRecord', component: TeacherHealthRecord, meta: {title: '我的申报'}},
+                    {path: 'StudentHealthRecordTeacher', component: StudentHealthRecordTeacher, meta: {title: '学生申报'}},
                 ]
             },
             {
