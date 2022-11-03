@@ -31,7 +31,7 @@
           <el-menu-item-group>
             <el-menu-item index="/TeacherIndex/UpdatePassword">修改密码</el-menu-item>
             <el-menu-item index="/TeacherIndex/MyInformation">修改信息</el-menu-item>
-            <el-menu-item index="4-3" @click="logout"> 退出登录</el-menu-item>
+            <el-menu-item index="/" @click="logout"> 退出登录</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
