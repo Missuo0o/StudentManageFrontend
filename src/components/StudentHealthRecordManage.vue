@@ -146,7 +146,7 @@
 
 <script>
 export default {
-  name: "StudentHealthRecordTeacher",
+  name: "StudentHealthRecordManage",
   data() {
     return {
       //总记录数
@@ -205,10 +205,11 @@ export default {
     },
     //查询分页
     selectAll() {
+
       if (this.record.flag == '') {
         this.axios({
           method: "post",
-          url: "/teacher/health/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+          url: "/admin/health/selectAllStudentByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
           data: this.record,
         }).then(resp => {
           if (resp.data.code == 200) {
@@ -224,7 +225,7 @@ export default {
       if (this.record.flag == '1') {
         this.axios({
           method: "post",
-          url: "/teacher/health/selectValidByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+          url: "/admin/health/selectAllStudentValidByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
           data: this.record,
         }).then(resp => {
           if (resp.data.code == 200) {
@@ -240,7 +241,7 @@ export default {
       if (this.record.flag == '2') {
         this.axios({
           method: "post",
-          url: "/teacher/health/selectNotValidByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+          url: "/admin/health/selectNotAllStudentValidByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
           data: this.record,
         }).then(resp => {
           if (resp.data.code == 200) {

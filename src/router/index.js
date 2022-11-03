@@ -22,6 +22,8 @@ import TeacherHealth from "@/components/TeacherHealth";
 import StudentHealthRecord from "@/components/StudentHealthRecord";
 import TeacherHealthRecord from "@/components/TeacherHealthRecord";
 import StudentHealthRecordTeacher from "@/components/StudentHealthRecordTeacher";
+import StudentHealthRecordManage from "@/components/StudentHealthRecordManage";
+import TeacherHealthRecordManage from "@/components/TeacherHealthRecordManage";
 
 Vue.use(VueRouter)
 
@@ -46,6 +48,8 @@ const router = new VueRouter({
                     {path: 'AdminInformationManage', component: AdminInformationManage, meta: {title: '管理员管理'}},
                     {path: 'StudentRecordManage', component: StudentRecordManage, meta: {title: "学生公告管理"}},
                     {path: 'TeacherRecordManage', component: TeacherRecordManage, meta: {title: "老师公告管理"}},
+                    {path: 'StudentHealthRecordManage', component: StudentHealthRecordManage, meta: {title: "学生申报管理"}},
+                    {path: 'TeacherHealthRecordManage', component: TeacherHealthRecordManage, meta: {title: "老师申报管理"}},
 
                 ]
             },
@@ -54,7 +58,7 @@ const router = new VueRouter({
                 component: StudentIndex,
                 meta: {title: '学生主页'},
                 children: [
-                    {path: '/', component: StudentHealth, meta: {title: '每日申报'}},
+                    {path: '/', component: StudentRegister, meta: {title: '入校登记'}},
                     {path: 'UpdatePassword', component: UpdatePassword, meta: {title: '更新密码'}},
                     {path: 'MyInformation', component: StudentInformation, meta: {title: '我的信息'}},
                     {path: 'StudentRecord', component: StudentRecord, meta: {title: '我的公告'}},
@@ -68,7 +72,7 @@ const router = new VueRouter({
                 component: TeacherIndex,
                 meta: {title: '辅导员主页'},
                 children: [
-                    {path: '/', component: TeacherHealth, meta: {title: '每日申报'}},
+                    {path: '/', component: StudentHealthRecordTeacher, meta: {title: '学生申报'}},
                     {path: 'UpdatePassword', component: UpdatePassword, meta: {title: '更新密码'}},
                     {path: 'MyInformation', component: TeacherInformation, meta: {title: '我的信息'}},
                     {path: 'TeacherRecord', component: TeacherRecord, meta: {title: '我的公告'}},

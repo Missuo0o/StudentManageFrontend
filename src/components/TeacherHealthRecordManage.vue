@@ -13,8 +13,8 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="学号">
-        <el-input v-model="record.username" placeholder="学号" maxlength="7"></el-input>
+      <el-form-item label="教工号">
+        <el-input v-model="record.username" placeholder="教工号" maxlength="7"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
         <el-input v-model="record.name" placeholder="姓名" maxlength="4"></el-input>
@@ -38,8 +38,8 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="学号">
-        <el-input v-model="record.username" placeholder="学号" maxlength="7"></el-input>
+      <el-form-item label="教工号">
+        <el-input v-model="record.username" placeholder="教工号" maxlength="7"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
         <el-input v-model="record.name" placeholder="姓名" maxlength="4"></el-input>
@@ -62,7 +62,7 @@
       </el-table-column>
       <el-table-column
           prop="username"
-          label="学号"
+          label="教工号"
           align="center"
       >
       </el-table-column>
@@ -112,7 +112,7 @@
 
       <el-table-column
           prop="username"
-          label="学号"
+          label="教工号"
           align="center"
       >
       </el-table-column>
@@ -146,7 +146,7 @@
 
 <script>
 export default {
-  name: "StudentHealthRecordTeacher",
+  name: "TeacherHealthRecordManage",
   data() {
     return {
       //总记录数
@@ -164,10 +164,10 @@ export default {
       },
       options: [{
         value: '1',
-        label: '今日已打卡学生'
+        label: '今日已打卡老师'
       }, {
         value: '2',
-        label: '今日未打卡学生'
+        label: '今日未打卡老师'
       }],
       //表格数据
       tableData: [{
@@ -205,10 +205,11 @@ export default {
     },
     //查询分页
     selectAll() {
+
       if (this.record.flag == '') {
         this.axios({
           method: "post",
-          url: "/teacher/health/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+          url: "/admin/health/selectAllTeacherByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
           data: this.record,
         }).then(resp => {
           if (resp.data.code == 200) {
@@ -224,7 +225,7 @@ export default {
       if (this.record.flag == '1') {
         this.axios({
           method: "post",
-          url: "/teacher/health/selectValidByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+          url: "/admin/health/selectAllTeacherValidByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
           data: this.record,
         }).then(resp => {
           if (resp.data.code == 200) {
@@ -240,7 +241,7 @@ export default {
       if (this.record.flag == '2') {
         this.axios({
           method: "post",
-          url: "/teacher/health/selectNotValidByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+          url: "/admin/health/selectNotAllTeacherValidByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
           data: this.record,
         }).then(resp => {
           if (resp.data.code == 200) {

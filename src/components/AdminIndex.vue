@@ -41,8 +41,8 @@
         <el-submenu index="5">
           <template slot="title"><i class="el-icon-s-opportunity"></i>健康系统</template>
           <el-menu-item-group>
-            <el-menu-item index="5-1">学生申报</el-menu-item>
-            <el-menu-item index="5-1">老师申报</el-menu-item>
+            <el-menu-item index="/AdminIndex/StudentHealthRecordManage">学生申报</el-menu-item>
+            <el-menu-item index="/AdminIndex/TeacherHealthRecordManage">老师申报</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
