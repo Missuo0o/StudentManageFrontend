@@ -25,8 +25,8 @@
         <el-submenu index="3">
           <template slot="title"><i class="el-icon-s-home"></i>请假系统</template>
           <el-menu-item-group>
-            <el-menu-item index="3-1">我要请假</el-menu-item>
-            <el-menu-item index="3-2">请假状态</el-menu-item>
+            <el-menu-item index="/StudentIndex/StudentLeave">我要请假</el-menu-item>
+            <el-menu-item index="3-2">请假记录</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

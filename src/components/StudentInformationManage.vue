@@ -349,7 +349,6 @@ export default {
         phone: '',
         address: '',
         profile: '',
-        status: '',
         teachername: '',
         schooladdress: '',
       }
@@ -508,12 +507,14 @@ export default {
     },
     //查询分页
     selectAll() {
+
       this.axios({
         method: "post",
         url: "/admin/student/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
         data: this.student
       }).then(resp => {
         if (resp.data.code == 200) {
+
           this.tableData = resp.data.data.rows;
           this.totalCount = resp.data.data.totalCount;
         } else if (resp.data.code == 404) {

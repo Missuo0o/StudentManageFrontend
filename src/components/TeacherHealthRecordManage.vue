@@ -49,11 +49,17 @@
     </el-form>
     <!--  //表格-->
     <el-button type="primary" plain @click="handleCreate">新增</el-button>
+    <el-button type="danger" plain @click="deleteByIds">批量删除</el-button>
     <el-table v-if="record.flag=='' || record.flag=='1'"
               :data="tableData"
               border
-              style="width: 100%">
-
+              style="width: 100%"
+              @selection-change="handleSelectionChange"
+             >
+      <el-table-column
+          type="selection"
+          width="55">
+      </el-table-column>
       <el-table-column
           fixed
           prop="id"
@@ -118,7 +124,9 @@
     <el-table v-if="record.flag==='2'"
               :data="tableData"
               border
-              style="width: 100%">
+              style="width: 100%"
+              key="table1">
+
       <el-table-column
           prop="username"
           label="教工号"
@@ -137,6 +145,7 @@
           align="center"
       >
       </el-table-column>
+
     </el-table>
 
     <el-dialog
@@ -231,6 +240,7 @@ export default {
       }
     };
     return {
+      multipleSelection:[],
       dialogVisible: false,
       dialogUpdateVisible: false,
       rules: {
@@ -275,8 +285,9 @@ export default {
         inschool: '',
         createtime: '',
       }
-      ]
-
+      ],
+      //被选中复选框的数组
+      selectedIds: [],
     }
   },
   mounted() {
@@ -284,6 +295,47 @@ export default {
     this.selectAll();
   },
   methods: {
+    //批量删除
+    deleteByIds() {
+      //弹出确定提示框
+      this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        for (let i = 0; i < this.multipleSelection.length; i++) {
+          let multipleSelectionElement = this.multipleSelection[i];
+          this.selectedIds[i] = multipleSelectionElement.id;
+        }
+        this.axios({
+          method: "delete",
+          url: "/admin/delete",
+          data: this.selectedIds
+        }).then(resp => {
+          if (resp.data.code == 201) {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            });
+            //重新查询
+            this.selectAll();
+          } else if (resp.data.code == 404) {
+            this.$message.error("删除失败");
+          } else {
+            this.$message.error(resp.data.msg);
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+    },
+    //复选框选中执行方法
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
     handleCreate() {
       this.dialogVisible = true;
       this.resetForm();
