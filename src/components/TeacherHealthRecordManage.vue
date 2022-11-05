@@ -155,15 +155,25 @@
 
       <el-form ref="table" :model="table" label-width="100px" :rules="rules">
 
-        <el-form-item label="学号">
-          <el-input style="width: auto" v-model="table.username" maxlength="7" :disabled="true"></el-input>
+        <el-form-item label="教工号">
+          <el-input style="width: auto" v-model="table.username" maxlength="7" prop="username"></el-input>
         </el-form-item>
         <el-form-item label="姓名">
-          <el-input style="width: auto" v-model="table.name" maxlength="4" :disabled="true"></el-input>
+          <el-input style="width: auto" v-model="table.name" maxlength="4"  prop="name"></el-input>
         </el-form-item>
         <el-form-item label="手机">
-          <el-input style="width: auto" v-model="table.phone" maxlength="11" :disabled="true"></el-input>
+          <el-input style="width: auto" v-model="table.phone" maxlength="11"  prop="phone"></el-input>
         </el-form-item>
+        <el-form-item label="健康状况" prop="symptom">
+        <el-select v-model="table.symptom" clearable placeholder="请选择">
+          <el-option
+              v-for="item in healthoptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
         <el-form-item label="是否在校" prop="inschool">
           <el-radio-group v-model="table.inschool">
             <el-radio label="是"></el-radio>
@@ -189,8 +199,18 @@
 
       <el-form ref="table" :model="table" label-width="100px" :rules="rules">
 
-        <el-form-item label="学号" prop="username">
+        <el-form-item label="教工号" prop="username">
           <el-input style="width: auto" v-model="table.username" maxlength="7"></el-input>
+        </el-form-item>
+        <el-form-item label="健康状况" prop="symptom">
+          <el-select v-model="table.symptom" clearable placeholder="请选择">
+            <el-option
+                v-for="item in healthoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="是否在校" prop="inschool">
           <el-radio-group v-model="table.inschool">
@@ -234,18 +254,52 @@ export default {
     };
     var validateUsername = (rule, value, callback) => {
       if (value === '') {
-        return callback(new Error("教工号不能为空"));
+        return callback(new Error("学号不能为空"));
+      } else {
+        callback();
+      }
+    };
+    var validatePhone = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error("手机不能为空"));
+      } else {
+        callback();
+      }
+    };
+    var validateName = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error("姓名不能为空"));
+      } else {
+        callback();
+      }
+    };
+    var validateSymptom = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error("健康状态不能为空"));
       } else {
         callback();
       }
     };
     return {
+      healthoptions: [{
+        value: '绿码',
+        label: '绿码'
+      }, {
+        value: '黄码',
+        label: '黄码'
+      }, {
+        value: '红码',
+        label: '红码'
+      }],
       multipleSelection:[],
       dialogVisible: false,
       dialogUpdateVisible: false,
       rules: {
         inschool: [{validator: validateInschool, trigger: 'blur'}],
         username: [{validator: validateUsername, trigger: 'blur'}],
+        phone: [{validator: validatePhone, trigger: 'blur'}],
+        name: [{validator: validateName, trigger: 'blur'}],
+        symptom: [{validator: validateSymptom, trigger: 'blur'}],
       },
       //总记录数
       totalCount: 0,

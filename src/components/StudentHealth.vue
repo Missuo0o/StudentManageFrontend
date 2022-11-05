@@ -67,7 +67,7 @@ export default {
     };
     var validateSymptom = (rule, value, callback) => {
       if (value === '') {
-        return callback(new Error("请选择状态"));
+        return callback(new Error("请选择健康状态"));
       } else {
         callback();
       }

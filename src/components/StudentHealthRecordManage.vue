@@ -167,6 +167,16 @@
         <el-form-item label="手机">
           <el-input style="width: auto" v-model="table.phone" maxlength="11" prop="phone"></el-input>
         </el-form-item>
+        <el-form-item label="健康状况" prop="symptom">
+          <el-select v-model="table.symptom" clearable placeholder="请选择">
+            <el-option
+                v-for="item in healthoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="是否在校" prop="inschool">
           <el-radio-group v-model="table.inschool">
             <el-radio label="是"></el-radio>
@@ -194,6 +204,16 @@
 
         <el-form-item label="学号" prop="username">
           <el-input style="width: auto" v-model="table.username" maxlength="7"></el-input>
+        </el-form-item>
+        <el-form-item label="健康状况" prop="symptom">
+          <el-select v-model="table.symptom" clearable placeholder="请选择">
+            <el-option
+                v-for="item in healthoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="是否在校" prop="inschool">
           <el-radio-group v-model="table.inschool">
@@ -258,8 +278,25 @@ export default {
         callback();
       }
     };
+    var validateSymptom = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error("健康状态不能为空"));
+      } else {
+        callback();
+      }
+    };
 
     return {
+      healthoptions: [{
+        value: '绿码',
+        label: '绿码'
+      }, {
+        value: '黄码',
+        label: '黄码'
+      }, {
+        value: '红码',
+        label: '红码'
+      }],
       dialogVisible: false,
       dialogUpdateVisible: false,
       rules: {
@@ -267,6 +304,7 @@ export default {
         username: [{validator: validateUsername, trigger: 'blur'}],
         phone: [{validator: validatePhone, trigger: 'blur'}],
         name: [{validator: validateName, trigger: 'blur'}],
+        symptom: [{validator: validateSymptom, trigger: 'blur'}],
       },
 
       //总记录数
