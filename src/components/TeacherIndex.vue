@@ -13,7 +13,7 @@
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-s-home"></i>请假系统</template>
           <el-menu-item-group>
-            <el-menu-item index="2-1">学生请假</el-menu-item>
+            <el-menu-item index="/TeacherIndex/StudentLeaveRecordTeacher">学生请假</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

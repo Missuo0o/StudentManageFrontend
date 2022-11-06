@@ -127,7 +127,23 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            console.log(this.form)
+            this.axios({
+              method: "post",
+              url: "/student/leave",
+              data: this.form,
+            }).then(resp => {
+              if (resp.data.code == 201) {
+                this.$message({
+                  message: '提交成功',
+                  type: 'success'
+                });
+                this.selectTime();
+              } else if (resp.data.code == 400) {
+                this.$message.error('提交失败');
+              } else {
+                this.$message.error(resp.data.msg);
+              }
+            })
           }).catch(() => {
             this.$message({
               type: 'info',
@@ -141,16 +157,6 @@ export default {
           });
         }
       });
-    },
-    success(point) {
-      if (point.addressComponent.district == "") {
-        this.$message({
-          message: '请打开浏览器定位权限以及电脑权限',
-          type: 'warning'
-        });
-      } else {
-        this.form.address = point.addressComponent.city + point.addressComponent.district + point.addressComponent.province + point.addressComponent.street + point.addressComponent.streetNumber
-      }
     },
   }
 }
