@@ -2,19 +2,19 @@
   <div class="innerbox">
     <el-form ref="form" :model="form" label-width="80px">
       <div class="demo-image">
-        <div class="block" v-for="fit in fits" :key="fit">
+        <div v-for="fit in fits" :key="fit" class="block">
           <span class="demonstration"></span>
           <el-image
-              style="width: 100px; height: 100px"
+              :fit="fit"
               :src="form.profile"
-              :fit="fit"></el-image>
+              style="width: 100px; height: 100px"></el-image>
         </div>
       </div>
       <el-form-item label="账号">
-        <el-input style="width: auto" v-model="form.username" maxlength="7" :disabled="true"></el-input>
+        <el-input v-model="form.username" :disabled="true" maxlength="7" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
-        <el-input style="width: auto" v-model="form.name" maxlength="4" :disabled="true"></el-input>
+        <el-input v-model="form.name" :disabled="true" maxlength="4" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="性别">
         <el-radio-group v-model="form.sex">
@@ -23,19 +23,19 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="学院">
-        <el-input style="width: auto" v-model="form.college" maxlength="10" :disabled="true"></el-input>
+        <el-input v-model="form.college" :disabled="true" maxlength="10" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="专业">
-        <el-input style="width: auto" v-model="form.major" maxlength="10" :disabled="true"></el-input>
+        <el-input v-model="form.major" :disabled="true" maxlength="10" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="班级">
-        <el-input style="width: auto" v-model="form.classname" maxlength="10" :disabled="true"></el-input>
+        <el-input v-model="form.classname" :disabled="true" maxlength="10" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="手机">
-        <el-input style="width: auto" v-model="form.phone" maxlength="11"></el-input>
+        <el-input v-model="form.phone" maxlength="11" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="家庭地址">
-        <el-input style="width: auto" v-model="form.address"></el-input>
+        <el-input v-model="form.address" style="width: auto"></el-input>
       </el-form-item>
 
       <el-form-item>

@@ -3,7 +3,7 @@
   <div>
     <el-form v-if="record.flag=='' || record.flag=='1'" :inline="true" :model="record" class="demo-form-inline">
       <el-form-item label="筛选">
-        <el-select @change="change" v-model="record.flag" clearable placeholder="请选择">
+        <el-select v-model="record.flag" clearable placeholder="请选择" @change="change">
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -14,13 +14,13 @@
         </el-select>
       </el-form-item>
       <el-form-item label="学号">
-        <el-input v-model="record.username" placeholder="学号" maxlength="7"></el-input>
+        <el-input v-model="record.username" maxlength="7" placeholder="学号"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
-        <el-input v-model="record.name" placeholder="姓名" maxlength="4"></el-input>
+        <el-input v-model="record.name" maxlength="4" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item label="是否在校">
-        <el-input v-model="record.inschool" placeholder="是或否" maxlength="4"></el-input>
+        <el-input v-model="record.inschool" maxlength="4" placeholder="是或否"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -28,7 +28,7 @@
     </el-form>
     <el-form v-if="record.flag=='2'" :inline="true" :model="record" class="demo-form-inline">
       <el-form-item label="筛选">
-        <el-select v-model="record.flag" @change="change" clearable placeholder="请选择">
+        <el-select v-model="record.flag" clearable placeholder="请选择" @change="change">
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -39,10 +39,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="学号">
-        <el-input v-model="record.username" placeholder="学号" maxlength="7"></el-input>
+        <el-input v-model="record.username" maxlength="7" placeholder="学号"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
-        <el-input v-model="record.name" placeholder="姓名" maxlength="4"></el-input>
+        <el-input v-model="record.name" maxlength="4" placeholder="姓名"></el-input>
       </el-form-item>
       <el-button type="primary" @click="onSubmit">查询</el-button>
 
@@ -54,53 +54,53 @@
               style="width: 100%">
 
       <el-table-column
-          fixed
-          prop="id"
-          label="编号"
           align="center"
+          fixed
+          label="编号"
+          prop="id"
           width="55">
       </el-table-column>
       <el-table-column
-          prop="username"
-          label="学号"
           align="center"
+          label="学号"
+          prop="username"
       >
       </el-table-column>
       <el-table-column
-          prop="name"
-          label="姓名"
           align="center"
+          label="姓名"
+          prop="name"
       >
       </el-table-column>
 
       <el-table-column
-          prop="phone"
+          align="center"
           label="手机"
-          align="center"
+          prop="phone"
       >
       </el-table-column>
       <el-table-column
-          prop="symptom"
+          align="center"
           label="核酸状态码"
-          align="center"
+          prop="symptom"
       >
       </el-table-column>
       <el-table-column
-          prop="inschool"
+          align="center"
           label="是否在校"
-          align="center"
+          prop="inschool"
       >
       </el-table-column>
       <el-table-column
-          prop="address"
+          align="center"
           label="申报地址"
-          align="center"
+          prop="address"
       >
       </el-table-column>
       <el-table-column
-          prop="createtime"
-          label="申报时间"
           align="center"
+          label="申报时间"
+          prop="createtime"
       >
       </el-table-column>
 
@@ -111,35 +111,35 @@
               style="width: 100%">
 
       <el-table-column
-          prop="username"
-          label="学号"
           align="center"
+          label="学号"
+          prop="username"
       >
       </el-table-column>
       <el-table-column
-          prop="name"
-          label="姓名"
           align="center"
+          label="姓名"
+          prop="name"
       >
       </el-table-column>
 
       <el-table-column
-          prop="phone"
-          label="手机"
           align="center"
+          label="手机"
+          prop="phone"
       >
       </el-table-column>
 
     </el-table>
     <!--//分页工具条-->
     <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-sizes="[5, 10, 15, 20]"
         :page-size="pageSize"
+        :page-sizes="[5, 10, 15, 20]"
+        :total="totalCount"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="totalCount">
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange">
     </el-pagination>
   </div>
 </template>

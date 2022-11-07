@@ -1,28 +1,28 @@
 <template>
   <div class="innerbox">
-    <el-form ref="form" :model="form" label-width="80px" :rules="rules" >
+    <el-form ref="form" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="账号">
-        <el-input style="width: auto" v-model="form.username" maxlength="7" :disabled="true"></el-input>
+        <el-input v-model="form.username" :disabled="true" maxlength="7" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
-        <el-input style="width: auto" v-model="form.name" maxlength="4" :disabled="true"></el-input>
+        <el-input v-model="form.name" :disabled="true" maxlength="4" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="手机">
-        <el-input style="width: auto" v-model="form.phone" :disabled="true" maxlength="11"></el-input>
+        <el-input v-model="form.phone" :disabled="true" maxlength="11" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="开始时间" prop="outtime">
         <el-date-picker
             v-model="form.outtime"
-            type="datetime"
             placeholder="选择日期时间"
+            type="datetime"
             value-format="yyyy-MM-dd hh:mm:ss">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="结束时间" prop="intime">
         <el-date-picker
             v-model="form.intime"
-            type="datetime"
             placeholder="选择日期时间"
+            type="datetime"
             value-format="yyyy-MM-dd hh:mm:ss">
         </el-date-picker>
       </el-form-item>
@@ -34,12 +34,12 @@
           <el-radio label="病假"></el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="内容" style="width: auto" prop="content">
+      <el-form-item label="内容" prop="content" style="width: auto">
         <el-input
-            type="textarea"
+            v-model="form.remark"
             :autosize="{ minRows: 8, maxRows: 20}"
             placeholder="请输入内容"
-            v-model="form.remark">
+            type="textarea">
         </el-input>
       </el-form-item>
 
@@ -89,9 +89,9 @@ export default {
         phone: '',
         address: '',
         outtime: '',
-        intime:'',
-        typename:'',
-        remark:'',
+        intime: '',
+        typename: '',
+        remark: '',
       },
     }
   },
@@ -99,6 +99,15 @@ export default {
     this.selectAll();
   },
   methods: {
+    resetForm() {
+      this.form = {
+        address: '',
+        outtime: '',
+        intime: '',
+        typename: '',
+        remark: '',
+      }
+    },
 
     //查询学生详情
     selectAll() {
@@ -137,7 +146,7 @@ export default {
                   message: '提交成功',
                   type: 'success'
                 });
-                this.selectTime();
+                this.resetForm();
               } else if (resp.data.code == 400) {
                 this.$message.error('提交失败');
               } else {

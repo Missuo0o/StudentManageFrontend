@@ -2,13 +2,13 @@
   <div>
     <el-form :inline="true" :model="record" class="demo-form-inline">
       <el-form-item label="编号">
-        <el-input v-model="record.id" placeholder="编号" maxlength="7"></el-input>
+        <el-input v-model="record.id" maxlength="7" placeholder="编号"></el-input>
       </el-form-item>
       <el-form-item label="标题">
-        <el-input v-model="record.title" placeholder="标题" maxlength="4"></el-input>
+        <el-input v-model="record.title" maxlength="4" placeholder="标题"></el-input>
       </el-form-item>
       <el-form-item label="发布人">
-        <el-input v-model="record.adminname" placeholder="发布人" maxlength="4"></el-input>
+        <el-input v-model="record.adminname" maxlength="4" placeholder="发布人"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -17,19 +17,19 @@
 
     <!--  //更新数据对话框-->
     <el-dialog
-        title="公告详情"
         :visible.sync="dialogUpdateVisible"
+        title="公告详情"
         width="30%">
 
       <el-form ref="addrecord" :model="addrecord" label-width="100px">
-        <el-form-item label="标题" style="width: auto" prop="title">
-          <el-input style="width: auto" v-model="addrecord.title" maxlength="7"></el-input>
+        <el-form-item label="标题" prop="title" style="width: auto">
+          <el-input v-model="addrecord.title" maxlength="7" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="内容" prop="content">
           <el-input
-              type="textarea"
+              v-model="addrecord.content"
               :autosize="{ minRows: 8, maxRows: 20}"
-              v-model="addrecord.content">
+              type="textarea">
           </el-input>
         </el-form-item>
         <el-form-item>
@@ -45,56 +45,56 @@
         style="width: 100%">
 
       <el-table-column
-          fixed
-          prop="id"
-          label="编号"
           align="center"
+          fixed
+          label="编号"
+          prop="id"
           width="55">
       </el-table-column>
       <el-table-column
-          prop="title"
-          label="标题"
           align="center"
+          label="标题"
+          prop="title"
           width="250">
       </el-table-column>
       <el-table-column
-          prop="adminname"
-          label="发布人"
           align="center"
+          label="发布人"
+          prop="adminname"
           width="120">
       </el-table-column>
 
       <el-table-column
-          prop="createtime"
-          label="创建时间"
           align="center"
+          label="创建时间"
+          prop="createtime"
           width="250">
       </el-table-column>
       <el-table-column
-          prop="content"
-          label="内容"
           align="center"
+          label="内容"
+          prop="content"
       >
       </el-table-column>
       <el-table-column
+          align="center"
           fixed="right"
           label="操作"
-          align="center"
           width="100">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text">查看详情</el-button>
+          <el-button type="text" @click="handleClick(scope.row)">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!--//分页工具条-->
     <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-sizes="[5, 10, 15, 20]"
         :page-size="pageSize"
+        :page-sizes="[5, 10, 15, 20]"
+        :total="totalCount"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="totalCount">
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange">
     </el-pagination>
   </div>
 </template>

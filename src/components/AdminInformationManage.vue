@@ -2,22 +2,22 @@
   <div>
     <el-form :inline="true" :model="teacher" class="demo-form-inline">
       <el-form-item label="账号">
-        <el-input v-model="teacher.username" placeholder="账号" maxlength="7"></el-input>
+        <el-input v-model="teacher.username" maxlength="7" placeholder="账号"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
-        <el-input v-model="teacher.name" placeholder="姓名" maxlength="4"></el-input>
+        <el-input v-model="teacher.name" maxlength="4" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item label="性别">
-        <el-input v-model="teacher.sex" placeholder="男或女" maxlength="4"></el-input>
+        <el-input v-model="teacher.sex" maxlength="4" placeholder="男或女"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
     </el-form>
     <!--  //按钮-->
-    <el-button type="danger" plain @click="deleteByIds">批量删除</el-button>
-    <el-button type="primary" plain @click="handleCreate">新增</el-button>
-    <el-button type="primary" plain @click="handleDownload">下载模板</el-button>
+    <el-button plain type="danger" @click="deleteByIds">批量删除</el-button>
+    <el-button plain type="primary" @click="handleCreate">新增</el-button>
+    <el-button plain type="primary" @click="handleDownload">下载模板</el-button>
     <el-upload
         :limit="1"
         :on-exceed="handleExceed"
@@ -27,29 +27,29 @@
     </el-upload>
     <!--  //添加数据对话框-->
     <el-dialog
-        title="新增管理员"
         :visible.sync="dialogVisible"
+        title="新增管理员"
         width="30%">
 
-      <el-form ref="addteacher" :model="addteacher" label-width="100px" :rules="rules">
+      <el-form ref="addteacher" :model="addteacher" :rules="rules" label-width="100px">
         <el-form-item label="头像">
           <el-upload
-              class="avatar-uploader"
-              action="/admin/admin/uploadProfile"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
+              v-model="addteacher.profile"
               :before-upload="beforeAvatarUpload"
-              v-model="addteacher.profile">
+              :on-success="handleAvatarSuccess"
+              :show-file-list="false"
+              action="/admin/admin/uploadProfile"
+              class="avatar-uploader">
 
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
         <el-form-item label="账号" prop="username">
-          <el-input style="width: auto" v-model="addteacher.username" maxlength="7"></el-input>
+          <el-input v-model="addteacher.username" maxlength="7" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
-          <el-input style="width: auto" v-model="addteacher.name" maxlength="4"></el-input>
+          <el-input v-model="addteacher.name" maxlength="4" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="addteacher.sex">
@@ -58,10 +58,10 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="手机">
-          <el-input style="width: auto" v-model="addteacher.phone" maxlength="11"></el-input>
+          <el-input v-model="addteacher.phone" maxlength="11" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="家庭地址">
-          <el-input style="width: auto" v-model="addteacher.address"></el-input>
+          <el-input v-model="addteacher.address" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="addTeacher('addteacher')">提交</el-button>
@@ -72,29 +72,29 @@
 
     <!--  //更新数据对话框-->
     <el-dialog
-        title="更新管理员"
         :visible.sync="dialogUpdateVisible"
+        title="更新管理员"
         width="30%">
 
-      <el-form ref="addteacher" :model="addteacher" label-width="100px" :rules="rules">
+      <el-form ref="addteacher" :model="addteacher" :rules="rules" label-width="100px">
         <el-form-item label="头像">
           <el-upload
-              class="avatar-uploader"
-              action="/admin/admin/uploadProfile"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
+              v-model="addteacher.profile"
               :before-upload="beforeAvatarUpload"
-              v-model="addteacher.profile">
+              :on-success="handleAvatarSuccess"
+              :show-file-list="false"
+              action="/admin/admin/uploadProfile"
+              class="avatar-uploader">
 
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
         <el-form-item label="账号" prop="username">
-          <el-input style="width: auto" v-model="addteacher.username" maxlength="7"></el-input>
+          <el-input v-model="addteacher.username" maxlength="7" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
-          <el-input style="width: auto" v-model="addteacher.name" maxlength="4"></el-input>
+          <el-input v-model="addteacher.name" maxlength="4" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="addteacher.sex">
@@ -103,10 +103,10 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="手机">
-          <el-input style="width: auto" v-model="addteacher.phone" maxlength="11"></el-input>
+          <el-input v-model="addteacher.phone" maxlength="11" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="家庭地址">
-          <el-input style="width: auto" v-model="addteacher.address"></el-input>
+          <el-input v-model="addteacher.address" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="updateTeacher('addteacher')">提交</el-button>
@@ -126,64 +126,64 @@
           width="55">
       </el-table-column>
       <el-table-column
-          fixed
-          prop="username"
-          label="账号"
           align="center"
+          fixed
+          label="账号"
+          prop="username"
       >
       </el-table-column>
       <el-table-column
-          prop="profile"
-          label="头像"
           align="center"
+          label="头像"
+          prop="profile"
       >
         <template slot-scope="scope">
-          <img :src="scope.row.profile" width="55" height="55"/></template>
+          <img :src="scope.row.profile" height="55" width="55"/></template>
       </el-table-column>
       <el-table-column
-          prop="name"
+          align="center"
           label="姓名"
-          align="center"
+          prop="name"
       >
       </el-table-column>
       <el-table-column
-          prop="sex"
+          align="center"
           label="性别"
-          align="center"
+          prop="sex"
       >
       </el-table-column>
       <el-table-column
-          prop="phone"
+          align="center"
           label="手机"
-          align="center"
+          prop="phone"
       >
       </el-table-column>
       <el-table-column
-          prop="address"
-          label="地址"
           align="center"
+          label="地址"
+          prop="address"
           width="250">
       </el-table-column>
       <el-table-column
+          align="center"
           fixed="right"
           label="操作"
-          align="center"
           width="100">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text">修改</el-button>
-          <el-button @click="handleDelete(scope.row)" type="text">删除</el-button>
+          <el-button type="text" @click="handleClick(scope.row)">修改</el-button>
+          <el-button type="text" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!--//分页工具条-->
     <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-sizes="[5, 10, 15, 20]"
         :page-size="pageSize"
+        :page-sizes="[5, 10, 15, 20]"
+        :total="totalCount"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="totalCount">
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange">
     </el-pagination>
   </div>
 </template>

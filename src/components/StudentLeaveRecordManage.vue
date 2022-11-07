@@ -160,7 +160,7 @@
 
 <script>
 export default {
-  name: "StudentLeaveRecordTeacher",
+  name: "StudentLeaveRecordAdmin",
   data() {
     return {
       dialogVisible: false,
@@ -213,7 +213,7 @@ export default {
     handleClick(row) {
       this.axios({
         method: "get",
-        url: "/teacher/leave/" + row.id,
+        url: "/admin/leave/" + row.id,
       }).then(resp => {
         if (resp.data.code == 200 && resp.data.data != null) {
           this.dialogVisible = true;
@@ -231,7 +231,7 @@ export default {
     handleSuccessClick(row) {
       this.axios({
         method: "put",
-        url: "/teacher/leave/success/" + row.id,
+        url: "/admin/leave/success/" + row.id,
       }).then(resp => {
         if (resp.data.code == 201) {
           this.$message({
@@ -250,7 +250,7 @@ export default {
     handleFailClick(row) {
       this.axios({
         method: "put",
-        url: "/teacher/leave/fail/" + row.id,
+        url: "/admin/leave/fail/" + row.id,
       }).then(resp => {
         if (resp.data.code == 201) {
           this.$message({
@@ -269,7 +269,7 @@ export default {
     handleOriginClick(row) {
       this.axios({
         method: "put",
-        url: "/teacher/leave/origin/" + row.id,
+        url: "/admin/leave/origin/" + row.id,
       }).then(resp => {
         if (resp.data.code == 201) {
           this.$message({
@@ -308,7 +308,7 @@ export default {
       if (this.record.flag == '') {
         this.axios({
           method: "post",
-          url: "/teacher/leave/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+          url: "/admin/leave/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
           data: this.record,
         }).then(resp => {
           if (resp.data.code == 200) {
@@ -324,7 +324,7 @@ export default {
       if (this.record.flag == '1') {
         this.axios({
           method: "post",
-          url: "/teacher/leave/selectNotApprovedByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+          url: "/admin/leave/selectAllNotApprovedByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
           data: this.record,
         }).then(resp => {
           if (resp.data.code == 200) {

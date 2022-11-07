@@ -6,7 +6,7 @@
         <h2>新生入学管理系统</h2>
       </div>
 
-      <el-form label-width="80px" ref="formLabelAlign" :model="formLabelAlign" :rules="rules">
+      <el-form ref="formLabelAlign" :model="formLabelAlign" :rules="rules" label-width="80px">
         <el-form-item label="账号" prop="username">
           <el-input v-model="formLabelAlign.username" maxlength="7"></el-input>
         </el-form-item>
@@ -18,8 +18,8 @@
         <br>
 
         <div class="box">
-          <el-button icon="el-icon-success" type="primary" round @click="login('formLabelAlign')">登录</el-button>
-          <el-button icon="el-icon-question" type="primary" round @click="forget">找回密码
+          <el-button icon="el-icon-success" round type="primary" @click="login('formLabelAlign')">登录</el-button>
+          <el-button icon="el-icon-question" round type="primary" @click="forget">找回密码
           </el-button>
         </div>
       </el-form>

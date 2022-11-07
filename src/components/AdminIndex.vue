@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 705px; border: 1px solid #eee">
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+    <el-aside style="background-color: rgb(238, 241, 246)" width="200px">
 
       <el-menu
           router>
@@ -34,7 +34,7 @@
         <el-submenu index="4">
           <template slot="title"><i class="el-icon-s-home"></i>请假系统</template>
           <el-menu-item-group>
-            <el-menu-item index="4-1">学生请假</el-menu-item>
+            <el-menu-item index="/AdminIndex/StudentLeaveRecordManage">学生请假</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -72,17 +72,17 @@
       </el-header>
 
       <el-dialog
-          title="请上传图像"
           :visible.sync="dialogVisible"
+          title="请上传图像"
           width="17%"
       >
         <el-upload
-            class="avatar-uploader"
-            action="/upload"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
             :on-error="handleAvatarError"
-            :before-upload="beforeAvatarUpload">
+            :on-success="handleAvatarSuccess"
+            :show-file-list="false"
+            action="/upload"
+            class="avatar-uploader">
           <img v-if="imageUrl" :src="imageUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>

@@ -3,7 +3,7 @@
   <div>
     <el-form v-if="record.flag=='' || record.flag=='1'" :inline="true" :model="record" class="demo-form-inline">
       <el-form-item label="筛选">
-        <el-select @change="change" v-model="record.flag" clearable placeholder="请选择">
+        <el-select v-model="record.flag" clearable placeholder="请选择" @change="change">
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -14,13 +14,13 @@
         </el-select>
       </el-form-item>
       <el-form-item label="教工号">
-        <el-input v-model="record.username" placeholder="教工号" maxlength="7"></el-input>
+        <el-input v-model="record.username" maxlength="7" placeholder="教工号"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
-        <el-input v-model="record.name" placeholder="姓名" maxlength="4"></el-input>
+        <el-input v-model="record.name" maxlength="4" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item label="是否在校">
-        <el-input v-model="record.inschool" placeholder="是或否" maxlength="4"></el-input>
+        <el-input v-model="record.inschool" maxlength="4" placeholder="是或否"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -28,7 +28,7 @@
     </el-form>
     <el-form v-if="record.flag=='2'" :inline="true" :model="record" class="demo-form-inline">
       <el-form-item label="筛选">
-        <el-select v-model="record.flag" @change="change" clearable placeholder="请选择">
+        <el-select v-model="record.flag" clearable placeholder="请选择" @change="change">
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -39,168 +39,130 @@
         </el-select>
       </el-form-item>
       <el-form-item label="教工号">
-        <el-input v-model="record.username" placeholder="教工号" maxlength="7"></el-input>
+        <el-input v-model="record.username" maxlength="7" placeholder="教工号"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
-        <el-input v-model="record.name" placeholder="姓名" maxlength="4"></el-input>
+        <el-input v-model="record.name" maxlength="4" placeholder="姓名"></el-input>
       </el-form-item>
       <el-button type="primary" @click="onSubmit">查询</el-button>
 
     </el-form>
     <!--  //表格-->
-    <el-button type="primary" plain @click="handleCreate">新增</el-button>
-    <el-button type="danger" plain @click="deleteByIds">批量删除</el-button>
+    <el-button plain type="primary" @click="handleCreate">新增</el-button>
+    <el-button plain type="danger" @click="deleteByIds">批量删除</el-button>
     <el-table v-if="record.flag=='' || record.flag=='1'"
               :data="tableData"
               border
               style="width: 100%"
               @selection-change="handleSelectionChange"
-             >
+    >
       <el-table-column
           type="selection"
           width="55">
       </el-table-column>
       <el-table-column
-          fixed
-          prop="id"
-          label="编号"
           align="center"
+          fixed
+          label="编号"
+          prop="id"
           width="55">
       </el-table-column>
       <el-table-column
-          prop="username"
+          align="center"
           label="教工号"
-          align="center"
+          prop="username"
       >
       </el-table-column>
       <el-table-column
-          prop="name"
+          align="center"
           label="姓名"
-          align="center"
+          prop="name"
       >
       </el-table-column>
       <el-table-column
-          prop="phone"
+          align="center"
           label="手机"
-          align="center"
+          prop="phone"
       >
       </el-table-column>
       <el-table-column
-          prop="symptom"
+          align="center"
           label="核酸状态码"
-          align="center"
+          prop="symptom"
       >
       </el-table-column>
       <el-table-column
-          prop="inschool"
+          align="center"
           label="是否在校"
-          align="center"
+          prop="inschool"
       >
       </el-table-column>
       <el-table-column
-          prop="address"
+          align="center"
           label="申报地址"
-          align="center"
+          prop="address"
       >
       </el-table-column>
       <el-table-column
-          prop="createtime"
+          align="center"
           label="申报时间"
-          align="center"
+          prop="createtime"
       >
       </el-table-column>
       <el-table-column
+          align="center"
           fixed="right"
           label="操作"
-          align="center"
           width="100">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text">修改</el-button>
-          <el-button @click="handleDelete(scope.row)" type="text">删除</el-button>
+          <el-button type="text" @click="handleClick(scope.row)">修改</el-button>
+          <el-button type="text" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <el-table v-if="record.flag==='2'"
+              key="table1"
               :data="tableData"
               border
-              style="width: 100%"
-              key="table1">
+              style="width: 100%">
 
       <el-table-column
-          prop="username"
+          align="center"
           label="教工号"
-          align="center"
+          prop="username"
       >
       </el-table-column>
       <el-table-column
-          prop="name"
+          align="center"
           label="姓名"
-          align="center"
+          prop="name"
       >
       </el-table-column>
       <el-table-column
-          prop="phone"
-          label="手机"
           align="center"
+          label="手机"
+          prop="phone"
       >
       </el-table-column>
 
     </el-table>
 
     <el-dialog
-        title="更新申报记录"
         :visible.sync="dialogUpdateVisible"
+        title="更新申报记录"
         width="30%">
 
-      <el-form ref="table" :model="table" label-width="100px" :rules="rules">
+      <el-form ref="table" :model="table" :rules="rules" label-width="100px">
 
         <el-form-item label="教工号">
-          <el-input style="width: auto" v-model="table.username" maxlength="7" prop="username"></el-input>
+          <el-input v-model="table.username" maxlength="7" prop="username" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="姓名">
-          <el-input style="width: auto" v-model="table.name" maxlength="4"  prop="name"></el-input>
+          <el-input v-model="table.name" maxlength="4" prop="name" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="手机">
-          <el-input style="width: auto" v-model="table.phone" maxlength="11"  prop="phone"></el-input>
-        </el-form-item>
-        <el-form-item label="健康状况" prop="symptom">
-        <el-select v-model="table.symptom" clearable placeholder="请选择">
-          <el-option
-              v-for="item in healthoptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
-        <el-form-item label="是否在校" prop="inschool">
-          <el-radio-group v-model="table.inschool">
-            <el-radio label="是"></el-radio>
-            <el-radio label="否"></el-radio>
-          </el-radio-group>
-        </el-form-item>
-
-        <el-form-item v-if="table.inschool=='否'" label="申报地址" prop="address">
-          <el-input style="width: auto" v-model="table.address"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="updateStudent('table')">提交</el-button>
-          <el-button @click="dialogUpdateVisible = false">取消</el-button>
-        </el-form-item>
-      </el-form>
-    </el-dialog>
-
-    <!--    添加数据对话框-->
-    <el-dialog
-        title="新增申报记录"
-        :visible.sync="dialogVisible"
-        width="30%">
-
-      <el-form ref="table" :model="table" label-width="100px" :rules="rules">
-
-        <el-form-item label="教工号" prop="username">
-          <el-input style="width: auto" v-model="table.username" maxlength="7"></el-input>
+          <el-input v-model="table.phone" maxlength="11" prop="phone" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="健康状况" prop="symptom">
           <el-select v-model="table.symptom" clearable placeholder="请选择">
@@ -220,7 +182,45 @@
         </el-form-item>
 
         <el-form-item v-if="table.inschool=='否'" label="申报地址" prop="address">
-          <el-input style="width: auto" v-model="table.address"></el-input>
+          <el-input v-model="table.address" style="width: auto"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="updateStudent('table')">提交</el-button>
+          <el-button @click="dialogUpdateVisible = false">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
+    <!--    添加数据对话框-->
+    <el-dialog
+        :visible.sync="dialogVisible"
+        title="新增申报记录"
+        width="30%">
+
+      <el-form ref="table" :model="table" :rules="rules" label-width="100px">
+
+        <el-form-item label="教工号" prop="username">
+          <el-input v-model="table.username" maxlength="7" style="width: auto"></el-input>
+        </el-form-item>
+        <el-form-item label="健康状况" prop="symptom">
+          <el-select v-model="table.symptom" clearable placeholder="请选择">
+            <el-option
+                v-for="item in healthoptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="是否在校" prop="inschool">
+          <el-radio-group v-model="table.inschool">
+            <el-radio label="是"></el-radio>
+            <el-radio label="否"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+
+        <el-form-item v-if="table.inschool=='否'" label="申报地址" prop="address">
+          <el-input v-model="table.address" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="addStudent('table')">提交</el-button>
@@ -230,13 +230,13 @@
     </el-dialog>
     <!--//分页工具条-->
     <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-sizes="[5, 10, 15, 20]"
         :page-size="pageSize"
+        :page-sizes="[5, 10, 15, 20]"
+        :total="totalCount"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="totalCount">
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange">
     </el-pagination>
   </div>
 </template>
@@ -291,7 +291,7 @@ export default {
         value: '红码',
         label: '红码'
       }],
-      multipleSelection:[],
+      multipleSelection: [],
       dialogVisible: false,
       dialogUpdateVisible: false,
       rules: {

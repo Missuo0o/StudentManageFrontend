@@ -6,8 +6,8 @@
         <h2>忘记密码</h2>
       </div>
 
-      <el-form :label-position="labelPosition" ref="formLabelAlign" label-width="80px" :model="formLabelAlign"
-               :rules="rules">
+      <el-form ref="formLabelAlign" :label-position="labelPosition" :model="formLabelAlign" :rules="rules"
+               label-width="80px">
         <el-form-item label="账号" prop="username">
           <el-input v-model="formLabelAlign.username" maxlength="7"></el-input>
         </el-form-item>
@@ -22,9 +22,9 @@
         <br>
 
         <div class="box">
-          <el-button icon="el-icon-back" type="primary" round @click="back">返回</el-button>
-          <el-button icon="el-icon-key" type="primary" round @click="forget('formLabelAlign')">找回</el-button>
-          <el-button icon="el-icon-phone" type="primary" round @click="sendcode">发送验证码</el-button>
+          <el-button icon="el-icon-back" round type="primary" @click="back">返回</el-button>
+          <el-button icon="el-icon-key" round type="primary" @click="forget('formLabelAlign')">找回</el-button>
+          <el-button icon="el-icon-phone" round type="primary" @click="sendcode">发送验证码</el-button>
         </div>
       </el-form>
     </el-card>

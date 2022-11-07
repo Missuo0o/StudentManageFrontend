@@ -1,16 +1,16 @@
 <template>
   <div class="map">
-    <baidu-map v-if="status=='否'" class="map" center="上海" :scroll-wheel-zoom="true">
-      <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT"
+    <baidu-map v-if="status=='否'" :scroll-wheel-zoom="true" center="上海" class="map">
+      <bm-geolocation :autoLocation="true"
                       :showAddressBar="true"
-                      :autoLocation="true"
+                      anchor="BMAP_ANCHOR_BOTTOM_RIGHT"
                       @locationSuccess="success">
       </bm-geolocation>
       <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
     </baidu-map>
 
     <div class="innerbox">
-      <el-result v-if="status=='是'" icon="success" title="成功提示" subTitle="您已完成入校登记">
+      <el-result v-if="status=='是'" icon="success" subTitle="您已完成入校登记" title="成功提示">
       </el-result>
     </div>
   </div>

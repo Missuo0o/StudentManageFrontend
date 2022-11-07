@@ -1,16 +1,16 @@
 <template>
   <div class="innerbox">
-    <el-result v-if="flag==true" icon="success" title="成功提示" subTitle="今日您已完成申报">
+    <el-result v-if="flag==true" icon="success" subTitle="今日您已完成申报" title="成功提示">
     </el-result>
-    <el-form ref="form" :model="form" label-width="80px" :rules="rules" v-if="flag==false">
+    <el-form v-if="flag==false" ref="form" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="账号">
-        <el-input style="width: auto" v-model="form.username" maxlength="7" :disabled="true"></el-input>
+        <el-input v-model="form.username" :disabled="true" maxlength="7" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
-        <el-input style="width: auto" v-model="form.name" maxlength="4" :disabled="true"></el-input>
+        <el-input v-model="form.name" :disabled="true" maxlength="4" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="手机">
-        <el-input style="width: auto" v-model="form.phone" :disabled="true" maxlength="11"></el-input>
+        <el-input v-model="form.phone" :disabled="true" maxlength="11" style="width: auto"></el-input>
       </el-form-item>
       <el-form-item label="健康状况" prop="symptom">
         <el-select v-model="form.symptom" clearable placeholder="请选择">
@@ -31,10 +31,10 @@
       </el-form-item>
 
       <el-form-item v-if="form.inschool=='否'" label="当前地址" prop="address">
-        <baidu-map class="map" center="上海" :scroll-wheel-zoom="true">
-          <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT"
+        <baidu-map :scroll-wheel-zoom="true" center="上海" class="map">
+          <bm-geolocation :autoLocation="true"
                           :showAddressBar="true"
-                          :autoLocation="true"
+                          anchor="BMAP_ANCHOR_BOTTOM_RIGHT"
                           @locationSuccess="success">
           </bm-geolocation>
         </baidu-map>

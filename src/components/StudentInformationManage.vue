@@ -2,16 +2,16 @@
   <div>
     <el-form :inline="true" :model="student" class="demo-form-inline">
       <el-form-item label="学号">
-        <el-input v-model="student.username" placeholder="学号" maxlength="7"></el-input>
+        <el-input v-model="student.username" maxlength="7" placeholder="学号"></el-input>
       </el-form-item>
       <el-form-item label="姓名">
-        <el-input v-model="student.name" placeholder="姓名" maxlength="4"></el-input>
+        <el-input v-model="student.name" maxlength="4" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item label="性别">
-        <el-input v-model="student.sex" placeholder="男或女" maxlength="4"></el-input>
+        <el-input v-model="student.sex" maxlength="4" placeholder="男或女"></el-input>
       </el-form-item>
       <el-form-item label="是否返校">
-        <el-input v-model="student.status" placeholder="是或否" maxlength="4"></el-input>
+        <el-input v-model="student.status" maxlength="4" placeholder="是或否"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -19,9 +19,9 @@
     </el-form>
     <!--  按钮-->
 
-    <el-button type="danger" plain @click="deleteByIds">批量删除</el-button>
-    <el-button type="primary" plain @click="handleCreate">新增</el-button>
-    <el-button type="primary" plain @click="handleDownload">下载模板</el-button>
+    <el-button plain type="danger" @click="deleteByIds">批量删除</el-button>
+    <el-button plain type="primary" @click="handleCreate">新增</el-button>
+    <el-button plain type="primary" @click="handleDownload">下载模板</el-button>
     <el-upload
         :limit="1"
         :on-exceed="handleExceed"
@@ -32,29 +32,29 @@
 
     <!--  //添加数据对话框-->
     <el-dialog
-        title="新增学生"
         :visible.sync="dialogVisible"
+        title="新增学生"
         width="30%">
 
-      <el-form ref="addstudent" :model="addstudent" label-width="100px" :rules="rules">
+      <el-form ref="addstudent" :model="addstudent" :rules="rules" label-width="100px">
         <el-form-item label="头像">
           <el-upload
-              class="avatar-uploader"
-              action="/admin/student/uploadProfile"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
+              v-model="addstudent.profile"
               :before-upload="beforeAvatarUpload"
-              v-model="addstudent.profile">
+              :on-success="handleAvatarSuccess"
+              :show-file-list="false"
+              action="/admin/student/uploadProfile"
+              class="avatar-uploader">
 
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
         <el-form-item label="学号" prop="username">
-          <el-input style="width: auto" v-model="addstudent.username" maxlength="7"></el-input>
+          <el-input v-model="addstudent.username" maxlength="7" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
-          <el-input style="width: auto" v-model="addstudent.name" maxlength="4"></el-input>
+          <el-input v-model="addstudent.name" maxlength="4" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="是否返校" prop="status">
           <el-radio-group v-model="addstudent.status">
@@ -69,22 +69,22 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="学院">
-          <el-input style="width: auto" v-model="addstudent.college" maxlength="10"></el-input>
+          <el-input v-model="addstudent.college" maxlength="10" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="专业">
-          <el-input style="width: auto" v-model="addstudent.major" maxlength="10"></el-input>
+          <el-input v-model="addstudent.major" maxlength="10" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="班级">
-          <el-input style="width: auto" v-model="addstudent.classname" maxlength="10"></el-input>
+          <el-input v-model="addstudent.classname" maxlength="10" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="手机">
-          <el-input style="width: auto" v-model="addstudent.phone" maxlength="11"></el-input>
+          <el-input v-model="addstudent.phone" maxlength="11" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="家庭地址">
-          <el-input style="width: auto" v-model="addstudent.address"></el-input>
+          <el-input v-model="addstudent.address" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="入校地址">
-          <el-input style="width: auto" v-model="addstudent.schooladdress"></el-input>
+          <el-input v-model="addstudent.schooladdress" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="addStudent('addstudent')">提交</el-button>
@@ -95,29 +95,29 @@
 
     <!--  //更新数据对话框-->
     <el-dialog
-        title="更新学生"
         :visible.sync="dialogUpdateVisible"
+        title="更新学生"
         width="30%">
 
-      <el-form ref="addstudent" :model="addstudent" label-width="100px" :rules="rules">
+      <el-form ref="addstudent" :model="addstudent" :rules="rules" label-width="100px">
         <el-form-item label="头像">
           <el-upload
-              class="avatar-uploader"
-              action="/admin/student/uploadProfile"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
+              v-model="addstudent.profile"
               :before-upload="beforeAvatarUpload"
-              v-model="addstudent.profile">
+              :on-success="handleAvatarSuccess"
+              :show-file-list="false"
+              action="/admin/student/uploadProfile"
+              class="avatar-uploader">
 
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
         <el-form-item label="账号" prop="username">
-          <el-input style="width: auto" v-model="addstudent.username" maxlength="7"></el-input>
+          <el-input v-model="addstudent.username" maxlength="7" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
-          <el-input style="width: auto" v-model="addstudent.name" maxlength="4"></el-input>
+          <el-input v-model="addstudent.name" maxlength="4" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="是否返校" prop="status">
           <el-radio-group v-model="addstudent.status">
@@ -132,22 +132,22 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="学院">
-          <el-input style="width: auto" v-model="addstudent.college" maxlength="10"></el-input>
+          <el-input v-model="addstudent.college" maxlength="10" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="专业">
-          <el-input style="width: auto" v-model="addstudent.major" maxlength="10"></el-input>
+          <el-input v-model="addstudent.major" maxlength="10" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="班级">
-          <el-input style="width: auto" v-model="addstudent.classname" maxlength="10"></el-input>
+          <el-input v-model="addstudent.classname" maxlength="10" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="手机">
-          <el-input style="width: auto" v-model="addstudent.phone" maxlength="11"></el-input>
+          <el-input v-model="addstudent.phone" maxlength="11" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="家庭地址">
-          <el-input style="width: auto" v-model="addstudent.address"></el-input>
+          <el-input v-model="addstudent.address" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="入校地址">
-          <el-input style="width: auto" v-model="addstudent.schooladdress"></el-input>
+          <el-input v-model="addstudent.schooladdress" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="updateStudent('addstudent')">提交</el-button>
@@ -167,98 +167,98 @@
           width="55">
       </el-table-column>
       <el-table-column
-          fixed
-          prop="username"
-          label="学号"
           align="center"
+          fixed
+          label="学号"
+          prop="username"
       >
       </el-table-column>
       <el-table-column
-          prop="profile"
-          label="头像"
           align="center"
+          label="头像"
+          prop="profile"
       >
         <template slot-scope="scope">
-          <img :src="scope.row.profile" width="55" height="55"/></template>
+          <img :src="scope.row.profile" height="55" width="55"/></template>
       </el-table-column>
       <el-table-column
-          prop="name"
+          align="center"
           label="姓名"
-          align="center"
+          prop="name"
       >
       </el-table-column>
       <el-table-column
-          prop="sex"
+          align="center"
           label="性别"
-          align="center"
+          prop="sex"
       >
       </el-table-column>
       <el-table-column
-          prop="status"
+          align="center"
           label="是否返校"
-          align="center"
+          prop="status"
       >
       </el-table-column>
       <el-table-column
-          prop="college"
-          label="学院"
           align="center"
+          label="学院"
+          prop="college"
           width="120">
       </el-table-column>
       <el-table-column
-          prop="major"
-          label="专业"
           align="center"
+          label="专业"
+          prop="major"
           width="150">
       </el-table-column>
       <el-table-column
-          prop="classname"
-          label="班级"
           align="center"
+          label="班级"
+          prop="classname"
       >
       </el-table-column>
       <el-table-column
-          prop="phone"
-          label="手机"
           align="center"
+          label="手机"
+          prop="phone"
           width="150">
       </el-table-column>
       <el-table-column
-          prop="teachername"
-          label="辅导员姓名"
           align="center"
+          label="辅导员姓名"
+          prop="teachername"
       ></el-table-column>
       <el-table-column
-          prop="address"
+          align="center"
           label="家庭地址"
-          align="center"
+          prop="address"
           width="250"></el-table-column>
       <el-table-column
-          prop="schooladdress"
+          align="center"
           label="入校地址"
-          align="center"
+          prop="schooladdress"
           width="250"></el-table-column>
       <el-table-column
+          align="center"
           fixed="right"
           label="操作"
-          align="center"
           width="100">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text">修改</el-button>
-          <el-button @click="handleDelete(scope.row)" type="text">删除</el-button>
+          <el-button type="text" @click="handleClick(scope.row)">修改</el-button>
+          <el-button type="text" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!--//分页工具条-->
     <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-sizes="[5, 10, 15, 20]"
         :page-size="pageSize"
+        :page-sizes="[5, 10, 15, 20]"
+        :total="totalCount"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="totalCount">
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange">
     </el-pagination>
   </div>
 </template>

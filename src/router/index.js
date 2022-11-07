@@ -26,6 +26,8 @@ import StudentHealthRecordManage from "@/components/StudentHealthRecordManage";
 import TeacherHealthRecordManage from "@/components/TeacherHealthRecordManage";
 import StudentLeave from "@/components/StudentLeave";
 import StudentLeaveRecordTeacher from "@/components/StudentLeaveRecordTeacher";
+import StudentLeaveRecord from "@/components/StudentLeaveRecord";
+import StudentLeaveRecordManage from "@/components/StudentLeaveRecordManage";
 
 Vue.use(VueRouter)
 
@@ -52,6 +54,7 @@ const router = new VueRouter({
                     {path: 'TeacherRecordManage', component: TeacherRecordManage, meta: {title: "老师公告管理"}},
                     {path: 'StudentHealthRecordManage', component: StudentHealthRecordManage, meta: {title: "学生申报管理"}},
                     {path: 'TeacherHealthRecordManage', component: TeacherHealthRecordManage, meta: {title: "老师申报管理"}},
+                    {path: 'StudentLeaveRecordManage', component: StudentLeaveRecordManage, meta: {title: '学生请假管理'}},
 
                 ]
             },
@@ -67,7 +70,8 @@ const router = new VueRouter({
                     {path: 'StudentRegister', component: StudentRegister, meta: {title: '入校登记'}},
                     {path: 'StudentHealth', component: StudentHealth, meta: {title: '每日申报'}},
                     {path: 'StudentHealthRecord', component: StudentHealthRecord, meta: {title: '我的申报'}},
-                    {path: 'StudentLeave', component: StudentLeave, meta: {title: '我的请假'}},
+                    {path: 'StudentLeave', component: StudentLeave, meta: {title: '我要请假'}},
+                    {path: 'StudentLeaveRecord', component: StudentLeaveRecord, meta: {title: '我的请假'}},
                 ]
             },
             {
@@ -83,6 +87,7 @@ const router = new VueRouter({
                     {path: 'TeacherHealthRecord', component: TeacherHealthRecord, meta: {title: '我的申报'}},
                     {path: 'StudentHealthRecordTeacher', component: StudentHealthRecordTeacher, meta: {title: '学生申报'}},
                     {path: 'StudentLeaveRecordTeacher', component: StudentLeaveRecordTeacher, meta: {title: '学生请假'}},
+
 
                 ]
             },
