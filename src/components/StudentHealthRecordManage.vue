@@ -547,7 +547,6 @@ export default {
         if (resp.data.code == 200 && resp.data.data != null) {
           this.dialogUpdateVisible = true;
           this.table = resp.data.data;
-          console.log(this.table)
         } else if (resp.data.code == 404) {
           this.$message.error("数据同步失败,自动刷新");
         } else {

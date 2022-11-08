@@ -28,6 +28,8 @@ import StudentLeave from "@/components/StudentLeave";
 import StudentLeaveRecordTeacher from "@/components/StudentLeaveRecordTeacher";
 import StudentLeaveRecord from "@/components/StudentLeaveRecord";
 import StudentLeaveRecordManage from "@/components/StudentLeaveRecordManage";
+import StudentCourse from "@/components/StudentCourse";
+import StudentAllCourse from "@/components/StudentAllCourse";
 
 Vue.use(VueRouter)
 
@@ -72,6 +74,8 @@ const router = new VueRouter({
                     {path: 'StudentHealthRecord', component: StudentHealthRecord, meta: {title: '我的申报'}},
                     {path: 'StudentLeave', component: StudentLeave, meta: {title: '我要请假'}},
                     {path: 'StudentLeaveRecord', component: StudentLeaveRecord, meta: {title: '我的请假'}},
+                    {path: 'StudentCourse', component: StudentCourse, meta: {title: '校园选课'}},
+                    {path: 'StudentAllCourse', component: StudentAllCourse, meta: {title: '我的课程'}},
                 ]
             },
             {

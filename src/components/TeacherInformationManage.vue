@@ -376,13 +376,12 @@ export default {
       this.data = [];
       this.value = [];
 
-
-      this.dialogStudentVisible = true;
       this.axios({
         method: "get",
         url: "/admin/teacher/selectStudent/" + row.username,
       }).then(resp => {
         if (resp.data.code == 200) {
+          this.dialogStudentVisible = true;
           // 将数据放入 data
           var nullLength = resp.data.data.null.length
           Reflect.ownKeys(resp.data.data.null).forEach((index) => {
@@ -408,9 +407,15 @@ export default {
               this.value.push(nullLength + parseInt(index))
             }
           })
-          // console.log(this.data_update)
+        } else if (resp.data.code == 404) {
+          this.$message.error("数据同步失败,自动刷新");
+        } else {
+          this.$message.error(resp.data.msg);
         }
-      })
+      }).finally(() => {
+        //重新加载数据
+        this.selectAll()
+      });
     },
     //更新老师数据
     updateTeacher(formName) {

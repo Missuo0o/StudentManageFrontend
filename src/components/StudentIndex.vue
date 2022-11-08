@@ -15,8 +15,8 @@
           <template slot="title"><i class="el-icon-menu"></i>个人中心</template>
           <el-menu-item-group>
             <el-menu-item index="2-1">选取宿舍</el-menu-item>
-            <el-menu-item index="2-2">选取课程</el-menu-item>
-            <el-menu-item index="2-3">我的课表</el-menu-item>
+            <el-menu-item index="/StudentIndex/StudentCourse">选取课程</el-menu-item>
+            <el-menu-item index="/StudentIndex/StudentAllCourse">我的课表</el-menu-item>
             <el-menu-item index="2-4">我的宿舍</el-menu-item>
             <el-menu-item index="/StudentIndex/StudentRecord">校园公告</el-menu-item>
           </el-menu-item-group>

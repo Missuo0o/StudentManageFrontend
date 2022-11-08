@@ -23,9 +23,10 @@
 
       <el-form ref="addrecord" :model="addrecord" label-width="100px">
         <el-form-item label="标题" prop="title" style="width: auto">
-          <el-input v-model="addrecord.title" maxlength="7" style="width: auto"></el-input>
+          <el-input v-model="addrecord.title" disabled maxlength="7" style="width: auto"></el-input>
         </el-form-item>
-        <v-form-render ref="vFormRef" :form-data="formData" :form-json="formJson" :option-data="optionData">
+        <v-form-render :key="Date.now()" ref="vFormRef" :form-data="formData" :form-json="formJson"
+                       :option-data="optionData">
         </v-form-render>
         <el-form-item>
           <el-button @click="dialogUpdateVisible = false">关闭</el-button>
@@ -109,12 +110,12 @@ export default {
           "formItemFlag": true,
           "options": {
             "name": "content",
-            "label": "阿、",
+            "label": "",
             "placeholder": "",
             "labelWidth": null,
-            "labelHidden": true,
+            "labelHidden": false,
             "columnWidth": "200px",
-            "disabled": false,
+            "disabled": true,
             "hidden": false,
             "required": true,
             "requiredHint": "请填写内容",
@@ -145,7 +146,7 @@ export default {
           "customClass": "",
           "functions": "",
           "layoutType": "PC",
-          "onFormCreated": "",
+          "onFormCreated": "this.formData.content = \"12345\"",
           "onFormMounted": "",
           "onFormDataChange": ""
         }

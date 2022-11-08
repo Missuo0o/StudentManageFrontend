@@ -48,15 +48,15 @@ export default {
           }).then(resp => {
             if (resp.data.code == 200 && resp.data.data.identity == 1) {
               localStorage.setItem("userdata", JSON.stringify(resp.data.data))
-              this.$router.push('/studentIndex')
+              this.$router.push('/StudentIndex')
 
             } else if (resp.data.code == 200 && resp.data.data.identity == 2) {
               localStorage.setItem("userdata", JSON.stringify(resp.data.data))
-              this.$router.push('/teacherIndex')
+              this.$router.push('/TeacherIndex')
 
             } else if (resp.data.code == 200 && resp.data.data.identity == 3) {
               localStorage.setItem("userdata", JSON.stringify(resp.data.data))
-              this.$router.push('/adminIndex')
+              this.$router.push('/AdminIndex')
 
             } else {
               this.$message.error(resp.data.msg);
