@@ -25,13 +25,8 @@
         <el-form-item label="标题" prop="title" style="width: auto">
           <el-input v-model="addrecord.title" maxlength="7" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="内容" prop="content">
-          <el-input
-              v-model="addrecord.content"
-              :autosize="{ minRows: 8, maxRows: 20}"
-              type="textarea">
-          </el-input>
-        </el-form-item>
+        <v-form-render ref="vFormRef" :form-data="formData" :form-json="formJson" :option-data="optionData">
+        </v-form-render>
         <el-form-item>
           <el-button @click="dialogUpdateVisible = false">关闭</el-button>
         </el-form-item>
@@ -75,6 +70,9 @@
           label="内容"
           prop="content"
       >
+        <template slot-scope="scope">
+          <p v-html="scope.row.content"></p>
+        </template>
       </el-table-column>
       <el-table-column
           align="center"
@@ -104,6 +102,56 @@ export default {
   name: "TeacherRecord",
   data() {
     return {
+      formJson: {
+        "widgetList": [{
+          "type": "rich-editor",
+          "icon": "rich-editor-field",
+          "formItemFlag": true,
+          "options": {
+            "name": "content",
+            "label": "阿、",
+            "placeholder": "",
+            "labelWidth": null,
+            "labelHidden": true,
+            "columnWidth": "200px",
+            "disabled": false,
+            "hidden": false,
+            "required": true,
+            "requiredHint": "请填写内容",
+            "customRule": "",
+            "customRuleHint": "",
+            "customClass": [],
+            "labelIconClass": null,
+            "labelIconPosition": "rear",
+            "labelTooltip": null,
+            "minLength": null,
+            "maxLength": null,
+            "showWordLimit": false,
+            "onCreated": "",
+            "onMounted": "",
+            "onValidate": ""
+          },
+          "id": "richeditor66955"
+        }],
+        "formConfig": {
+          "modelName": "formData",
+          "refName": "vForm",
+          "rulesName": "rules",
+          "labelWidth": 80,
+          "labelPosition": "left",
+          "size": "",
+          "labelAlign": "label-left-align",
+          "cssCode": "",
+          "customClass": "",
+          "functions": "",
+          "layoutType": "PC",
+          "onFormCreated": "",
+          "onFormMounted": "",
+          "onFormDataChange": ""
+        }
+      },
+      formData: {},
+      optionData: {},
       //总记录数
       totalCount: 0,
       //当前页码
@@ -148,6 +196,7 @@ export default {
         if (resp.data.code == 200 && resp.data.data != null) {
           this.dialogUpdateVisible = true;
           this.addrecord = resp.data.data;
+          this.formData.content = this.addrecord.content;
         } else if (resp.data.code == 404) {
           this.$message.error("数据同步失败,自动刷新");
         } else {
@@ -157,15 +206,6 @@ export default {
         //重新加载数据
         this.selectAll()
       });
-    },
-
-
-    //重置表单
-    resetForm() {
-      this.addrecord = {
-        title: '',
-        content: ''
-      };
     },
 
     //查询分页

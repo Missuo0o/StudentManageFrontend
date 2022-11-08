@@ -29,14 +29,9 @@
           <el-input v-model="addrecord.title" maxlength="20" style="width: auto"></el-input>
         </el-form-item>
 
-        <el-form-item label="内容" prop="content" style="width: auto">
-          <el-input
-              v-model="addrecord.content"
-              :autosize="{ minRows: 8, maxRows: 20}"
-              placeholder="请输入内容"
-              type="textarea">
-          </el-input>
-        </el-form-item>
+        <v-form-render :key="Date.now()" ref="vFormRef" :form-data="formData" :form-json="formJson"
+                       :option-data="optionData">
+        </v-form-render>
 
         <el-form-item>
           <el-button type="primary" @click="addRecord('addrecord')">提交</el-button>
@@ -55,13 +50,9 @@
         <el-form-item label="标题" prop="title" style="width: auto">
           <el-input v-model="addrecord.title" maxlength="7" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="内容" prop="content">
-          <el-input
-              v-model="addrecord.content"
-              :autosize="{ minRows: 8, maxRows: 20}"
-              type="textarea">
-          </el-input>
-        </el-form-item>
+        <v-form-render :key="Date.now()" ref="vFormRef" :form-data="formData" :form-json="formJson"
+                       :option-data="optionData">
+        </v-form-render>
         <el-form-item>
           <el-button type="primary" @click="updateRecord('addrecord')">提交</el-button>
           <el-button @click="dialogUpdateVisible = false">取消</el-button>
@@ -111,6 +102,9 @@
           label="内容"
           prop="content"
       >
+        <template slot-scope="scope">
+          <p v-html="scope.row.content"></p>
+        </template>
       </el-table-column>
       <el-table-column
           align="center"
@@ -156,6 +150,56 @@ export default {
     };
 
     return {
+      formJson: {
+        "widgetList": [{
+          "type": "rich-editor",
+          "icon": "rich-editor-field",
+          "formItemFlag": true,
+          "options": {
+            "name": "content",
+            "label": "阿、",
+            "placeholder": "",
+            "labelWidth": null,
+            "labelHidden": true,
+            "columnWidth": "200px",
+            "disabled": false,
+            "hidden": false,
+            "required": true,
+            "requiredHint": "请填写内容",
+            "customRule": "",
+            "customRuleHint": "",
+            "customClass": [],
+            "labelIconClass": null,
+            "labelIconPosition": "rear",
+            "labelTooltip": null,
+            "minLength": null,
+            "maxLength": null,
+            "showWordLimit": false,
+            "onCreated": "",
+            "onMounted": "",
+            "onValidate": ""
+          },
+          "id": "richeditor66955"
+        }],
+        "formConfig": {
+          "modelName": "formData",
+          "refName": "vForm",
+          "rulesName": "rules",
+          "labelWidth": 80,
+          "labelPosition": "left",
+          "size": "",
+          "labelAlign": "label-left-align",
+          "cssCode": "",
+          "customClass": "",
+          "functions": "",
+          "layoutType": "PC",
+          "onFormCreated": "",
+          "onFormMounted": "",
+          "onFormDataChange": ""
+        }
+      },
+      formData: {},
+      optionData: {},
       rules: {
         title: [{validator: validateTitle, trigger: 'blur'}],
         content: [{validator: validateContent, trigger: 'blur'}],
@@ -205,6 +249,9 @@ export default {
   methods: {
     //更新老师数据
     updateRecord(formName) {
+      this.$refs.vFormRef.getFormData().then((f) => {
+        this.addrecord.content = f.content
+      })
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$confirm('是否确认更新?', '提示', {
@@ -258,6 +305,7 @@ export default {
         if (resp.data.code == 200 && resp.data.data != null) {
           this.dialogUpdateVisible = true;
           this.addrecord = resp.data.data;
+          this.formData.content = this.addrecord.content;
         } else if (resp.data.code == 404) {
           this.$message.error("数据同步失败,自动刷新");
         } else {
@@ -314,6 +362,7 @@ export default {
     handleCreate() {
       this.dialogVisible = true;
       this.resetForm();
+      this.formData.content = '';
     },
     //查询分页
     selectAll() {
@@ -390,6 +439,10 @@ export default {
       this.selectAll();
     },
     addRecord(formName) {
+      // promise 事件
+      this.$refs.vFormRef.getFormData().then((f) => {
+        this.addrecord.content = f.content
+      })
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$confirm('是否确认添加?', '提示', {

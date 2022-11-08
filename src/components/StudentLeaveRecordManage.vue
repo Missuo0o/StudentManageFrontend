@@ -26,12 +26,18 @@
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
     </el-form>
+    <el-button plain type="danger" @click="deleteByIds">批量删除</el-button>
+    <el-button plain type="primary" @click="handleCreate">新增</el-button>
     <!--  //表格-->
     <el-table
         :data="tableData"
         border
-        style="width: 100%">
-
+        style="width: 100%"
+        @selection-change="handleSelectionChange">
+      <el-table-column
+          type="selection"
+          width="55">
+      </el-table-column>
       <el-table-column
           align="center"
           fixed
@@ -155,6 +161,53 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+
+    <el-dialog
+        :visible.sync="dialogAddVisible"
+        title="新增请假"
+        width="30%">
+
+      <el-form ref="table" :model="table" :rules="rules" label-width="100px">
+
+        <el-form-item label="学号" prop="username">
+          <el-input v-model="table.username" style="width: auto"></el-input>
+        </el-form-item>
+        <el-form-item label="开始时间" prop="outtime">
+          <el-date-picker
+              v-model="table.outtime"
+              placeholder="选择日期时间"
+              type="datetime"
+              value-format="yyyy-MM-dd hh:mm:ss">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="结束时间" prop="intime">
+          <el-date-picker
+              v-model="table.intime"
+              placeholder="选择日期时间"
+              type="datetime"
+              value-format="yyyy-MM-dd hh:mm:ss">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="请假类型" prop="typename">
+          <el-radio-group v-model="table.typename">
+            <el-radio label="事假"></el-radio>
+            <el-radio label="病假"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="内容" style="width: auto">
+          <el-input
+              v-model="table.remark"
+              :autosize="{ minRows: 8, maxRows: 20}"
+              placeholder="请输入内容"
+              type="textarea">
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="addStudent('table')">提交</el-button>
+          <el-button @click="dialogVisible = false">关闭</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -162,8 +215,43 @@
 export default {
   name: "StudentLeaveRecordAdmin",
   data() {
+    var validateUsername = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error("学号不能为空"));
+      } else {
+        callback();
+      }
+    };
+    var validateOuttime = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error("起始时间不能为空"));
+      } else {
+        callback();
+      }
+    };
+    var validateIntime = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error("结束时间不能为空"));
+      } else {
+        callback();
+      }
+    };
+    var validateTypename = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error("结束时间不能为空"));
+      } else {
+        callback();
+      }
+    };
     return {
+      rules: {
+        username: [{validator: validateUsername, trigger: 'blur'}],
+        outtime: [{validator: validateOuttime, trigger: 'blur'}],
+        intime: [{validator: validateIntime, trigger: 'blur'}],
+        typename: [{validator: validateTypename, trigger: 'blur'}],
+      },
       dialogVisible: false,
+      dialogAddVisible: false,
       //总记录数
       totalCount: 0,
       //当前页码
@@ -180,6 +268,7 @@ export default {
         typename: '',
         remark: '',
       },
+      selectedIds: [],
       record: {
         username: '',
         name: '',
@@ -210,6 +299,108 @@ export default {
     this.selectAll();
   },
   methods: {
+    resetForm() {
+      this.table = {
+        id: '',
+        username: '',
+        name: '',
+        phone: '',
+        outtime: '',
+        intime: '',
+        typename: '',
+        remark: '',
+      }
+    },
+    addStudent(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$confirm('是否确认添加?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.axios({
+              method: "post",
+              url: "/admin/leave/addRecord",
+              data: this.table,
+            }).then(resp => {
+              if (resp.data.code == 201) {
+                this.$message({
+                  message: '添加成功',
+                  type: 'success'
+                });
+
+                //关闭弹窗
+                this.dialogVisible = false;
+
+                //重新查询
+                this.selectAll();
+
+              } else if (resp.data.code == 400) {
+                this.$message.error('添加失败');
+              } else {
+                this.$message.error(resp.data.msg);
+              }
+            })
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消添加'
+            });
+          });
+        } else {
+          this.$message({
+            message: '请检查格式',
+            type: 'warning'
+          });
+        }
+      });
+    },
+    //点击新增按钮
+    handleCreate() {
+      this.dialogAddVisible = true;
+      this.resetForm();
+    },
+    deleteByIds() {
+      //弹出确定提示框
+      this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        for (let i = 0; i < this.multipleSelection.length; i++) {
+          let multipleSelectionElement = this.multipleSelection[i];
+          this.selectedIds[i] = multipleSelectionElement.id;
+        }
+        this.axios({
+          method: "delete",
+          url: "/admin/leave/deleteRecords",
+          data: this.selectedIds
+        }).then(resp => {
+          if (resp.data.code == 201) {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            });
+            //重新查询
+            this.selectAll();
+          } else if (resp.data.code == 404) {
+            this.$message.error("删除失败");
+          } else {
+            this.$message.error(resp.data.msg);
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+    },
+    //复选框选中执行方法
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
     handleClick(row) {
       this.axios({
         method: "get",
