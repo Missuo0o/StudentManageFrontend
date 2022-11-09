@@ -49,6 +49,7 @@
     </el-form>
     <!--  //表格-->
     <el-table v-if="record.flag=='' || record.flag=='1'"
+              v-loading="loading"
               :data="tableData"
               border
               style="width: 100%">
@@ -106,6 +107,7 @@
 
     </el-table>
     <el-table v-if="record.flag=='2'"
+              v-loading="loading"
               :data="tableData"
               border
               style="width: 100%">
@@ -149,6 +151,7 @@ export default {
   name: "StudentHealthRecordTeacher",
   data() {
     return {
+      loading: true,
       //总记录数
       totalCount: 0,
       //当前页码
@@ -205,6 +208,7 @@ export default {
     },
     //查询分页
     selectAll() {
+      this.loading = true
       if (this.record.flag == '') {
         this.axios({
           method: "post",
@@ -219,6 +223,7 @@ export default {
           } else {
             this.$message.error(resp.data.msg);
           }
+          this.loading = false
         })
       }
       if (this.record.flag == '1') {
@@ -235,7 +240,9 @@ export default {
           } else {
             this.$message.error(resp.data.msg);
           }
+          this.loading = false
         })
+
       }
       if (this.record.flag == '2') {
         this.axios({
@@ -251,8 +258,10 @@ export default {
           } else {
             this.$message.error(resp.data.msg);
           }
+          this.loading = false
         })
       }
+
     },
 
     //分页

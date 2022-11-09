@@ -6,16 +6,50 @@
 import Timetables from 'timetables';
 
 export default {
-  name: "StudentAllCourse",
+  name: 'StudentAllCourse',
+  mounted() {
+
+    this.selectAll();
+
+
+  },
+  methods: {
+    selectAll() {
+      this.axios({
+        method: "get",
+        url: "/student/course/selectAlready",
+      }).then(resp => {
+        if (resp.data.code == 200) {
+          this.courseList = resp.data.data;
+        } else if (resp.data.code == 404) {
+          this.$message.error("查询失败");
+        } else {
+          this.$message.error(resp.data.msg);
+        }
+      })
+    }
+  },
+  watch: {
+    courseList: {
+      handler() {
+        this.timetables = new Timetables({
+          el: '#coursesTable',
+          timetables: this.courseList,
+          week: this.week,
+          timetableType: this.timetableType,
+          highlightWeek: this.highlightWeek,
+          styles: this.styles
+        });
+      },
+      deep: true
+    }
+  },
   data() {
     return {
-      timetables: [
-        ['大学英语(Ⅳ)@10203', '大学英语(Ⅳ)@10203', '', '', '', '', '毛概@14208', '毛概@14208', '', '', '', '选修'],
-        ['', '', '信号与系统@11302', '信号与系统@11302', '模拟电子技术基础@16204', '模拟电子技术基础@16204', '', '', '', '', '', ''],
-        ['大学体育(Ⅳ)', '大学体育(Ⅳ)', '形势与政策(Ⅳ)@15208', '形势与政策(Ⅳ)@15208', '', '', '电路、信号与系统实验', '电路、信号与系统实验', '', '', '', ''],
-        ['', '', '', '', '电装实习@11301', '电装实习@11301', '', '', '', '大学体育', '大学体育', ''],
-        ['', '', '数据结构与算法分析', '数据结构与算法分析', '', '', '', '', '信号与系统', '信号与系统', '', ''],
+      courseList: [
+        []
       ],
+
       timetableType: [
         [{index: '1', name: '8:30'}, 1],
         [{index: '2', name: '9:30'}, 1],
@@ -32,30 +66,15 @@ export default {
       ],
       week: ['周一', '周二', '周三', '周四', '周五'],
       highlightWeek: new Date().getDay(),
-      timetable: null,
       styles: {
         Gheight: 50,
         leftHandWidth: 50,
-        palette: ['#ff6633', '#eeeeee']
-      },
-
-    }
-
+        palette: ['#ff6633', '#843737']
+      }
+    };
   },
-  mounted() {
-    this.timetable = new Timetables({
-      el: '#coursesTable',
-      timetables: this.timetables,
-      week: this.week,
-      timetableType: this.timetableType,
-      highlightWeek: this.highlightWeek,
-      styles: this.styles
-    });
-
-  }
-}
+};
 </script>
-import Timetables from 'timetables';
-<style scoped>
 
+<style>
 </style>

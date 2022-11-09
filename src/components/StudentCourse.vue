@@ -16,6 +16,8 @@
     <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
       <el-tab-pane label="选取课程" name="1">
         <el-table
+            :key="Date.now()"
+            v-loading="loading"
             :data="course"
             border
             style="width: 100%">
@@ -64,10 +66,9 @@
               width="180">
 
             <template slot-scope="scope">
-              <el-button key="pass" type="text" @click="handleSuccessClick(scope.row)">选课
+              <el-button key="pass" :disabled="scope.row.available" type="text" @click="handleSuccessClick(scope.row)">
+                选课
               </el-button>
-              <el-button type="text" @click="handleFailClick(scope.row)">退课</el-button>
-
             </template>
 
 
@@ -76,6 +77,8 @@
       </el-tab-pane>
       <el-tab-pane label="已选课程" name="2">
         <el-table
+            :key="Date.now()"
+            v-loading="loading"
             :data="course"
             border
             style="width: 100%">
@@ -124,12 +127,8 @@
               width="180">
 
             <template slot-scope="scope">
-              <el-button key="pass" type="text" @click="handleSuccessClick(scope.row)">选课
-              </el-button>
               <el-button type="text" @click="handleFailClick(scope.row)">退课</el-button>
-
             </template>
-
 
           </el-table-column>
         </el-table>
@@ -155,6 +154,7 @@ export default {
   name: "StudentCourse",
   data() {
     return {
+      loading: true,
       activeName: '1',
       //总记录数
       totalCount: 0,
@@ -179,6 +179,7 @@ export default {
         current: '',
       }
       ]
+
     }
   },
   mounted() {
@@ -240,6 +241,7 @@ export default {
     },
     //查询分页
     selectAll() {
+      this.loading = true
       if (this.activeName == '1') {
         this.axios({
           method: "post",
@@ -254,6 +256,7 @@ export default {
           } else {
             this.$message.error(resp.data.msg);
           }
+          this.loading = false
         })
       }
       if (this.activeName == '2') {
@@ -270,6 +273,7 @@ export default {
           } else {
             this.$message.error(resp.data.msg);
           }
+          this.loading = false
         })
       }
 
