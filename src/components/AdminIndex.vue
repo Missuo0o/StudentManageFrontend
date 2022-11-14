@@ -8,7 +8,7 @@
           <template slot="title"><i class="el-icon-user-solid"></i>入学管理</template>
           <el-menu-item-group>
             <el-menu-item index="1-1">分配宿舍</el-menu-item>
-            <el-menu-item index="1-2">分配课程</el-menu-item>
+            <el-menu-item index="/AdminIndex/StudentCourseManage">分配课程</el-menu-item>
             <el-menu-item index="1-3">学生缴费</el-menu-item>
 
           </el-menu-item-group>

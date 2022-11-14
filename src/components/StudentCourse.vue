@@ -49,6 +49,12 @@
           </el-table-column>
           <el-table-column
               align="center"
+              label="星期数"
+              prop="week"
+          >
+          </el-table-column>
+          <el-table-column
+              align="center"
               label="最大人数"
               prop="limit"
           >
@@ -106,6 +112,12 @@
               align="center"
               label="下课时间"
               prop="end"
+          >
+          </el-table-column>
+          <el-table-column
+              align="center"
+              label="星期数"
+              prop="week"
           >
           </el-table-column>
           <el-table-column

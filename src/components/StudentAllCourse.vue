@@ -22,7 +22,7 @@ export default {
         if (resp.data.code == 200) {
           this.courseList = resp.data.data;
         } else if (resp.data.code == 404) {
-          this.$message.error("查询失败");
+          this.$message.error("您还未选取课程");
         } else {
           this.$message.error(resp.data.msg);
         }
