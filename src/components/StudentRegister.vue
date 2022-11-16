@@ -60,6 +60,7 @@ export default {
         }).then(resp => {
           if (resp.data.code == 201) {
             this.$message.success("登记成功");
+            this.selectAll();
           } else if (resp.data.code == 400) {
             this.$message.error("登记失败");
           } else {

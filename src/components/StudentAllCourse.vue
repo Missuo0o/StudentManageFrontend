@@ -1,5 +1,8 @@
 <template>
-  <div id="coursesTable"></div>
+
+  <div id="coursesTable">
+    <el-result v-if="courseList[0].length == 0" icon="error" subTitle="请先选择课程" title="警告信息"></el-result>
+  </div>
 </template>
 
 <script>
@@ -8,10 +11,7 @@ import Timetables from 'timetables';
 export default {
   name: 'StudentAllCourse',
   mounted() {
-
     this.selectAll();
-
-
   },
   methods: {
     selectAll() {

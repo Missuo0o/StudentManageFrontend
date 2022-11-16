@@ -6,7 +6,7 @@
           <template slot="title"><i class="el-icon-user-solid"></i>入学注册</template>
           <el-menu-item-group>
 
-            <el-menu-item index="1-3">入学缴费</el-menu-item>
+            <el-menu-item index="/StudentIndex/StudentPay">入学缴费</el-menu-item>
             <el-menu-item index="/StudentIndex/StudentRegister">入校登记</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -14,10 +14,10 @@
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-menu"></i>个人中心</template>
           <el-menu-item-group>
-            <el-menu-item index="2-1">选取宿舍</el-menu-item>
+            <el-menu-item index="/StudentIndex/StudentDormitory">选取宿舍</el-menu-item>
             <el-menu-item index="/StudentIndex/StudentCourse">选取课程</el-menu-item>
             <el-menu-item index="/StudentIndex/StudentAllCourse">我的课表</el-menu-item>
-            <el-menu-item index="2-4">我的宿舍</el-menu-item>
+            <el-menu-item index="/StudentIndex/StudentMyDormitory">我的宿舍</el-menu-item>
             <el-menu-item index="/StudentIndex/StudentRecord">校园公告</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -155,6 +155,7 @@ export default {
       this.imageUrl = ''
     },
     logout() {
+      localStorage.clear();
       this.axios({
         method: "get",
         url: "/logout",

@@ -30,7 +30,8 @@
         </el-form-item>
 
 
-        <v-form-render ref="vFormRef" :form-data="formData" :form-json="formJson" :option-data="optionData">
+        <v-form-render :key="refresh" ref="vFormRef" :form-data="formData" :form-json="formJson"
+                       :option-data="optionData">
         </v-form-render>
         <el-form-item>
 
@@ -153,6 +154,7 @@ export default {
     };
 
     return {
+      refresh: 0,
       formJson: {
         "widgetList": [{
           "type": "rich-editor",
@@ -357,6 +359,7 @@ export default {
 
     //重置表单
     resetForm() {
+      this.refresh = Date.now()
       this.addrecord = {
         title: '',
         content: ''

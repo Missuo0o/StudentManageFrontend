@@ -29,7 +29,7 @@
           <el-input v-model="addrecord.title" maxlength="20" style="width: auto"></el-input>
         </el-form-item>
 
-        <v-form-render :key="Date.now()" ref="vFormRef" :form-data="formData" :form-json="formJson"
+        <v-form-render :key="refresh" ref="vFormRef" :form-data="formData" :form-json="formJson"
                        :option-data="optionData">
         </v-form-render>
 
@@ -150,6 +150,7 @@ export default {
     };
 
     return {
+      refresh: 0,
       formJson: {
         "widgetList": [{
           "type": "rich-editor",
@@ -353,6 +354,9 @@ export default {
 
     //重置表单
     resetForm() {
+      this.refresh = Date.now()
+
+      this.formData = {}
       this.addrecord = {
         title: '',
         content: ''

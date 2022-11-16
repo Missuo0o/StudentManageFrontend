@@ -3,18 +3,21 @@
   <div>
     <el-form :inline="true" :model="record" class="demo-form-inline">
 
-      <el-form-item label="课名">
-        <el-input v-model="record.name" maxlength="10" placeholder="课名"></el-input>
+      <el-form-item label="楼栋号">
+        <el-input v-model="record.building" maxlength="10" placeholder="楼栋号"></el-input>
       </el-form-item>
-      <el-form-item label="星期">
-        <el-input v-model="record.week" maxlength="1" placeholder="星期"></el-input>
+      <el-form-item label="层数">
+        <el-input v-model="record.floor" maxlength="1" placeholder="层数"></el-input>
+      </el-form-item>
+      <el-form-item label="室">
+        <el-input v-model="record.room" maxlength="1" placeholder="室"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
     </el-form>
     <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
-      <el-tab-pane label="选取课程" name="1">
+      <el-tab-pane label="选取宿舍" name="1">
         <el-table
             :key="Date.now()"
             v-loading="loading"
@@ -30,33 +33,33 @@
           </el-table-column>
           <el-table-column
               align="center"
-              label="课名"
-              prop="name"
+              label="单元"
+              prop="building"
           >
           </el-table-column>
           <el-table-column
               align="center"
-              label="上课时间"
-              prop="start"
+              label="楼层"
+              prop="floor"
           >
           </el-table-column>
 
           <el-table-column
               align="center"
-              label="下课时间"
-              prop="end"
+              label="室"
+              prop="room"
           >
           </el-table-column>
           <el-table-column
               align="center"
-              label="星期数"
-              prop="week"
+              label="价格"
+              prop="price"
           >
           </el-table-column>
           <el-table-column
               align="center"
               label="最大人数"
-              prop="limit"
+              prop="limited"
           >
           </el-table-column>
           <el-table-column
@@ -73,7 +76,7 @@
 
             <template slot-scope="scope">
               <el-button key="pass" type="text" @click="handleSuccessClick(scope.row)">
-                选课
+                选宿舍
               </el-button>
             </template>
 
@@ -81,7 +84,7 @@
           </el-table-column>
         </el-table>
       </el-tab-pane>
-      <el-tab-pane label="已选课程" name="2">
+      <el-tab-pane label="已选宿舍" name="2">
         <el-table
             :key="Date.now()"
             v-loading="loading"
@@ -97,33 +100,33 @@
           </el-table-column>
           <el-table-column
               align="center"
-              label="课名"
-              prop="name"
+              label="单元"
+              prop="building"
           >
           </el-table-column>
           <el-table-column
               align="center"
-              label="上课时间"
-              prop="start"
+              label="楼层"
+              prop="floor"
           >
           </el-table-column>
 
           <el-table-column
               align="center"
-              label="下课时间"
-              prop="end"
+              label="室"
+              prop="room"
           >
           </el-table-column>
           <el-table-column
               align="center"
-              label="星期数"
-              prop="week"
+              label="价格"
+              prop="price"
           >
           </el-table-column>
           <el-table-column
               align="center"
               label="最大人数"
-              prop="limit"
+              prop="limited"
           >
           </el-table-column>
           <el-table-column
@@ -139,8 +142,11 @@
               width="180">
 
             <template slot-scope="scope">
-              <el-button type="text" @click="handleFailClick(scope.row)">退课</el-button>
+              <el-button key="pass" type="text" @click="handleFailClick(scope.row)">
+                退宿舍
+              </el-button>
             </template>
+
 
           </el-table-column>
         </el-table>
@@ -163,7 +169,7 @@
 
 <script>
 export default {
-  name: "StudentCourse",
+  name: "StudentDormitory",
   data() {
     return {
       loading: true,
@@ -176,19 +182,21 @@ export default {
       pageSize: 5,
 
       record: {
-        name: '',
-        week: '',
+        building: '',
+        floor: '',
+        room: ''
       },
 
       //表格数据
       course: [{
         id: '',
-        name: '',
-        start: '',
-        end: '',
-        week: '',
-        limit: '',
+        building: '',
+        floor: '',
+        room: '',
+        price: '',
+        limited: '',
         current: '',
+        img: ''
       }
       ]
 
@@ -201,13 +209,15 @@ export default {
     resetForm() {
       this.course = [{
         id: '',
-        name: '',
-        start: '',
-        end: '',
-        week: '',
-        limit: '',
+        building: '',
+        floor: '',
+        room: '',
+        price: '',
+        limited: '',
         current: '',
-      }]
+        img: ''
+      }
+      ]
     },
     handleClick() {
       this.resetForm();
@@ -216,7 +226,7 @@ export default {
     handleSuccessClick(row) {
       this.axios({
         method: "post",
-        url: "/student/addCourse/" + row.id,
+        url: "/student/addDormitory/" + row.id,
       }).then(resp => {
         if (resp.data.code == 201) {
           this.$message({
@@ -235,7 +245,7 @@ export default {
     handleFailClick(row) {
       this.axios({
         method: "post",
-        url: "/student/deleteCourse/" + row.id,
+        url: "/student/deleteDormitory/" + row.id,
       }).then(resp => {
         if (resp.data.code == 201) {
           this.$message({
@@ -257,7 +267,7 @@ export default {
       if (this.activeName == '1') {
         this.axios({
           method: "post",
-          url: "/student/course/selectAllByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+          url: "/student/dormitory/selectAllByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
           data: this.record,
         }).then(resp => {
           if (resp.data.code == 200) {
@@ -274,7 +284,7 @@ export default {
       if (this.activeName == '2') {
         this.axios({
           method: "post",
-          url: "/student/course/selectAlreadyByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+          url: "/student/dormitory/selectAlreadyByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
           data: this.record,
         }).then(resp => {
           if (resp.data.code == 200) {

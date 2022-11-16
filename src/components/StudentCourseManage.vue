@@ -18,7 +18,7 @@
     <el-button plain type="primary" @click="handleCreate">新增</el-button>
     <el-button plain type="primary" @click="handleDownload">下载模板</el-button>
     <el-button plain type="primary" @click="handleBegin">开始选课</el-button>
-    <el-button plain type="primary" @click="handleStop" >停止选课</el-button>
+    <el-button plain type="primary" @click="handleStop">停止选课</el-button>
 
     <el-upload
         :limit="1"
@@ -279,8 +279,8 @@ export default {
         week: '',
         limit: '',
         current: '',
-        status:'',
-        deleted:'',
+        status: '',
+        deleted: '',
       }
       ],
       data_update: {
@@ -288,7 +288,7 @@ export default {
         usernameNull: [],
         //右侧数组
         usernameNotNull: [],
-        courseid:'',
+        courseid: '',
       }
     }
   },
@@ -310,7 +310,7 @@ export default {
     },
 
     handleExceed() {
-      this.$message.warning(`当前限制选择 1 个文件`);
+      this.$message.warning(`当前限制选择 1 个文件`);/**/
     },
     handleDownload() {
       location.href = "http://localhost/admin/download/course"
@@ -483,7 +483,7 @@ export default {
     },
 
     //开启选课
-    handleBegin(){
+    handleBegin() {
       this.axios({
         method: "put",
         url: "/admin/courseBegin",
@@ -498,7 +498,7 @@ export default {
       })
     },
 
-    handleStop(){
+    handleStop() {
       this.axios({
         method: "put",
         url: "/admin/courseStop",
@@ -550,11 +550,11 @@ export default {
     //重置表单
     resetForm() {
       this.addcourse = {
-        name:'',
-        start:'',
-        end:'',
-        week:'',
-        limit:''
+        name: '',
+        start: '',
+        end: '',
+        week: '',
+        limit: ''
       };
     },
     //点击新增按钮

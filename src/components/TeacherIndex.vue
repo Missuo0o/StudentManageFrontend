@@ -100,6 +100,7 @@ export default {
       this.imageUrl = ''
     },
     logout() {
+      localStorage.clear();
       this.axios({
         method: "get",
         url: "/logout",
