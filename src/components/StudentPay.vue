@@ -54,7 +54,7 @@ export default {
     return {
       timer: 0,
       "url": '',
-      "tradeid":'',
+      "tradeid": '',
       "selected": false,
       "paid": false,
       "dialogShow": false,
@@ -73,7 +73,7 @@ export default {
       }).then(resp => {
         if (resp.data.code == 200) {
           this.url = resp.data.data
-          this.tradeid=resp.data.msg
+          this.tradeid = resp.data.msg
         }
       })
     },
@@ -137,7 +137,7 @@ export default {
           }
         })
       }
-    },3000)
+    }, 3000)
   },
   watch: {
     paid: {

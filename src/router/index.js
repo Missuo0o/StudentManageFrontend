@@ -34,6 +34,7 @@ import StudentCourseManage from "@/components/StudentCourseManage";
 import StudentMyDormitory from "@/components/StudentMyDormitory";
 import StudentPay from "@/components/StudentPay";
 import StudentDormitory from "@/components/StudentDormitory";
+import StudentPayManage from "@/components/StudentPayManage";
 
 Vue.use(VueRouter)
 
@@ -62,7 +63,7 @@ const router = new VueRouter({
                     {path: 'TeacherHealthRecordManage', component: TeacherHealthRecordManage, meta: {title: "老师申报管理"}},
                     {path: 'StudentLeaveRecordManage', component: StudentLeaveRecordManage, meta: {title: '学生请假管理'}},
                     {path: 'StudentCourseManage', component: StudentCourseManage, meta: {title: '学生选课管理'}},
-
+                    {path: 'StudentPayManage', component: StudentPayManage, meta: {title: '学生缴费管理'}},
                 ]
             },
             {
