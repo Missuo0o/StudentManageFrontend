@@ -2,11 +2,14 @@
   <div>
     <el-form :inline="true" :model="record" class="demo-form-inline">
 
-      <el-form-item label="课名">
-        <el-input v-model="record.name" maxlength="10" placeholder="课名"></el-input>
+      <el-form-item label="楼栋号">
+        <el-input v-model="record.building" maxlength="10" placeholder="楼栋号"></el-input>
       </el-form-item>
-      <el-form-item label="星期">
-        <el-input v-model="record.week" maxlength="1" placeholder="星期"></el-input>
+      <el-form-item label="层数">
+        <el-input v-model="record.floor" maxlength="1" placeholder="层数"></el-input>
+      </el-form-item>
+      <el-form-item label="室">
+        <el-input v-model="record.room" maxlength="1" placeholder="室"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -17,37 +20,35 @@
     <el-button plain type="danger" @click="deleteByIds">批量删除</el-button>
     <el-button plain type="primary" @click="handleCreate">新增</el-button>
     <el-button plain type="primary" @click="handleDownload">下载模板</el-button>
-    <el-button plain type="primary" @click="handleBegin">开始选课</el-button>
-    <el-button plain type="primary" @click="handleStop">停止选课</el-button>
 
     <el-upload
         :limit="1"
         :on-exceed="handleExceed"
         :on-success="handleSuccess"
-        action="/admin/upload/course">
+        action="/admin/upload/dormitory">
       <el-button plain type="primary">点击上传</el-button>
     </el-upload>
     <!--  //添加数据对话框-->
     <el-dialog
         :visible.sync="dialogVisible"
-        title="新增课程"
+        title="新增宿舍"
         width="30%">
 
       <el-form ref="addcourse" :model="addcourse" :rules="rules" label-width="100px">
-        <el-form-item label="课程名" prop="name">
-          <el-input v-model="addcourse.name" maxlength="10" style="width: auto"></el-input>
+        <el-form-item label="单元名" prop="building">
+          <el-input v-model="addcourse.building" maxlength="5" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="上课时间" prop="start">
-          <el-input v-model="addcourse.start" maxlength="2" style="width: auto"></el-input>
+        <el-form-item label="楼层数" prop="floor">
+          <el-input v-model="addcourse.floor" maxlength="2" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="下课时间" prop="end">
-          <el-input v-model="addcourse.end" maxlength="2" style="width: auto"></el-input>
+        <el-form-item label="室号" prop="room">
+          <el-input v-model="addcourse.room" maxlength="2" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="星期数" prop="week">
-          <el-input v-model="addcourse.week" maxlength="1" style="width: auto"></el-input>
+        <el-form-item label="价格" prop="price">
+          <el-input v-model="addcourse.price" maxlength="7" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="最大人数" prop="limit">
-          <el-input v-model="addcourse.limit" maxlength="3" style="width: auto"></el-input>
+        <el-form-item label="最大人数" prop="limited">
+          <el-input v-model="addcourse.limited" maxlength="3" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="addTeacher('addcourse')">提交</el-button>
@@ -63,20 +64,20 @@
         width="30%">
 
       <el-form ref="addcourse" :model="addcourse" :rules="rules" label-width="100px">
-        <el-form-item label="课程名" prop="name">
-          <el-input v-model="addcourse.name" maxlength="10" style="width: auto"></el-input>
+        <el-form-item label="单元名" prop="building">
+          <el-input v-model="addcourse.building" maxlength="5" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="上课时间" prop="start">
-          <el-input v-model="addcourse.start" maxlength="2" style="width: auto"></el-input>
+        <el-form-item label="楼层数" prop="floor">
+          <el-input v-model="addcourse.floor" maxlength="2" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="下课时间" prop="end">
-          <el-input v-model="addcourse.end" maxlength="2" style="width: auto"></el-input>
+        <el-form-item label="室号" prop="room">
+          <el-input v-model="addcourse.room" maxlength="2" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="星期数" prop="week">
-          <el-input v-model="addcourse.week" maxlength="1" style="width: auto"></el-input>
+        <el-form-item label="价格" prop="price">
+          <el-input v-model="addcourse.price" maxlength="7" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="最大人数" prop="limit">
-          <el-input v-model="addcourse.limit" maxlength="3" style="width: auto"></el-input>
+        <el-form-item label="最大人数" prop="limited">
+          <el-input v-model="addcourse.limited" maxlength="3" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="updateCourse('addcourse')">提交</el-button>
@@ -97,7 +98,7 @@
         <el-transfer
             v-model="value"
             :data="data"
-            :titles="['空余学生', '该课学生']"
+            :titles="['空余学生', '该宿舍学生']"
             filter-placeholder="请输入学生姓名" filterable>
         </el-transfer>
       </template>
@@ -126,33 +127,33 @@
       </el-table-column>
       <el-table-column
           align="center"
-          label="课名"
-          prop="name"
+          label="单元"
+          prop="building"
       >
       </el-table-column>
       <el-table-column
           align="center"
-          label="上课时间"
-          prop="start"
+          label="楼层"
+          prop="floor"
       >
       </el-table-column>
 
       <el-table-column
           align="center"
-          label="下课时间"
-          prop="end"
+          label="室"
+          prop="room"
       >
       </el-table-column>
       <el-table-column
           align="center"
-          label="星期数"
-          prop="week"
+          label="价格"
+          prop="price"
       >
       </el-table-column>
       <el-table-column
           align="center"
           label="最大人数"
-          prop="limit"
+          prop="limited"
       >
       </el-table-column>
       <el-table-column
@@ -191,56 +192,57 @@
 
 <script>
 export default {
-  name: "StudentCourseManage",
+  name: "StudentDormitoryManage",
   data() {
-    var validateName = (rule, value, callback) => {
+    var validateBuilding = (rule, value, callback) => {
       if (value === '') {
-        return callback(new Error("课程名不能为空"));
+        return callback(new Error("单元名不能为空"));
       } else {
         callback();
       }
     };
-    var validateStart = (rule, value, callback) => {
+    var validateFloor = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('上课时间不能为空'))
+        callback(new Error('楼层数不能为空'))
       } else {
         callback()
       }
     };
-    var validateEnd = (rule, value, callback) => {
+    var validateRoom = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('下课时间不能为空'))
+        callback(new Error('室号不能为空'))
       } else {
         callback()
       }
     };
-    var validateWeek = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('星期数不能为空'))
-      } else {
-        callback()
-      }
-    };
-    var validateLimit = (rule, value, callback) => {
+    var validateLimited = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('最大人数不能为空'))
       } else {
         callback()
       }
     };
+    var validatePrice = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('价格不能为空'))
+      } else {
+        callback()
+      }
+    };
     return {
       record: {
-        name: '',
-        week: '',
+        building: '',
+        floor: '',
+        room: ''
       },
       data: [],
       value: [],
       rules: {
-        name: [{validator: validateName, trigger: 'blur'}],
-        start: [{validator: validateStart, trigger: 'blur'}],
-        end: [{validator: validateEnd, trigger: 'blur'}],
-        week: [{validator: validateWeek, trigger: 'blur'}],
-        limit: [{validator: validateLimit, trigger: 'blur'}],
+        building: [{validator: validateBuilding, trigger: 'blur'}],
+        floor: [{validator: validateFloor, trigger: 'blur'}],
+        room: [{validator: validateRoom, trigger: 'blur'}],
+        limited: [{validator: validateLimited, trigger: 'blur'}],
+        price: [{validator: validatePrice, trigger: 'blur'}],
       },
       //被选中复选框的数组
       selectedIds: [],
@@ -262,25 +264,23 @@ export default {
         name: '',
       },
       addcourse: {
-        name: '',
-        start: '',
-        end: '',
-        week: '',
-        limit: '',
+        building: '',
+        floor: '',
+        room: '',
+        price: '',
+        limited: '',
       },
       //复选框选中数据集合
       multipleSelection: [],
       //表格数据
       tableData: [{
         id: '',
-        name: '',
-        start: '',
-        end: '',
-        week: '',
-        limit: '',
+        building: '',
+        floor: '',
+        room: '',
+        price: '',
+        limited: '',
         current: '',
-        status: '',
-        deleted: '',
       }
       ],
       data_update: {
@@ -288,7 +288,7 @@ export default {
         usernameNull: [],
         //右侧数组
         usernameNotNull: [],
-        courseid: '',
+        dormitoryid: '',
       }
     }
   },
@@ -313,7 +313,7 @@ export default {
       this.$message.warning(`当前限制选择 1 个文件`);/**/
     },
     handleDownload() {
-      location.href = "http://localhost/admin/download/course"
+      location.href = "http://localhost/admin/download/dormitory"
     },
     //确认更新辅导员名下学生
     updateStudent() {
@@ -341,7 +341,7 @@ export default {
       }).then(() => {
         this.axios({
           method: "post",
-          url: "/admin/updateStudent",
+          url: "/admin/updateDormitoryStudent",
           data: this.data_update,
         }).then(resp => {
           if (resp.data.code == 201) {
@@ -370,13 +370,13 @@ export default {
     },
     //弹出分配学生窗口
     handleUpdate(row) {
-      this.data_update.courseid = row.id;
+      this.data_update.dormitoryid = row.id;
       this.data = [];
       this.value = [];
 
       this.axios({
         method: "get",
-        url: "/admin/selectStudent/" + row.id,
+        url: "/admin/selectDormitoryStudent/" + row.id,
       }).then(resp => {
         if (resp.data.code == 200) {
           this.dialogStudentVisible = true;
@@ -426,7 +426,7 @@ export default {
           }).then(() => {
             this.axios({
               method: "put",
-              url: "/admin/course",
+              url: "/admin/dormitory",
               data: this.addcourse,
             }).then(resp => {
               if (resp.data.code == 201) {
@@ -465,7 +465,7 @@ export default {
     handleClick(row) {
       this.axios({
         method: "get",
-        url: "/admin/course/" + row.id,
+        url: "/admin/dormitory/" + row.id,
       }).then(resp => {
         if (resp.data.code == 200 && resp.data.data != null) {
           this.dialogUpdateVisible = true;
@@ -482,36 +482,7 @@ export default {
       });
     },
 
-    //开启选课
-    handleBegin() {
-      this.axios({
-        method: "put",
-        url: "/admin/courseBegin",
-      }).then(resp => {
-        if (resp.data.code == 201) {
-          this.$message.success("开启成功");
-        } else if (resp.data.code == 400) {
-          this.$message.error("开启失败");
-        } else {
-          this.$message.error(resp.data.msg);
-        }
-      })
-    },
 
-    handleStop() {
-      this.axios({
-        method: "put",
-        url: "/admin/courseStop",
-      }).then(resp => {
-        if (resp.data.code == 201) {
-          this.$message.success("停止成功");
-        } else if (resp.data.code == 400) {
-          this.$message.error("停止失败");
-        } else {
-          this.$message.error(resp.data.msg);
-        }
-      })
-    },
     //删除课程
     handleDelete(row) {
       this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
@@ -521,7 +492,7 @@ export default {
       }).then(() => {
         this.axios({
           method: "delete",
-          url: "/admin/course/" + row.id,
+          url: "/admin/dormitory/" + row.id,
         }).then(resp => {
           if (resp.data.code == 201) {
             this.$message({
@@ -550,11 +521,11 @@ export default {
     //重置表单
     resetForm() {
       this.addcourse = {
-        name: '',
-        start: '',
-        end: '',
-        week: '',
-        limit: ''
+        building: '',
+        floor: '',
+        room: '',
+        price: '',
+        limited: '',
       };
     },
     //点击新增按钮
@@ -567,7 +538,7 @@ export default {
 
       this.axios({
         method: "post",
-        url: "/admin/course/selectAllByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+        url: "/admin/dormitory/selectAllByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
         data: this.record
       }).then(resp => {
         if (resp.data.code == 200) {
@@ -605,7 +576,7 @@ export default {
         }
         this.axios({
           method: "delete",
-          url: "/admin/course/deleteCourses",
+          url: "/admin/dormitory/deleteDormitory",
           data: this.selectedIds
         }).then(resp => {
           if (resp.data.code == 201) {
@@ -646,7 +617,7 @@ export default {
           }).then(() => {
             this.axios({
               method: "post",
-              url: "/admin/course",
+              url: "/admin/dormitory",
               data: this.addcourse,
             }).then(resp => {
               if (resp.data.code == 201) {

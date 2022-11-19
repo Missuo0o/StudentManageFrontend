@@ -196,7 +196,6 @@ export default {
         price: '',
         limited: '',
         current: '',
-        img: ''
       }
       ]
 
@@ -215,7 +214,6 @@ export default {
         price: '',
         limited: '',
         current: '',
-        img: ''
       }
       ]
     },

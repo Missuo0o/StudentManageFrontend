@@ -179,9 +179,9 @@ export default {
         }).then(resp => {
           if (resp.data.code == 200) {
             this.tableData = resp.data.data.rows;
-            for(let i = 0 ;i<this.tableData.length;i++){
-              if (this.tableData[i].dormitoryid==0){
-                this.tableData[i].dormitoryid='未选择'
+            for (let i = 0; i < this.tableData.length; i++) {
+              if (this.tableData[i].dormitoryid == 0) {
+                this.tableData[i].dormitoryid = '未选择'
               }
             }
 
