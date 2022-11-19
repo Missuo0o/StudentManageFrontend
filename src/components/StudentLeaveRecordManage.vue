@@ -204,7 +204,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="addStudent('table')">提交</el-button>
-          <el-button @click="dialogVisible = false">关闭</el-button>
+          <el-button @click="dialogAddVisible = false">关闭</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
