@@ -60,8 +60,16 @@ const router = new VueRouter({
                     {path: 'AdminInformationManage', component: AdminInformationManage, meta: {title: '管理员管理'}},
                     {path: 'StudentRecordManage', component: StudentRecordManage, meta: {title: "学生公告管理"}},
                     {path: 'TeacherRecordManage', component: TeacherRecordManage, meta: {title: "老师公告管理"}},
-                    {path: 'StudentHealthRecordManage', component: StudentHealthRecordManage, meta: {title: "学生申报管理"}},
-                    {path: 'TeacherHealthRecordManage', component: TeacherHealthRecordManage, meta: {title: "老师申报管理"}},
+                    {
+                        path: 'StudentHealthRecordManage',
+                        component: StudentHealthRecordManage,
+                        meta: {title: "学生申报管理"}
+                    },
+                    {
+                        path: 'TeacherHealthRecordManage',
+                        component: TeacherHealthRecordManage,
+                        meta: {title: "老师申报管理"}
+                    },
                     {path: 'StudentLeaveRecordManage', component: StudentLeaveRecordManage, meta: {title: '学生请假管理'}},
                     {path: 'StudentCourseManage', component: StudentCourseManage, meta: {title: '学生选课管理'}},
                     {path: 'StudentPayManage', component: StudentPayManage, meta: {title: '学生缴费管理'}},
@@ -117,35 +125,28 @@ const router = new VueRouter({
 )
 
 // eslint-disable-next-line no-unused-vars
-router.beforeEach((to,from,next)=>{
-    if (to.path==='/' || to.path==='/forget'){
+router.beforeEach((to, from, next) => {
+    if (to.path === '/' || to.path === '/forget') {
         next()
-    }
-    else if (to.path==='/AdminIndex' || to.path==='/AdminIndex/UpdatePassword' || to.path==='/AdminIndex/MyInformation' || to.path==='/AdminIndex/StudentInformationManage'||to.path==='/AdminIndex/TeacherInformationManage'||to.path==='/AdminIndex/AdminInformationManage'||to.path==='/AdminIndex/StudentRecordManage'||to.path==='/AdminIndex/TeacherRecordManage'||to.path==='/AdminIndex/StudentHealthRecordManage'||to.path==='/AdminIndex/TeacherHealthRecordManage'||to.path==='/AdminIndex/StudentLeaveRecordManage'||to.path==='/AdminIndex/StudentCourseManage'||to.path==='/AdminIndex/StudentPayManage'||to.path==='/AdminIndex/StudentDormitoryManage') {
+    } else if (to.path === '/AdminIndex' || to.path === '/AdminIndex/UpdatePassword' || to.path === '/AdminIndex/MyInformation' || to.path === '/AdminIndex/StudentInformationManage' || to.path === '/AdminIndex/TeacherInformationManage' || to.path === '/AdminIndex/AdminInformationManage' || to.path === '/AdminIndex/StudentRecordManage' || to.path === '/AdminIndex/TeacherRecordManage' || to.path === '/AdminIndex/StudentHealthRecordManage' || to.path === '/AdminIndex/TeacherHealthRecordManage' || to.path === '/AdminIndex/StudentLeaveRecordManage' || to.path === '/AdminIndex/StudentCourseManage' || to.path === '/AdminIndex/StudentPayManage' || to.path === '/AdminIndex/StudentDormitoryManage') {
         if (JSON.parse(localStorage.getItem('userdata')).identity === 3) {
             next();
-        }
-        else{
+        } else {
             location.href = "/"
         }
-    }
-    else if (to.path==='/StudentIndex'||to.path==='/StudentIndex/UpdatePassword'||to.path==='/StudentIndex/MyInformation'||to.path==='/StudentIndex/StudentRecord'||to.path==='/StudentIndex/StudentRegister'||to.path==='/StudentIndex/StudentHealth'||to.path==='/StudentIndex/StudentHealthRecord'||to.path==='/StudentIndex/StudentLeave'||to.path==='/StudentIndex/StudentLeaveRecord'||to.path==='/StudentIndex/StudentCourse'||to.path==='/StudentIndex/StudentAllCourse'||to.path==='/StudentIndex/StudentMyDormitory'||to.path==='/StudentIndex/StudentPay') {
+    } else if (to.path === '/StudentIndex' || to.path === '/StudentIndex/UpdatePassword' || to.path === '/StudentIndex/MyInformation' || to.path === '/StudentIndex/StudentRecord' || to.path === '/StudentIndex/StudentRegister' || to.path === '/StudentIndex/StudentHealth' || to.path === '/StudentIndex/StudentHealthRecord' || to.path === '/StudentIndex/StudentLeave' || to.path === '/StudentIndex/StudentLeaveRecord' || to.path === '/StudentIndex/StudentCourse' || to.path === '/StudentIndex/StudentAllCourse' || to.path === '/StudentIndex/StudentMyDormitory' || to.path === '/StudentIndex/StudentPay') {
         if (JSON.parse(localStorage.getItem('userdata')).identity === 1) {
             next();
-        }
-        else{
+        } else {
             location.href = "/"
         }
-    }
-    else if (to.path==='/TeacherIndex'||to.path==='/TeacherIndex/UpdatePassword'||to.path==='/TeacherIndex/MyInformation'||to.path==='/TeacherIndex/TeacherRecord'||to.path==='/TeacherIndex/TeacherHealth'||to.path==='/TeacherIndex/TeacherHealthRecord'||to.path==='/TeacherIndex/StudentHealthRecordTeacher'||to.path==='/TeacherIndex/StudentLeaveRecordTeacher'){
-        if(JSON.parse(localStorage.getItem('userdata')).identity===2){
+    } else if (to.path === '/TeacherIndex' || to.path === '/TeacherIndex/UpdatePassword' || to.path === '/TeacherIndex/MyInformation' || to.path === '/TeacherIndex/TeacherRecord' || to.path === '/TeacherIndex/TeacherHealth' || to.path === '/TeacherIndex/TeacherHealthRecord' || to.path === '/TeacherIndex/StudentHealthRecordTeacher' || to.path === '/TeacherIndex/StudentLeaveRecordTeacher') {
+        if (JSON.parse(localStorage.getItem('userdata')).identity === 2) {
             next();
-        }
-        else {
+        } else {
             location.href = "/"
         }
-    }
-    else{
+    } else {
         location.href = "/"
     }
 })

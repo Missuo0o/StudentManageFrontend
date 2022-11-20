@@ -134,7 +134,6 @@
 export default {
   name: 'StudentIndex',
   mounted() {
-
     this.$message({
       message: '学生登录成功',
       type: 'success'

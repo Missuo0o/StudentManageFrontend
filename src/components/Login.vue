@@ -32,9 +32,33 @@
 <script>
 
 export default {
+  mounted() {
+    setTimeout(() => {
+      // 这里就是处理的事件
+      this.getData()
+    }, 100);
+
+  },
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Login',
   methods: {
+    getData() {
+      this.axios({
+        method: "get",
+        url: "/login",
+      }).then(resp => {
+        if (resp.data.data == 1) {
+          this.$router.push('/StudentIndex')
+
+        } else if (resp.data.data == 2) {
+          this.$router.push('/TeacherIndex')
+
+        } else if (resp.data.data == 3) {
+          this.$router.push('/AdminIndex')
+
+        }
+      })
+    },
     forget() {
       this.$router.push('/forget')
     },

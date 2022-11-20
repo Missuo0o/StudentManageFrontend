@@ -19,7 +19,6 @@ Vue.use(BaiduMap, {
 
 Vue.prototype.axios = axios;
 Vue.use(VForm)  //全局注册VForm3(同时注册了v-form-designe、v-form-render等组件)
-
 Vue.use(ElementUI);
 
 new Vue({
