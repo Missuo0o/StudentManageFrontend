@@ -134,7 +134,7 @@ router.beforeEach((to, from, next) => {
         } else {
             location.href = "/"
         }
-    } else if (to.path === '/StudentIndex' || to.path === '/StudentIndex/UpdatePassword' || to.path === '/StudentIndex/MyInformation' || to.path === '/StudentIndex/StudentRecord' || to.path === '/StudentIndex/StudentRegister' || to.path === '/StudentIndex/StudentHealth' || to.path === '/StudentIndex/StudentHealthRecord' || to.path === '/StudentIndex/StudentLeave' || to.path === '/StudentIndex/StudentLeaveRecord' || to.path === '/StudentIndex/StudentCourse' || to.path === '/StudentIndex/StudentAllCourse' || to.path === '/StudentIndex/StudentMyDormitory' || to.path === '/StudentIndex/StudentPay') {
+    } else if (to.path === '/StudentIndex' || to.path === '/StudentIndex/UpdatePassword' || to.path === '/StudentIndex/MyInformation' || to.path === '/StudentIndex/StudentRecord' || to.path === '/StudentIndex/StudentRegister' || to.path === '/StudentIndex/StudentHealth' || to.path === '/StudentIndex/StudentHealthRecord' || to.path === '/StudentIndex/StudentLeave' || to.path === '/StudentIndex/StudentLeaveRecord' || to.path === '/StudentIndex/StudentCourse' || to.path === '/StudentIndex/StudentAllCourse' || to.path === '/StudentIndex/StudentMyDormitory' || to.path === '/StudentIndex/StudentDormitory' ||to.path === '/StudentIndex/StudentPay') {
         if (JSON.parse(localStorage.getItem('userdata')).identity === 1) {
             next();
         } else {
