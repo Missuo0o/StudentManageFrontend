@@ -129,19 +129,25 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/' || to.path === '/forget') {
         next()
     } else if (to.path === '/AdminIndex' || to.path === '/AdminIndex/UpdatePassword' || to.path === '/AdminIndex/MyInformation' || to.path === '/AdminIndex/StudentInformationManage' || to.path === '/AdminIndex/TeacherInformationManage' || to.path === '/AdminIndex/AdminInformationManage' || to.path === '/AdminIndex/StudentRecordManage' || to.path === '/AdminIndex/TeacherRecordManage' || to.path === '/AdminIndex/StudentHealthRecordManage' || to.path === '/AdminIndex/TeacherHealthRecordManage' || to.path === '/AdminIndex/StudentLeaveRecordManage' || to.path === '/AdminIndex/StudentCourseManage' || to.path === '/AdminIndex/StudentPayManage' || to.path === '/AdminIndex/StudentDormitoryManage') {
-        if (JSON.parse(localStorage.getItem('userdata')).identity === 3) {
+        if (JSON.parse(localStorage.getItem('userdata')) === null) {
+            location.href = "/"
+        } else if (JSON.parse(localStorage.getItem('userdata')).identity === 3) {
             next();
         } else {
             location.href = "/"
         }
-    } else if (to.path === '/StudentIndex' || to.path === '/StudentIndex/UpdatePassword' || to.path === '/StudentIndex/MyInformation' || to.path === '/StudentIndex/StudentRecord' || to.path === '/StudentIndex/StudentRegister' || to.path === '/StudentIndex/StudentHealth' || to.path === '/StudentIndex/StudentHealthRecord' || to.path === '/StudentIndex/StudentLeave' || to.path === '/StudentIndex/StudentLeaveRecord' || to.path === '/StudentIndex/StudentCourse' || to.path === '/StudentIndex/StudentAllCourse' || to.path === '/StudentIndex/StudentMyDormitory' || to.path === '/StudentIndex/StudentDormitory' ||to.path === '/StudentIndex/StudentPay') {
-        if (JSON.parse(localStorage.getItem('userdata')).identity === 1) {
+    } else if (to.path === '/StudentIndex' || to.path === '/StudentIndex/UpdatePassword' || to.path === '/StudentIndex/MyInformation' || to.path === '/StudentIndex/StudentRecord' || to.path === '/StudentIndex/StudentRegister' || to.path === '/StudentIndex/StudentHealth' || to.path === '/StudentIndex/StudentHealthRecord' || to.path === '/StudentIndex/StudentLeave' || to.path === '/StudentIndex/StudentLeaveRecord' || to.path === '/StudentIndex/StudentCourse' || to.path === '/StudentIndex/StudentAllCourse' || to.path === '/StudentIndex/StudentMyDormitory' || to.path === '/StudentIndex/StudentDormitory' || to.path === '/StudentIndex/StudentPay') {
+        if (JSON.parse(localStorage.getItem('userdata')) === null) {
+            location.href = "/"
+        } else if (JSON.parse(localStorage.getItem('userdata')).identity === 1) {
             next();
         } else {
             location.href = "/"
         }
     } else if (to.path === '/TeacherIndex' || to.path === '/TeacherIndex/UpdatePassword' || to.path === '/TeacherIndex/MyInformation' || to.path === '/TeacherIndex/TeacherRecord' || to.path === '/TeacherIndex/TeacherHealth' || to.path === '/TeacherIndex/TeacherHealthRecord' || to.path === '/TeacherIndex/StudentHealthRecordTeacher' || to.path === '/TeacherIndex/StudentLeaveRecordTeacher') {
-        if (JSON.parse(localStorage.getItem('userdata')).identity === 2) {
+        if (JSON.parse(localStorage.getItem('userdata')) === null) {
+            location.href = "/"
+        } else if (JSON.parse(localStorage.getItem('userdata')).identity === 2) {
             next();
         } else {
             location.href = "/"

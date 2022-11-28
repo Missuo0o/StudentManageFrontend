@@ -77,7 +77,7 @@
         <el-form-item label="班级">
           <el-input v-model="addstudent.classname" maxlength="10" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="手机">
+        <el-form-item label="手机" prop="phone">
           <el-input v-model="addstudent.phone" maxlength="11" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="家庭地址">
@@ -140,7 +140,7 @@
         <el-form-item label="班级">
           <el-input v-model="addstudent.classname" maxlength="10" style="width: auto"></el-input>
         </el-form-item>
-        <el-form-item label="手机">
+        <el-form-item label="手机" prop="phone">
           <el-input v-model="addstudent.phone" maxlength="11" style="width: auto"></el-input>
         </el-form-item>
         <el-form-item label="家庭地址">
@@ -267,6 +267,15 @@
 export default {
   name: "StudentInformationManage",
   data() {
+    var validatePhone = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error("手机号不能为空"));
+      } else if (!/^1(3|4|5|7|8)\d{9}$/.test(value)) {
+        return callback(new Error("手机号格式不正确"));
+      } else {
+        callback();
+      }
+    };
     var validateUsername = (rule, value, callback) => {
       if (value === '') {
         return callback(new Error("学号不能为空"));
@@ -302,6 +311,7 @@ export default {
         name: [{validator: validateName, trigger: 'blur'}],
         status: [{validator: validateStatus, trigger: 'blur'}],
         sex: [{validator: validateSex, trigger: 'blur'}],
+        phone: [{validator: validatePhone, trigger: 'blur'}],
       },
       //被选中复选框的数组
       selectedIds: [],
