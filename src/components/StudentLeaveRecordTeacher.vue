@@ -28,6 +28,7 @@
     </el-form>
     <!--  //表格-->
     <el-table
+        v-loading="loading"
         :data="tableData"
         border
         style="width: 100%">
@@ -163,6 +164,7 @@ export default {
   name: "StudentLeaveRecordTeacher",
   data() {
     return {
+      loading: true,
       dialogVisible: false,
       //总记录数
       totalCount: 0,
@@ -305,6 +307,7 @@ export default {
     },
     //查询分页
     selectAll() {
+      this.loading = true;
       if (this.record.flag == '') {
         this.axios({
           method: "post",
@@ -319,6 +322,7 @@ export default {
           } else {
             this.$message.error(resp.data.msg);
           }
+          this.loading = false;
         })
       }
       if (this.record.flag == '1') {
@@ -335,6 +339,7 @@ export default {
           } else {
             this.$message.error(resp.data.msg);
           }
+          this.loading = false;
         })
       }
     },

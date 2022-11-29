@@ -62,6 +62,7 @@
     </el-dialog>
     <!--  //表格-->
     <el-table
+        v-loading="loading"
         :data="tableData"
         border
         style="width: 100%"
@@ -150,6 +151,7 @@ export default {
     };
 
     return {
+      loading: true,
       refresh: 0,
       formJson: {
         "widgetList": [{
@@ -370,7 +372,7 @@ export default {
     },
     //查询分页
     selectAll() {
-
+      this.loading = true;
       this.axios({
         method: "post",
         url: "/admin/teacherRecord/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
@@ -384,6 +386,7 @@ export default {
         } else {
           this.$message.error(resp.data.msg);
         }
+        this.loading = false;
       })
     },
 

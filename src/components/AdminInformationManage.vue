@@ -116,6 +116,7 @@
     </el-dialog>
     <!--  //表格-->
     <el-table
+        v-loading="loading"
         :data="tableData"
         border
         style="width: 100%"
@@ -224,6 +225,7 @@ export default {
       }
     };
     return {
+      loading: true,
       rules: {
         username: [{validator: validateUsername, trigger: 'blur'}],
         name: [{validator: validateName, trigger: 'blur'}],
@@ -417,7 +419,7 @@ export default {
     },
     //查询分页
     selectAll() {
-
+      this.loading = true;
       this.axios({
         method: "post",
         url: "/admin/admin/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
@@ -431,6 +433,7 @@ export default {
         } else {
           this.$message.error(resp.data.msg);
         }
+        this.loading = false;
       })
     },
     //头像上传

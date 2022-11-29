@@ -3,6 +3,7 @@
 
     <!--  //表格-->
     <el-table
+        v-loading="loading"
         :data="tableData"
         border
         style="width: 100%">
@@ -77,6 +78,7 @@ export default {
   name: "TeacherHealthRecord",
   data() {
     return {
+      loading: true,
       //总记录数
       totalCount: 0,
       //当前页码
@@ -105,20 +107,21 @@ export default {
 
     //查询分页
     selectAll() {
-
-      this.axios({
-        method: "get",
-        url: "/teacher/health/selectByPageAndUsername/" + this.currentPage + "/" + this.pageSize,
-      }).then(resp => {
-        if (resp.data.code == 200) {
-          this.tableData = resp.data.data.rows;
-          this.totalCount = resp.data.data.totalCount;
-        } else if (resp.data.code == 404) {
-          this.$message.error("查询失败");
-        } else {
-          this.$message.error(resp.data.msg);
-        }
-      })
+      this.loading = true,
+          this.axios({
+            method: "get",
+            url: "/teacher/health/selectByPageAndUsername/" + this.currentPage + "/" + this.pageSize,
+          }).then(resp => {
+            if (resp.data.code == 200) {
+              this.tableData = resp.data.data.rows;
+              this.totalCount = resp.data.data.totalCount;
+            } else if (resp.data.code == 404) {
+              this.$message.error("查询失败");
+            } else {
+              this.$message.error(resp.data.msg);
+            }
+            this.loading = false;
+          })
     },
 
     //分页

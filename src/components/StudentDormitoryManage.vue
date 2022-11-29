@@ -110,6 +110,7 @@
     <!--  //表格-->
     <el-table
         :key="Date.now()"
+        v-loading="loading"
         :data="tableData"
         border
         style="width: 100%"
@@ -230,6 +231,7 @@ export default {
       }
     };
     return {
+      loading: true,
       record: {
         building: '',
         floor: '',
@@ -535,7 +537,7 @@ export default {
     },
     //查询分页
     selectAll() {
-
+      this.loading = true;
       this.axios({
         method: "post",
         url: "/admin/dormitory/selectAllByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
@@ -549,6 +551,7 @@ export default {
         } else {
           this.$message.error(resp.data.msg);
         }
+        this.loading = false;
       })
     },
 

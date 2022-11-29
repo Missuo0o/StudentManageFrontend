@@ -3,6 +3,7 @@
   <div>
     <!--  //表格-->
     <el-table
+        v-loading="loading"
         :data="tableData"
         border
         style="width: 100%">
@@ -137,6 +138,7 @@ export default {
   name: "StudentLeaveRecord",
   data() {
     return {
+      loading: true,
       dialogVisible: false,
       //总记录数
       totalCount: 0,
@@ -209,6 +211,7 @@ export default {
 
     //查询分页
     selectAll() {
+      this.loading = true;
       this.axios({
         method: "get",
         url: "/student/leave/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
@@ -221,6 +224,7 @@ export default {
         } else {
           this.$message.error(resp.data.msg);
         }
+        this.loading = false;
       })
 
     },

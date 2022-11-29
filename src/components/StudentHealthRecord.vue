@@ -3,6 +3,7 @@
 
     <!--  //表格-->
     <el-table
+        v-loading="loading"
         :data="tableData"
         border
         style="width: 100%">
@@ -77,7 +78,7 @@ export default {
   name: "StudentHealthRecord",
   data() {
     return {
-
+      loading: true,
       //总记录数
       totalCount: 0,
       //当前页码
@@ -106,7 +107,7 @@ export default {
 
     //查询分页
     selectAll() {
-
+      this.loading = true;
       this.axios({
         method: "get",
         url: "/student/health/selectByPageAndUsername/" + this.currentPage + "/" + this.pageSize,
@@ -119,6 +120,7 @@ export default {
         } else {
           this.$message.error(resp.data.msg);
         }
+        this.loading = false;
       })
     },
 

@@ -30,6 +30,7 @@
     <el-button plain type="primary" @click="handleCreate">新增</el-button>
     <!--  //表格-->
     <el-table
+        v-loading="loading"
         :data="tableData"
         border
         style="width: 100%"
@@ -244,6 +245,7 @@ export default {
       }
     };
     return {
+      loading: true,
       rules: {
         username: [{validator: validateUsername, trigger: 'blur'}],
         outtime: [{validator: validateOuttime, trigger: 'blur'}],
@@ -496,6 +498,7 @@ export default {
     },
     //查询分页
     selectAll() {
+      this.loading = true;
       if (this.record.flag == '') {
         this.axios({
           method: "post",
@@ -510,6 +513,7 @@ export default {
           } else {
             this.$message.error(resp.data.msg);
           }
+          this.loading = false;
         })
       }
       if (this.record.flag == '1') {
@@ -526,6 +530,7 @@ export default {
           } else {
             this.$message.error(resp.data.msg);
           }
+          this.loading = false;
         })
       }
     },
