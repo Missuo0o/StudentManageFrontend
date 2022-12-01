@@ -37,6 +37,7 @@
     </el-dialog>
     <!--  //表格-->
     <el-table
+        v-loading="loading"
         :data="tableData"
         border
         style="width: 100%">
@@ -104,6 +105,7 @@ export default {
   name: "StudentRecord",
   data() {
     return {
+      loading: true,
       formJson: {
         "widgetList": [{
           "type": "rich-editor",
@@ -213,22 +215,23 @@ export default {
 
     //查询分页
     selectAll() {
-
-      this.axios({
-        method: "post",
-        url: "/student/studentRecord/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
-        data: this.record
-      }).then(resp => {
-        if (resp.data.code == 200) {
-          this.tableData = resp.data.data.rows;
-          this.totalCount = resp.data.data.totalCount;
-          this.formData.content = this.addrecord.content;
-        } else if (resp.data.code == 404) {
-          this.$message.error("查询失败");
-        } else {
-          this.$message.error(resp.data.msg);
-        }
-      })
+      this.loading = true,
+          this.axios({
+            method: "post",
+            url: "/student/studentRecord/selectByPageAndCondition/" + this.currentPage + "/" + this.pageSize,
+            data: this.record
+          }).then(resp => {
+            if (resp.data.code == 200) {
+              this.tableData = resp.data.data.rows;
+              this.totalCount = resp.data.data.totalCount;
+              this.formData.content = this.addrecord.content;
+            } else if (resp.data.code == 404) {
+              this.$message.error("查询失败");
+            } else {
+              this.$message.error(resp.data.msg);
+            }
+            this.loading = false;
+          })
     },
 
     //分页
