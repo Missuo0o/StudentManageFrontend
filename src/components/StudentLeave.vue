@@ -15,7 +15,7 @@
             v-model="form.outtime"
             placeholder="选择日期时间"
             type="datetime"
-            value-format="yyyy-MM-dd hh:mm:ss">
+            value-format="yyyy-MM-dd HH:mm:ss">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="结束时间" prop="intime">
@@ -23,7 +23,7 @@
             v-model="form.intime"
             placeholder="选择日期时间"
             type="datetime"
-            value-format="yyyy-MM-dd hh:mm:ss">
+            value-format="yyyy-MM-dd HH:mm:ss">
         </el-date-picker>
       </el-form-item>
 

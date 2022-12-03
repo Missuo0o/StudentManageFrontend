@@ -178,7 +178,7 @@
               v-model="table.outtime"
               placeholder="选择日期时间"
               type="datetime"
-              value-format="yyyy-MM-dd hh:mm:ss">
+              value-format="yyyy-MM-dd HH:mm:ss">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="结束时间" prop="intime">
@@ -186,7 +186,7 @@
               v-model="table.intime"
               placeholder="选择日期时间"
               type="datetime"
-              value-format="yyyy-MM-dd hh:mm:ss">
+              value-format="yyyy-MM-dd HH:mm:ss">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="请假类型" prop="typename">
@@ -333,7 +333,7 @@ export default {
                 });
 
                 //关闭弹窗
-                this.dialogVisible = false;
+                this.dialogAddVisible = false;
 
                 //重新查询
                 this.selectAll();
