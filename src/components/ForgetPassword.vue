@@ -17,13 +17,19 @@
         <el-form-item label="验证码" prop="code">
           <el-input v-model="formLabelAlign.code" maxlength="6"></el-input>
         </el-form-item>
+        <el-form-item label="新密码" prop="password">
+          <el-input v-model="formLabelAlign.password" maxlength="10" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="checkPass">
+          <el-input v-model="formLabelAlign.checkPass" maxlength="10" type="password"></el-input>
+        </el-form-item>
 
         <br>
         <br>
 
         <div class="box">
           <el-button icon="el-icon-back" round type="primary" @click="back">返回</el-button>
-          <el-button icon="el-icon-key" round type="primary" @click="forget('formLabelAlign')">找回</el-button>
+          <el-button icon="el-icon-key" round type="primary" @click="forget('formLabelAlign')">确定</el-button>
           <el-button icon="el-icon-phone" round type="primary" @click="sendcode">发送验证码</el-button>
         </div>
       </el-form>
@@ -72,7 +78,7 @@ export default {
           }).then(resp => {
             if (resp.data.code == 200) {
               this.$message({
-                message: '您的密码是' + resp.data.data,
+                message: resp.data.data.msg,
                 type: 'success'
               });
             } else if (resp.data.code == 404) {
@@ -115,6 +121,23 @@ export default {
         callback()
       }
     };
+    var validatePassWord = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        callback()
+      }
+    };
+    var validateCheckPassWord = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'));
+      } else if (value !== this.formLabelAlign.password) {
+
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
 
 
     return {
@@ -123,12 +146,15 @@ export default {
         username: '',
         phone: '',
         code: '',
-
+        password: '',
+        checkPass: ''
       },
       rules: {
         username: [{validator: validateAccount, trigger: 'blur'}],
         phone: [{validator: validatePass, trigger: 'blur'}],
         code: [{validator: validatePass1, trigger: 'blur'}],
+        password: [{validator: validatePassWord, trigger: 'blur'}],
+        checkPass: [{validator: validateCheckPassWord, trigger: 'blur'}],
       }
     }
   }
