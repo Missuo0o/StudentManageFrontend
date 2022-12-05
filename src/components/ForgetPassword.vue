@@ -72,7 +72,7 @@ export default {
           }).then(resp => {
             if (resp.data.code == 200) {
               this.$message({
-                message: '您的密码是' + resp.data.data.password,
+                message: '您的密码是' + resp.data.data,
                 type: 'success'
               });
             } else if (resp.data.code == 404) {

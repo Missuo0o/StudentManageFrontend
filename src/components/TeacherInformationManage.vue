@@ -117,6 +117,9 @@
         <el-form-item label="姓名" prop="name">
           <el-input v-model="addteacher.name" maxlength="4" style="width: auto"></el-input>
         </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="addteacher.password" maxlength="10" style="width: auto" type="password"></el-input>
+        </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="addteacher.sex">
             <el-radio label="男"></el-radio>
@@ -279,6 +282,7 @@ export default {
       addteacher: {
         username: '',
         name: '',
+        password: '',
         sex: '',
         phone: '',
         address: '',

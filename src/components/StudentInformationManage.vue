@@ -119,6 +119,9 @@
         <el-form-item label="姓名" prop="name">
           <el-input v-model="addstudent.name" maxlength="4" style="width: auto"></el-input>
         </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="addstudent.password" maxlength="10" style="width: auto" type="password"></el-input>
+        </el-form-item>
         <el-form-item label="是否返校" prop="status">
           <el-radio-group v-model="addstudent.status">
             <el-radio label="是"></el-radio>
@@ -336,6 +339,7 @@ export default {
       },
       addstudent: {
         username: '',
+        password: '',
         name: '',
         sex: '',
         college: '',

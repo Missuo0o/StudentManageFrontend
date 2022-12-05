@@ -52,7 +52,7 @@
           <el-menu-item-group>
             <el-menu-item index="/AdminIndex/UpdatePassword">修改密码</el-menu-item>
             <el-menu-item index="/AdminIndex/MyInformation">修改信息</el-menu-item>
-            <el-menu-item index="/" @click="logout"> 退出登录</el-menu-item>
+            <el-menu-item @click="logout"> 退出登录</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
