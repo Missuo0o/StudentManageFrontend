@@ -78,7 +78,7 @@ export default {
           }).then(resp => {
             if (resp.data.code == 200) {
               this.$message({
-                message: resp.data.data.msg,
+                message: resp.data.msg,
                 type: 'success'
               });
             } else if (resp.data.code == 404) {
