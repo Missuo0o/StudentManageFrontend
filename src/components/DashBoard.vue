@@ -16,20 +16,25 @@ export default {
     }
   },
   methods:{
-    async selectAll(){
-       await this.axios({
+    //axios要到请求返回时间后才会执行then后的方法，避免方法直接跑完，先等到返回有结果后在执行后面
+      async selectAll(){
+        await this.axios({
         method: "get",
         url: "/admin/getData",
       }).then(resp => {
         if (resp.data.code == 200) {
           this.getData = resp.data.data
+          // console.log("111")
         }
 
       })
+      // console.log("2222")
     },
     createChart() {
       this.$nextTick(async function () {
-        await this.selectAll()
+        //由于20行加入了async 代表这个方法是异步方法，所以要等这个方法跑完，才执行后面
+      await this.selectAll()
+      // console.log("333")
         let option = {
           xAxis: {
             type: 'category',
