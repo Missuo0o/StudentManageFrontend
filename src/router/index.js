@@ -36,6 +36,7 @@ import StudentPay from "@/components/StudentPay";
 import StudentDormitory from "@/components/StudentDormitory";
 import StudentPayManage from "@/components/StudentPayManage";
 import StudentDormitoryManage from "@/components/StudentDormitoryManage";
+import DashBoard from "@/components/DashBoard";
 
 Vue.use(VueRouter)
 
@@ -52,7 +53,7 @@ const router = new VueRouter({
                 component: AdminIndex,
                 meta: {title: '管理员界面'},
                 children: [
-                    {path: '/', component: StudentInformationManage, meta: {title: '学生管理'}},
+                    {path: '/', component: DashBoard, meta: {title: '学生管理'}},
                     {path: 'UpdatePassword', component: UpdatePassword, meta: {title: '更新密码'}},
                     {path: 'MyInformation', component: AdminInformation, meta: {title: '我的信息'}},
                     {path: 'StudentInformationManage', component: StudentInformationManage, meta: {title: '学生管理'}},
