@@ -63,6 +63,8 @@ export default {
               color: '#fff',
               fontSize: '12'
             },
+            axisPointer: {
+              type: 'none'}
             // axisPointer: { // 坐标轴虚线
             //   type: 'cross',
             //   label: {
