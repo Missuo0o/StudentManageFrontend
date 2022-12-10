@@ -51,6 +51,10 @@
         <el-form-item label="姓名" prop="name">
           <el-input v-model="addteacher.name" maxlength="4" style="width: auto"></el-input>
         </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="addteacher.password" maxlength="10" style="width: auto" type="password"></el-input>
+        </el-form-item>
+
         <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="addteacher.sex">
             <el-radio label="男"></el-radio>
@@ -249,6 +253,13 @@ export default {
         callback()
       }
     };
+    var validatePassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('密码不能为空'))
+      } else {
+        callback()
+      }
+    };
     return {
       loading: true,
       data: [],
@@ -258,6 +269,7 @@ export default {
         name: [{validator: validateName, trigger: 'blur'}],
         sex: [{validator: validateSex, trigger: 'blur'}],
         phone: [{validator: validatePhone, trigger: 'blur'}],
+        password: [{validator: validatePassword, trigger: 'blur'}],
       },
       //被选中复选框的数组
       selectedIds: [],
