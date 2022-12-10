@@ -197,7 +197,6 @@ export default {
               break
           }
           this.activities.push({content: "审核中"})
-          console.log(this.activities)
         } else if (resp.data.code == 404) {
           this.$message.error("数据同步失败,自动刷新");
         } else {

@@ -1,5 +1,5 @@
 <template>
-  <div class="innerbox" ref="chart"></div>
+  <div ref="chart" class="innerbox"></div>
 </template>
 
 <script>
@@ -41,7 +41,7 @@ export default {
         let option = {
           xAxis: {
             type: 'category',
-            data: ['未选课学生', '未选宿舍学生','未处理请假']
+            data: ['未选课学生', '未选宿舍学生', '未处理请假']
           },
           yAxis: {
             type: 'value'
@@ -64,7 +64,8 @@ export default {
               fontSize: '12'
             },
             axisPointer: {
-              type: 'none'}
+              type: 'none'
+            }
             // axisPointer: { // 坐标轴虚线
             //   type: 'cross',
             //   label: {
