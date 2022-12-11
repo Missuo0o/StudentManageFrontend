@@ -91,8 +91,13 @@ export default {
     }
   },
   mounted() {
-
     this.selectAll();
+    this.$bus.$on('changeProfile', (args) => {
+      this.form.profile = args;
+    })
+  },
+  beforeDestroy() {
+    this.$bus.$off('changeProfile');
   },
   methods: {
     //查询管理员详情
@@ -132,6 +137,13 @@ export default {
                   message: '修改成功',
                   type: 'success'
                 });
+
+                let parse = JSON.parse(localStorage.getItem('userdata'));
+                parse.name = this.form.name;
+                this.$bus.$emit('changeUserName', parse.name)
+
+                localStorage.setItem("userdata", JSON.stringify(parse));
+
               } else if (resp.data.code == 400) {
                 this.$message.error('修改失败');
               } else {

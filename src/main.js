@@ -28,5 +28,8 @@ Vue.use(ElementUI);
 new Vue({
     el: '#app',
     render: h => h(App),
-    router: router
+    router: router,
+    beforeCreate() {
+        Vue.prototype.$bus = this
+    }
 });
