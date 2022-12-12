@@ -15,7 +15,7 @@ import MD5 from 'js-md5';
 import echarts from 'echarts'
 
 Vue.use(BaiduMap, {
-    // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+    // ak 是在Baidu Map开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
     ak: 'EXDU3XqGfFuqUqYiA9dDZGbQ3DuWhwBW'
 });
 
