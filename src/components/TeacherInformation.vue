@@ -93,6 +93,12 @@ export default {
   mounted() {
 
     this.selectAll();
+    this.$bus.$on('changeProfile', (args) => {
+      this.form.profile = args;
+    })
+  },
+  beforeDestroy() {
+    this.$bus.$off('changeProfile');
   },
   methods: {
 

@@ -148,7 +148,7 @@ export default {
           "customClass": "",
           "functions": "",
           "layoutType": "PC",
-          "onFormCreated": "this.formData.content = \"12345\"",
+          "onFormCreated": "this.formData.content = \"\"",
           "onFormMounted": "",
           "onFormDataChange": ""
         }

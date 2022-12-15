@@ -92,12 +92,12 @@ export default {
   },
   mounted() {
     this.selectAll();
-    this.$bus.$on('changeProfile', (args) => {
+    this.$bus.$on('changeProfile1', (args) => {
       this.form.profile = args;
     })
   },
   beforeDestroy() {
-    this.$bus.$off('changeProfile');
+    this.$bus.$off('changeProfile1');
   },
   methods: {
     //查询管理员详情
