@@ -1,6 +1,6 @@
 <template>
 
-  <div id="coursesTable" class="innerbox">
+  <div id="coursesTable">
     <el-result v-if="courseList[0].length == 0" icon="error" subTitle="请先选择课程" title="警告信息"></el-result>
   </div>
 </template>
@@ -76,11 +76,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.innerbox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 95%;
-}
+<style>
 </style>
