@@ -8,7 +8,7 @@
 <script>
 import Timetables from 'timetables';
 
-export default {
+export default 【{
   name: 'StudentAllCourse',
   mounted() {
     this.selectAll();
