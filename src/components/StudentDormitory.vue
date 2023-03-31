@@ -3,14 +3,14 @@
   <div>
     <el-form :inline="true" :model="record" class="demo-form-inline">
 
-      <el-form-item label="楼栋号">
-        <el-input v-model="record.building" maxlength="10" placeholder="楼栋号"></el-input>
+      <el-form-item label="单元号">
+        <el-input v-model="record.building" maxlength="10" placeholder="单元号"></el-input>
       </el-form-item>
       <el-form-item label="层数">
-        <el-input v-model="record.floor" maxlength="1" placeholder="层数"></el-input>
+        <el-input v-model="record.floor" maxlength="2" placeholder="层数"></el-input>
       </el-form-item>
       <el-form-item label="室">
-        <el-input v-model="record.room" maxlength="1" placeholder="室"></el-input>
+        <el-input v-model="record.room" maxlength="2" placeholder="室"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
