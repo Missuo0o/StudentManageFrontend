@@ -149,7 +149,7 @@ export default {
           "customClass": "",
           "functions": "",
           "layoutType": "PC",
-          "onFormCreated": "this.formData.content = \"\"",
+          "onFormCreated": "",
           "onFormMounted": "",
           "onFormDataChange": ""
         }

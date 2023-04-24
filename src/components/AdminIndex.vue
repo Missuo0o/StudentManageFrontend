@@ -43,7 +43,7 @@
           <template slot="title"><i class="el-icon-s-opportunity"></i>健康系统</template>
           <el-menu-item-group>
             <el-menu-item index="/AdminIndex/StudentHealthRecordManage">学生申报</el-menu-item>
-            <el-menu-item index="/AdminIndex/TeacherHealthRecordManage">老师申报</el-menu-item>
+            <el-menu-item index="/AdminIndex/TeacherHealthRecordManage">辅导员申报</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

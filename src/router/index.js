@@ -70,7 +70,7 @@ const router = new VueRouter({
                     {
                         path: 'TeacherHealthRecordManage',
                         component: TeacherHealthRecordManage,
-                        meta: {title: "老师申报管理"}
+                        meta: {title: "辅导员申报管理"}
                     },
                     {path: 'StudentLeaveRecordManage', component: StudentLeaveRecordManage, meta: {title: '学生请假管理'}},
                     {path: 'StudentCourseManage', component: StudentCourseManage, meta: {title: '学生选课管理'}},
