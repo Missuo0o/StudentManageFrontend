@@ -77,4 +77,10 @@ export default {
 </script>
 
 <style scoped>
+.innerbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95%;
+}
 </style>
