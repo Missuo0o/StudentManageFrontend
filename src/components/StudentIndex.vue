@@ -141,6 +141,7 @@ export default {
     this.name = JSON.parse(localStorage.getItem('userdata'))
 
   },
+
   data() {
     return {
       name: '',
@@ -166,6 +167,7 @@ export default {
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
       if (res.code == 201) {
+        this.$bus.$emit('changeProfile2', this.imageUrl);
         this.$message({
           message: '头像修改成功',
           type: 'success'

@@ -81,6 +81,12 @@ export default {
   mounted() {
 
     this.selectAll();
+    this.$bus.$on('changeProfile2', (args) => {
+      this.form.profile = args;
+    })
+  },
+  beforeDestroy() {
+    this.$bus.$off('changeProfile2');
   },
   methods: {
     //查询学生详情

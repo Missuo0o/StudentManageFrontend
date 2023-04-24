@@ -110,13 +110,6 @@ export default {
     });
     this.name = JSON.parse(localStorage.getItem('userdata'))
 
-    this.$bus.$on('changeUserName', (args) => {
-      this.name.name = args
-    })
-
-  },
-  beforeDestroy() {
-    this.$bus.$off('changeUserName');
   },
   data() {
     return {
