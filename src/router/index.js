@@ -40,8 +40,6 @@ import AdminDashBoard from "@/components/AdminDashBoard";
 import TeacherDashBoard from "@/components/TeacherDashBoard";
 
 
-
-
 Vue.use(VueRouter)
 
 // eslint-disable-next-line no-unused-vars
