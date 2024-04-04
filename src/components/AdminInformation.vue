@@ -17,6 +17,7 @@
         <el-input v-model="form.name" maxlength="4" style="width: auto"></el-input>
       </el-form-item>
       
+      
       <el-form-item label="性别" prop="sex">
         <el-radio-group v-model="form.sex">
           <el-radio label="男"></el-radio>
